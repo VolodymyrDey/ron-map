@@ -15,9 +15,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     ],
     markers: [
       // Coordinates are now percentages (0-100) of map dimensions for consistent positioning across screen sizes
-      { id: 'm1', x: 74.83, y: 87.5, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', color: '#FF6B6B', layerId: 'base' },
-      { id: 'm2', x: 29.17, y: 62.5, title: 'Gold Deposit', description: 'Gold resource', type: 'resource', color: '#FFD700', layerId: 'floor1' },
-      { id: 'm3', x: 58.33, y: 75, title: 'Colossus', description: 'Wonder of the world', type: 'wonder', color: '#95E1D3', layerId: 'base' }
+      { id: 'm1', x: 74.83, y: 87.5, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'base' },
+      { id: 'm2', x: 29.17, y: 62.5, title: 'Gold Deposit', description: 'Gold resource', type: 'resource', layerId: 'floor1' },
+      { id: 'm3', x: 58.33, y: 75, title: 'Colossus', description: 'Wonder of the world', type: 'wonder', layerId: 'base' }
     ]
   },
   {
@@ -32,9 +32,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     ],
     markers: [
       // Coordinates are now percentages (0-100) of map dimensions for consistent positioning across screen sizes
-      { id: 'm1', x: 25, y: 25, title: 'Kingdom', description: 'Main kingdom', type: 'spawn', color: '#667BC6', layerId: 'base' },
-      { id: 'm2', x: 50, y: 37.5, title: 'Forest', description: 'Enchanted forest', type: 'resource', color: '#52B788', layerId: 'base' },
-      { id: 'm3', x: 75, y: 62.5, title: 'Dragon Lair', description: 'Ancient dragon lair', type: 'unit', color: '#D62828', layerId: 'base' }
+      { id: 'm1', x: 25, y: 25, title: 'Kingdom', description: 'Main kingdom', type: 'spawn', layerId: 'base' },
+      { id: 'm2', x: 50, y: 37.5, title: 'Forest', description: 'Enchanted forest', type: 'resource', layerId: 'base' },
+      { id: 'm3', x: 75, y: 62.5, title: 'Dragon Lair', description: 'Ancient dragon lair', type: 'unit', layerId: 'base' }
     ]
   },
   {
@@ -49,9 +49,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     ],
     markers: [
       // Coordinates are now percentages (0-100) of map dimensions for consistent positioning across screen sizes
-      { id: 'm1', x: 25, y: 25, title: 'Kingdom', description: 'Main kingdom', type: 'spawn', color: '#667BC6', layerId: 'base' },
-      { id: 'm2', x: 50, y: 37.5, title: 'Forest', description: 'Enchanted forest', type: 'resource', color: '#52B788', layerId: 'base' },
-      { id: 'm3', x: 75, y: 62.5, title: 'Dragon Lair', description: 'Ancient dragon lair', type: 'unit', color: '#D62828', layerId: 'base' }
+      { id: 'm1', x: 25, y: 25, title: 'Kingdom', description: 'Main kingdom', type: 'spawn', layerId: 'base' },
+      { id: 'm2', x: 50, y: 37.5, title: 'Forest', description: 'Enchanted forest', type: 'resource', layerId: 'base' },
+      { id: 'm3', x: 75, y: 62.5, title: 'Dragon Lair', description: 'Ancient dragon lair', type: 'unit', layerId: 'base' }
     ]
   }
 ];
