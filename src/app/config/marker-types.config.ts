@@ -36,7 +36,7 @@ export interface MarkerTypeConfig {
  * - location_on, place, pin_drop (location markers)
  * - star, grade, emoji_events (special locations)
  * - grass, park, forest (nature/resources)
- * - flag, outlined_flag (spawn points)
+ * - flag, outlined_flag (spawn)
  * - person, groups, shield (units)
  * - apartment, domain, castle (buildings/wonders)
  * - explore, map, navigation (general navigation)
@@ -47,35 +47,21 @@ export const MARKER_TYPE_CONFIGS: MarkerTypeConfig[] = [
     icon: 'flag',                    // Material Icon: flag
     color: '#4CAF50',                // Green
     iconColor: '#ffffff',            // White
-    label: 'Spawn Point'
+    label: 'Spawn'
   },
   {
-    type: 'resource',
-    icon: 'grass',                   // Material Icon: grass
-    color: '#FFC107',                // Amber
+    type: 'hard_objective',
+    icon: 'place',                   // Material Icon: grass
+    color: '#FF6B00',                // Amber
     iconColor: '#000000',            // Black
-    label: 'Resource'
+    label: 'Hard Objective'
   },
   {
-    type: 'wonder',
-    icon: 'star',                    // Material Icon: star
+    type: 'soft_objective',
+    icon: 'search',                    // Material Icon: star
     color: '#9C27B0',                // Purple
     iconColor: '#ffffff',            // White
-    label: 'Wonder'
-  },
-  {
-    type: 'unit',
-    icon: 'shield',                  // Material Icon: shield
-    color: '#F44336',                // Red
-    iconColor: '#ffffff',            // White
-    label: 'Unit'
-  },
-  {
-    type: 'custom',
-    icon: 'place',                   // Material Icon: place
-    color: '#2196F3',                // Blue
-    iconColor: '#ffffff',            // White
-    label: 'Custom'
+    label: 'Soft Objective'
   }
 ];
 

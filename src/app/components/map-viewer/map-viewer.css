@@ -288,7 +288,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 2px solid #212121;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 0 rgba(255, 255, 255, 0);
   transition: all 0.3s ease;
   display: flex;
@@ -471,20 +471,12 @@
 }
 
 /* Marker Type Animations */
-.marker-resource .marker-icon {
+.marker-hard-objective .marker-icon {
   animation: resourcePulse 2s infinite;
 }
 
-.marker-wonder .marker-icon {
+.marker-soft-objective .marker-icon {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 20px rgba(156, 39, 176, 0.6);
-}
-
-.marker-unit .marker-icon {
-  animation: unitGlow 1.5s infinite alternate;
-}
-
-.marker-spawn .marker-icon {
-  animation: spawnBreath 3s infinite ease-in-out;
 }
 
 @keyframes resourcePulse {

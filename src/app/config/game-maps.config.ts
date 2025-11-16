@@ -2,22 +2,40 @@ import { GameMapConfig } from '../services/game-map';
 
 export const GAME_MAPS: GameMapConfig[] = [
   {
-    id: 'ancient-world',
-    name: '4U Gas Station',
+    id: '4U_gas',
+    name: 'Thank You, Come Again',
     imageUrl: '/maps/4U_Gas_Station.png',
     width: 1200,
     height: 800,
     description: 'Thank You, Come Again is the first mission in Ready or Not, chronologically and accessibly. On February 3, 2025, the Los Sueños Police Department responds to teenage meth addicts robbing a downtown 4U gas station. ',
     layers: [
-      { id: 'base', name: 'Base Map', imageUrl: '/maps/4U_Gas_Station.png', visible: true, zIndex: 1 },
-      { id: 'floor1', name: 'Floor 1', imageUrl: '/maps/4U_Gas_Station_Floor1.png', visible: false, zIndex: 2 },
-      { id: 'floor2', name: 'Floor 2', imageUrl: '/maps/4U_Gas_Station_Floor2.png', visible: false, zIndex: 3 }
+      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/4U_gas/4U_Gas_Station.png', visible: true, zIndex: 1 }
     ],
     markers: [
-      // Coordinates are now percentages (0-100) of map dimensions for consistent positioning across screen sizes
-      { id: 'm1', x: 58.4, y: 79.97, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', color: '#FF6B6B', layerId: 'base' },
-      { id: 'm2', x: 29.17, y: 62.5, title: 'Gold Deposit', description: 'Gold resource', type: 'resource', color: '#FFD700', layerId: 'floor1' },
-      { id: 'm3', x: 58.33, y: 75, title: 'Colossus', description: 'Wonder of the world', type: 'wonder', color: '#95E1D3', layerId: 'base' }
+      { id: 'm1', x: 58.4, y: 79.97, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
+      { id: 'm2', x: 59.07, y: 30.01, title: 'Veteran', description: 'Dead veteran', type: 'soft_objective', layerId: 'ground' },
+      { id: 'm3', x: 48.05, y: 32.4, title: 'Girl', description: 'Hiden girl', type: 'hard_objective', layerId: 'ground' },
+      { id: 'm4', x: 55.88, y: 41.67, title: 'Dead cachier', description: 'Dead cachier', type: 'hard_objective', layerId: 'ground' }
+    ]
+  },
+  {
+    id: '23_mb',
+    name: '23 Megabytes a Second',
+    imageUrl: '/maps/23_mb/23_mb_ground.png',
+    width: 1200, 
+    height: 800,
+    description: '23 Megabytes a Second is the second mission in Ready or Not. On December 8, 2025, the Los Sueños Police Department received a 911 call regarding a hostage situation at an apartment complex.',
+    layers: [
+      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/23_mb/23_mb_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/23_mb/23_mb_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/23_mb/23_mb_ground.png', visible: true, zIndex: 3 }
+    ],
+    markers: [
+      { id: 'm1', x: 46.72, y: 76.78, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
+      { id: 'm2', x: 61.3, y: 63.53, title: 'Maining farm', description: 'Maining farm', type: 'soft_objective', layerId: 'floor1' },
+      { id: 'm3', x: 35.94, y: 61.45, title: 'Streamer PC', description: 'Streamer PC', type: 'soft_objective', layerId: 'floor2' },
+      { id: 'm4', x: 41.5, y: 62.61, title: 'Mindjot documents', description: 'Mindjot documents', type: 'soft_objective', layerId: 'floor2' },
+      { id: 'm5', x: 41.98, y: 39.58, title: 'Arest Michael', description: 'Michael is main target and he is usually located in his appartment on second floor. Check all rooms. He wears headset with kitty ears.', type: 'hard_objective', layerId: 'floor2' }
     ]
   },
   {
@@ -33,8 +51,7 @@ export const GAME_MAPS: GameMapConfig[] = [
     markers: [
       // Coordinates are now percentages (0-100) of map dimensions for consistent positioning across screen sizes
       { id: 'm1', x: 25, y: 25, title: 'Kingdom', description: 'Main kingdom', type: 'spawn', layerId: 'base' },
-      { id: 'm2', x: 50, y: 37.5, title: 'Forest', description: 'Enchanted forest', type: 'resource', layerId: 'base' },
-      { id: 'm3', x: 75, y: 62.5, title: 'Dragon Lair', description: 'Ancient dragon lair', type: 'unit', layerId: 'base' }
+      { id: 'm2', x: 50, y: 37.5, title: 'Forest', description: 'Enchanted forest', type: 'hard_objective', layerId: 'base' }
     ]
   },
   {
@@ -50,8 +67,7 @@ export const GAME_MAPS: GameMapConfig[] = [
     markers: [
       // Coordinates are now percentages (0-100) of map dimensions for consistent positioning across screen sizes
       { id: 'm1', x: 25, y: 25, title: 'Kingdom', description: 'Main kingdom', type: 'spawn', layerId: 'base' },
-      { id: 'm2', x: 50, y: 37.5, title: 'Forest', description: 'Enchanted forest', type: 'resource', layerId: 'base' },
-      { id: 'm3', x: 75, y: 62.5, title: 'Dragon Lair', description: 'Ancient dragon lair', type: 'unit', layerId: 'base' }
+      { id: 'm2', x: 50, y: 37.5, title: 'Forest', description: 'Enchanted forest', type: 'hard_objective', layerId: 'base' }
     ]
   }
 ];

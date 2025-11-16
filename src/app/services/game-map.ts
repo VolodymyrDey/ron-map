@@ -8,7 +8,7 @@ export interface GameMarker {
   y: number;
   title: string;
   description: string;
-  type: 'spawn' | 'resource' | 'wonder' | 'unit' | 'custom';
+  type: 'spawn' | 'hard_objective' | 'soft_objective';
   color?: string;
   icon?: string;
   layerId?: string;

@@ -78,9 +78,8 @@ export class MapViewerComponent {
     return {
       'marker': true,
       'marker-spawn': marker.type === 'spawn',
-      'marker-resource': marker.type === 'resource',
-      'marker-wonder': marker.type === 'wonder',
-      'marker-unit': marker.type === 'unit',
+      'marker-hard-objective': marker.type === 'hard_objective',
+      'marker-soft-objective': marker.type === 'soft_objective',
       'marker-selected': this.selectedMarker?.id === marker.id
     };
   }

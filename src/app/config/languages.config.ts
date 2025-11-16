@@ -53,20 +53,16 @@ export const TRANSLATIONS: Translations = {
   
   // Legend items
   'spawn': {
-    'en': 'Spawn Points',
+    'en': 'Spawn',
     'uk': 'Точки появи'
   },
-  'resource': {
-    'en': 'Resources',
-    'uk': 'Ресурси'
+  'hard_objective': {
+    'en': 'Hard Objective',
+    'uk': 'Основна ціль'
   },
-  'wonder': {
-    'en': 'Wonders',
-    'uk': 'Чудеса'
-  },
-  'unit': {
-    'en': 'Units',
-    'uk': 'Юніти'
+  'soft_objective': {
+    'en': 'Soft Objective',
+    'uk': 'Прихована ціль'
   },
   
   // Map names

@@ -83,7 +83,7 @@
     <app-marker-form
       [x]="newMarkerX"
       [y]="newMarkerY"
-      [markerTypes]="['spawn', 'resource', 'wonder', 'unit', 'custom']"
+      [markerTypes]="['spawn', 'hard_objective', 'soft_objective']"
       (markerSaved)="onMarkerSaved($event)"
       (formClosed)="onMarkerFormClosed()"
     ></app-marker-form>
