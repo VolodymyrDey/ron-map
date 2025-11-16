@@ -134,13 +134,17 @@ export class MapViewerComponent {
   }
 
   onMapClick(event: MouseEvent): void {
-    const rect = (event.target as HTMLImageElement).getBoundingClientRect();
-    const clickX = (event.clientX - rect.left) / this.zoomLevel;
-    const clickY = (event.clientY - rect.top) / this.zoomLevel;
+    const img = event.target as HTMLImageElement;
+    const rect = img.getBoundingClientRect();
     
-    // Convert pixel coordinates to percentages for consistent positioning
-    const percentX = (clickX / rect.width) * 100 * this.zoomLevel;
-    const percentY = (clickY / rect.height) * 100 * this.zoomLevel;
+    // Account for zoom level in click position
+    const clickX = event.clientX - rect.left;
+    const clickY = event.clientY - rect.top;
+    
+    // Convert to percentage of the actual rendered image size
+    // No need to divide by zoomLevel as rect already accounts for the transform
+    const percentX = (clickX / rect.width) * 100;
+    const percentY = (clickY / rect.height) * 100;
     
     this.mapClick.emit({
       x: Math.round(percentX * 100) / 100, // Round to 2 decimal places
@@ -167,14 +171,29 @@ export class MapViewerComponent {
   }
 
   onMapMouseMove(event: MouseEvent): void {
+    // Get the actual image element to calculate coordinates relative to it
     const target = event.currentTarget as HTMLElement;
-    const rect = target.getBoundingClientRect();
-    const mouseX = (event.clientX - rect.left) / this.zoomLevel;
-    const mouseY = (event.clientY - rect.top) / this.zoomLevel;
+    const imgElement = target.querySelector('.layer-image') as HTMLImageElement;
     
-    // Convert to percentage coordinates for consistent display
-    const percentX = (mouseX / rect.width) * 100 * this.zoomLevel;
-    const percentY = (mouseY / rect.height) * 100 * this.zoomLevel;
+    if (!imgElement) {
+      this.showCoords = false;
+      return;
+    }
+    
+    const rect = imgElement.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    
+    // Check if mouse is within the image bounds
+    if (mouseX < 0 || mouseX > rect.width || mouseY < 0 || mouseY > rect.height) {
+      this.showCoords = false;
+      this.currentCoords = null;
+      return;
+    }
+    
+    // Convert to percentage coordinates
+    const percentX = (mouseX / rect.width) * 100;
+    const percentY = (mouseY / rect.height) * 100;
     
     this.currentCoords = {
       x: Math.round(percentX * 100) / 100, // Round to 2 decimal places

@@ -262,11 +262,14 @@ export class GameMapComponent implements OnInit, OnDestroy {
 
   // Map Interactions
   onMapClick(coords: { x: number; y: number }): void {
+    // Always close the marker tooltip when clicking on the map
+    this.gameMapService.selectMarker(null);
+    
+    // Don't show marker form if we were moving, drawing, or panning
     if (this.hasMoved || this.isDrawingMode || this.isPanning) {
       return;
     }
     
-    this.gameMapService.selectMarker(null);
     this.newMarkerX = coords.x;
     this.newMarkerY = coords.y;
     this.showMarkerForm = true;
@@ -352,6 +355,12 @@ export class GameMapComponent implements OnInit, OnDestroy {
       }
       this.drawingPath = [];
     }
+    
+    // Close tooltip when clicking on map (not dragging)
+    if (this.isPanning && !this.hasMoved && !this.showMarkerForm) {
+      this.gameMapService.selectMarker(null);
+    }
+    
     if (this.isPanning) {
       this.isPanning = false;
     }
