@@ -487,6 +487,17 @@
   box-decoration-break: clone;
 }
 
+/* If there's no description, don't draw the decorative border under the title */
+.marker-tooltip.no-description h4 {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.marker-tooltip.no-description{
+  min-width: 190px;
+}
+
 /* When the tooltip grows taller, ensure the arrow stays visually aligned by nudging it downward */
 .marker-tooltip.multiline::after {
   bottom: -14px;
@@ -570,6 +581,42 @@
     transform: scale(1.05);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(76, 175, 80, 0.8);
   }
+}
+
+/* Square styles for stairs markers */
+.marker-stairs-down .marker-icon,
+.marker-stairs-up .marker-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px; /* slightly rounded square */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(0,0,0,0.45);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.45);
+  transform: rotate(0deg);
+}
+
+.marker-stairs-down .marker-icon img.marker-svg,
+.marker-stairs-up .marker-icon img.marker-svg {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+/* Visual differences: down = darker with subtle drop, up = brighter */
+.marker-stairs-down .marker-icon {
+  background: linear-gradient(180deg, #546E7A 0%, #455A64 100%);
+}
+.marker-stairs-up .marker-icon {
+  background: linear-gradient(180deg, #78909C 0%, #90A4AE 100%);
+}
+
+.marker-stairs-down.marker-selected .marker-icon,
+.marker-stairs-up.marker-selected .marker-icon {
+  transform: scale(1.35) rotate(3deg);
+  box-shadow: 0 6px 26px rgba(0,0,0,0.6), 0 0 24px rgba(124,77,255,0.15);
+  border-width: 3px;
 }
 
 /* No Map Selected */

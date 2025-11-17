@@ -18,6 +18,10 @@
 export interface MarkerTypeConfig {
   type: string;
   icon: string;        // Material Icon name
+  /** Optional relative URL to an SVG to use as the icon. If set, this SVG
+   * will be used instead of the Material Icon named in `icon`. Example:
+   * '/svg/stairs_down.svg' */
+  svgIconUrl?: string;
   color: string;       // Background color for the marker
   iconColor: string;   // Icon color (typically white or contrasting color)
   label: string;       // Human-readable label
@@ -62,6 +66,22 @@ export const MARKER_TYPE_CONFIGS: MarkerTypeConfig[] = [
     color: '#9C27B0',                // Purple
     iconColor: '#ffffff',            // White
     label: 'Soft Objective'
+  },
+  {
+    type: 'stairs_down',
+    icon: 'place',                   // fallback material icon
+    svgIconUrl: '/svg/stairs_down.svg',
+    color: '#607D8B',                // Blue Grey
+    iconColor: '#ffffff',            // White
+    label: 'Stairs Down'
+  },
+  {
+    type: 'stairs_up',
+    icon: 'place',                   // fallback material icon
+    svgIconUrl: '/svg/stairs_up.svg',
+    color: '#607D8B',                // Blue Grey
+    iconColor: '#ffffff',            // White
+    label: 'Stairs Down'
   }
 ];
 
@@ -80,6 +100,7 @@ export function getMarkerConfig(type: string): MarkerTypeConfig {
   return {
     type: type,
     icon: 'place',
+    svgIconUrl: undefined,
     color: '#9E9E9E',
     iconColor: '#ffffff',
     label: type.charAt(0).toUpperCase() + type.slice(1)

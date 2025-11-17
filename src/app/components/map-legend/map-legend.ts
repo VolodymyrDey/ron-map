@@ -21,6 +21,13 @@ export class MapLegendComponent {
   @Output() legendItemToggled = new EventEmitter<string>();
   @Output() showAll = new EventEmitter<void>();
   @Output() hideAll = new EventEmitter<void>();
+  // Types to hide from the legend UI
+  private readonly hiddenLegendTypes = new Set<string>(['stairs_down', 'stairs_up']);
+
+  // Legend items after filtering out hidden types
+  get filteredLegendItems(): LegendItem[] {
+    return this.legendItems.filter(item => !this.hiddenLegendTypes.has(item.id));
+  }
 
   constructor(private readonly languageService: LanguageService) {}
 
@@ -41,11 +48,11 @@ export class MapLegendComponent {
   }
 
   areAllLegendItemsVisible(): boolean {
-    return this.legendItems.every(item => item.visible);
+    return this.filteredLegendItems.every(item => item.visible);
   }
 
   isAnyLegendItemVisible(): boolean {
-    return this.legendItems.some(item => item.visible);
+    return this.filteredLegendItems.some(item => item.visible);
   }
 
   getMarkerIcon(itemId: string): string {

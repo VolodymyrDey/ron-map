@@ -35,7 +35,9 @@ export const GAME_MAPS: GameMapConfig[] = [
       { id: 'm2', x: 60.42, y: 64.08, title: 'Maining farm', description: 'Maining farm', type: 'soft_objective', layerId: 'floor1' },
       { id: 'm3', x: 36.3, y: 61.45, title: 'Streamer PC', description: 'Streamer PC', type: 'soft_objective', layerId: 'floor2' },
       { id: 'm4', x: 41.76, y: 62.61, title: 'Mindjot documents', description: 'Mindjot documents', type: 'soft_objective', layerId: 'floor2' },
-      { id: 'm5', x: 42.35, y: 38.38, title: 'Arest Michael', description: 'Michael is main target and he is usually located in his appartment on second floor. Check all rooms. He wears headset with kitty ears.', type: 'hard_objective', layerId: 'floor2' }
+      { id: 'm5', x: 42.35, y: 38.38, title: 'Arest Michael', description: 'Michael is main target and he is usually located in his appartment on second floor. Check all rooms. He wears headset with kitty ears.', type: 'hard_objective', layerId: 'floor2' },
+      { id: 'm6', x: 37.66, y: 23.6, title: 'To Ground Floor', type: 'stairs_down', layerId: 'floor1' },
+      { id: 'm7', x: 44.3, y: 21.47, title: 'To Floor 2', type: 'stairs_up', layerId: 'floor1' }
     ]
   },
   {

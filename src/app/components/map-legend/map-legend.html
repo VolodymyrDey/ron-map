@@ -26,7 +26,7 @@
       </button>
     </div>
   </div>
-  @for (item of legendItems; track item.id) {
+  @for (item of filteredLegendItems; track item.id) {
   <div 
     class="legend-item" 
     [class.disabled]="!item.visible"

@@ -57,6 +57,8 @@ export class MapViewerComponent {
   // Coordinate tracking
   currentCoords: { x: number; y: number } | null = null;
   showCoords: boolean = false;
+  // Hover tracking for markers to show tooltip on hover for specific types
+  hoveredMarkerId: string | null = null;
 
   getMapStyle(): any {
     const effectiveScale = (this.baseScale || 1) * (this.zoomLevel || 1);
@@ -83,6 +85,8 @@ export class MapViewerComponent {
       'marker-spawn': marker.type === 'spawn',
       'marker-hard-objective': marker.type === 'hard_objective',
       'marker-soft-objective': marker.type === 'soft_objective',
+      'marker-stairs-down': marker.type === 'stairs_down',
+      'marker-stairs-up': marker.type === 'stairs_up',
       'marker-selected': this.selectedMarker?.id === marker.id
     };
   }
@@ -90,6 +94,15 @@ export class MapViewerComponent {
   getMarkerIcon(marker: GameMarker): string {
     const config = getMarkerConfig(marker.type);
     return config.icon;
+  }
+
+  /** Return the svg URL to use for this marker, preferring an explicit
+   * per-marker svgIconUrl, then the marker type's configured svgIconUrl.
+   */
+  getMarkerSvgUrl(marker: GameMarker): string | undefined {
+    if (marker.svgIconUrl) return marker.svgIconUrl;
+    const config = getMarkerConfig(marker.type) as any;
+    return config?.svgIconUrl;
   }
 
   getMarkerColor(marker: GameMarker): string {
@@ -163,6 +176,41 @@ export class MapViewerComponent {
     event.stopPropagation();
     event.preventDefault();
     this.markerClick.emit(marker);
+  }
+
+  /** Click wrapper to prevent selection for non-interactive types (stairs). */
+  onMarkerClick(marker: GameMarker, event: Event): void {
+    if (marker.type === 'stairs_down' || marker.type === 'stairs_up') {
+      event.stopPropagation();
+  event.preventDefault();
+      return;
+    }
+    // For keyboard events, we still want to call selectMarker with an object
+    // that matches MouseEvent signature for downstream handlers; pass a dummy
+    // MouseEvent when needed.
+    if ((event as KeyboardEvent).key) {
+      const fakeMouse = new MouseEvent('click');
+      this.selectMarker(marker, fakeMouse);
+    } else {
+      this.selectMarker(marker, event as unknown as MouseEvent);
+    }
+  }
+
+  onMarkerHover(marker: GameMarker): void {
+    if (marker.type === 'stairs_down' || marker.type === 'stairs_up') {
+      this.hoveredMarkerId = marker.id;
+    }
+  }
+
+  onMarkerHoverLeave(): void {
+    this.hoveredMarkerId = null;
+  }
+
+  shouldShowTooltip(marker: GameMarker): boolean {
+    // Show tooltip if selected, or if hovering on a stairs marker
+    if (this.selectedMarker?.id === marker.id) return true;
+    if ((marker.type === 'stairs_down' || marker.type === 'stairs_up') && this.hoveredMarkerId === marker.id) return true;
+    return false;
   }
 
   onMouseDown(event: MouseEvent): void {
