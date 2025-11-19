@@ -40,7 +40,7 @@
            [style.cursor]="getCursor()">
 
         <!-- Drawing Layer SVG moved here so it covers the whole map-canvas -->
-        <svg class="drawing-layer" viewBox="0 0 100 100" preserveAspectRatio="none" [style.pointer-events]="isDrawingMode ? 'none' : 'auto'">
+  <svg class="drawing-layer" viewBox="0 0 100 100" preserveAspectRatio="none" [style.pointer-events]="isDrawingMode ? 'auto' : 'none'">
           <!-- Completed lines -->
           @for (line of drawnLines; track $index) {
             <path 
@@ -73,14 +73,23 @@
             <!-- Images -->
             @for (layer of currentMap.layers; track layer.id) {
               @if (layer.visible) {
-                <img 
-                  [src]="layer.imageUrl" 
-                  [alt]="layer.name" 
-                  class="layer-image" 
-                  [style.z-index]="layer.zIndex"
-                  (click)="onMapClick($event)"
-                  draggable="false" 
-                />
+                <div class="layer-image-wrapper" [style.z-index]="layer.zIndex">
+                  <img
+                    [src]="layer.imageUrl"
+                    [alt]="layer.name"
+                    class="layer-image"
+                    draggable="false"
+                  />
+                  <button
+                    class="layer-click-overlay"
+                    (pointerdown)="onMapImagePointerDown($event)"
+                    (mousedown)="onMapImageMouseDown($event)"
+                    (touchstart)="onMapImageMouseDown($event)"
+                    (click)="onMapImageClick($event, layer.id)"
+                    (keydown)="($event.key === 'Enter' || $event.key === ' ') && onMapImageClick($event, layer.id)"
+                    aria-label="Activate layer {{layer.name}}"
+                  ></button>
+                </div>
               }
             }
             

@@ -127,6 +127,25 @@
   box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.2);
 }
 
+.sidebar-control {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sidebar-control .control-btn {
+  padding: 0.5rem 0.75rem;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #0f0f0f;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sidebar-control .control-btn.active {
+  background: rgba(124,77,255,0.12);
+  border-color: #7c4dff;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .game-map-container {

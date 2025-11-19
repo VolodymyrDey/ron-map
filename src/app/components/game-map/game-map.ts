@@ -66,6 +66,9 @@ export class GameMapComponent implements OnInit, OnDestroy {
 
   // Pan/Drag properties
   isPanning = false;
+  // Allow toggling pan behavior from the sidebar. When false, clicking the
+  // map will not start a pan and image clicks can be handled.
+  panEnabled = true;
   panStartX = 0;
   panStartY = 0;
   panOffsetX = 0;
@@ -227,6 +230,14 @@ export class GameMapComponent implements OnInit, OnDestroy {
     }
   }
 
+  onPanToggled(): void {
+    this.panEnabled = !this.panEnabled;
+    // If disabling pan while currently panning, cancel it
+    if (!this.panEnabled) {
+      this.isPanning = false;
+    }
+  }
+
   onColorSelected(color: string): void {
     this.selectedDrawColor = color;
     this.isEraserMode = false;
@@ -321,6 +332,7 @@ export class GameMapComponent implements OnInit, OnDestroy {
 
   // Mouse Events for panning and drawing
   onMouseDown(event: MouseEvent): void {
+    console.debug('[GameMap] onMouseDown received', { type: event.type, button: event.button, panEnabled: this.panEnabled, isDrawingMode: this.isDrawingMode, showMarkerForm: this.showMarkerForm });
     if (event.button === 0) {
       this.hasMoved = false;
       
@@ -340,7 +352,7 @@ export class GameMapComponent implements OnInit, OnDestroy {
           this.drawingPath = [{ x: 0, y: 0 }];
         }
         event.preventDefault();
-      } else if (!this.showMarkerForm) {
+      } else if (!this.showMarkerForm && this.panEnabled) {
         this.isPanning = true;
         this.panStartX = event.clientX - this.panOffsetX;
         this.panStartY = event.clientY - this.panOffsetY;

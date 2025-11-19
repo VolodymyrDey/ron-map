@@ -59,6 +59,17 @@
         (eraserModeToggled)="onEraserModeToggled($event)"
       ></app-drawing-tools>
 
+      <div class="sidebar-control">
+        <button
+          class="control-btn"
+          [class.active]="panEnabled"
+          (click)="onPanToggled()"
+          title="Toggle panning"
+        >
+          {{ panEnabled ? 'Pan: On' : 'Pan: Off' }}
+        </button>
+      </div>
+
       <app-map-legend
         [legendItems]="legendItems"
         (legendItemToggled)="onLegendItemToggled($event)"

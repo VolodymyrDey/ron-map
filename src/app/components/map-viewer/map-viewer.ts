@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameMapConfig, GameMarker } from '../../services/game-map';
-import { getMarkerConfig } from '../../config/marker-types.config';
+import { getMarkerConfig, getMarkerTypes } from '../../config/marker-types.config';
 
 export interface DrawingLine {
   id: string;
@@ -172,6 +172,88 @@ export class MapViewerComponent {
     this.mapClick.emit({ x: Math.round(percentX * 100) / 100, y: Math.round(percentY * 100) / 100 });
   }
 
+  /**
+   * Click handler attached to individual layer images. Computes percentage
+   * coordinates relative to the clicked image, prompts the user to pick a
+   * marker type, and prints the marker JSON (including layerId) to the
+   * browser console.
+   */
+  onMapImageClick(event: Event, layerId: string): void {
+    // Debug: log click entry so we can trace whether the click fired
+    console.debug('[MapViewer] onMapImageClick fired', { eventType: event.type, layerId });
+    event.stopPropagation();
+
+    // find the actual image element clicked
+    const target = (event as any).target as HTMLElement | null;
+    const img = target?.closest('.image-wrapper')?.querySelector('.layer-image') as HTMLImageElement | null;
+    if (!img) return;
+
+    const rect = img.getBoundingClientRect();
+    let clickX: number, clickY: number;
+
+    if (event instanceof MouseEvent) {
+      clickX = event.clientX - rect.left;
+      clickY = event.clientY - rect.top;
+    } else {
+      // Keyboard activation: use center of image
+      clickX = rect.width / 2;
+      clickY = rect.height / 2;
+    }
+    const percentX = (clickX / rect.width) * 100;
+    const percentY = (clickY / rect.height) * 100;
+
+    const x = Math.round(percentX * 100) / 100;
+    const y = Math.round(percentY * 100) / 100;
+
+    // Prompt for marker type using available types
+    const types = getMarkerTypes();
+    const promptText = 'Select marker type (one of):\n' + types.join(', ');
+    const defaultType = types[0] || 'spawn';
+  const chosen = (globalThis as any).prompt(promptText, defaultType);
+    if (!chosen) {
+      console.log('Marker creation cancelled');
+      return;
+    }
+    const type = chosen.trim();
+    if (!types.includes(type)) {
+      console.warn('Invalid marker type selected:', type);
+      return;
+    }
+
+    // Prompt for optional title
+    const titlePrompt = 'Enter marker title (optional):';
+    const titleInput = (globalThis as any).prompt(titlePrompt, '');
+    const title = titleInput ? titleInput.trim() : '';
+
+    const markerJson = {
+      id: `new-${Date.now()}`,
+      x,
+      y,
+      title,
+      description: '',
+      type,
+      layerId
+    };
+
+    console.log('Marker JSON:', JSON.stringify(markerJson, null, 2));
+  }
+
+  onMapImagePointerDown(event: PointerEvent): void {
+    // Debug: log pointerdown so we can confirm pointer events are received
+    console.debug('[MapViewer] onMapImagePointerDown', { eventType: event.type, pointerType: (event as any).pointerType });
+    // Stop propagation so parent panning handlers don't start. We avoid
+    // preventDefault() to allow the subsequent click event to fire.
+    event.stopPropagation();
+  }
+
+  onMapImageMouseDown(event: MouseEvent | TouchEvent): void {
+    // Called on mousedown/touchstart to ensure parent handlers don't
+    // initiate panning. We only stop propagation here; do not call
+    // preventDefault() so that the overlay's click event still fires.
+    console.debug('[MapViewer] onMapImageMouseDown', { type: (event as any).type });
+    (event as Event).stopPropagation();
+  }
+
   selectMarker(marker: GameMarker, event: MouseEvent): void {
     event.stopPropagation();
     event.preventDefault();
@@ -214,6 +296,7 @@ export class MapViewerComponent {
   }
 
   onMouseDown(event: MouseEvent): void {
+    console.debug('[MapViewer] onMouseDown emitted', { type: event.type, button: event.button, clientX: event.clientX, clientY: event.clientY });
     this.mouseDown.emit(event);
   }
 
