@@ -585,7 +585,8 @@
 
 /* Square styles for stairs markers */
 .marker-stairs-down .marker-icon,
-.marker-stairs-up .marker-icon {
+.marker-stairs-up .marker-icon,
+.marker-comms .marker-icon {
   width: 40px;
   height: 40px;
   border-radius: 6px; /* slightly rounded square */

@@ -7,7 +7,6 @@ export interface MapLayer {
   name: string;
   visible: boolean;
   zIndex: number;
-  imageUrl: string;
 }
 
 @Component({

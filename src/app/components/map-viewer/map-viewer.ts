@@ -87,6 +87,7 @@ export class MapViewerComponent {
       'marker-soft-objective': marker.type === 'soft_objective',
       'marker-stairs-down': marker.type === 'stairs_down',
       'marker-stairs-up': marker.type === 'stairs_up',
+      'marker-comms': marker.type === 'comms',
       'marker-selected': this.selectedMarker?.id === marker.id
     };
   }
@@ -180,7 +181,7 @@ export class MapViewerComponent {
 
   /** Click wrapper to prevent selection for non-interactive types (stairs). */
   onMarkerClick(marker: GameMarker, event: Event): void {
-    if (marker.type === 'stairs_down' || marker.type === 'stairs_up') {
+    if (marker.type === 'stairs_down' || marker.type === 'stairs_up' || marker.type === 'comms') {
       event.stopPropagation();
   event.preventDefault();
       return;
@@ -197,7 +198,7 @@ export class MapViewerComponent {
   }
 
   onMarkerHover(marker: GameMarker): void {
-    if (marker.type === 'stairs_down' || marker.type === 'stairs_up') {
+    if (marker.type === 'stairs_down' || marker.type === 'stairs_up' || marker.type === 'comms') {
       this.hoveredMarkerId = marker.id;
     }
   }
@@ -209,7 +210,7 @@ export class MapViewerComponent {
   shouldShowTooltip(marker: GameMarker): boolean {
     // Show tooltip if selected, or if hovering on a stairs marker
     if (this.selectedMarker?.id === marker.id) return true;
-    if ((marker.type === 'stairs_down' || marker.type === 'stairs_up') && this.hoveredMarkerId === marker.id) return true;
+    if ((marker.type === 'stairs_down' || marker.type === 'stairs_up' || marker.type === 'comms') && this.hoveredMarkerId === marker.id) return true;
     return false;
   }
 
