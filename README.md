@@ -25,6 +25,13 @@ If you're able to create high-quality floor plans for existing or missing levels
 
 ---
 
+## 🔜 Coming Soon
+
+- **Main objectives**: Add section with hard/soft objectives to each maps
+- **Items counts**: Implement count of markers on each level and show near lavel marker
+
+---
+
 ## ⚠️ Known Issues
 
 - **Eraser not clearing all lines**: You can only erase latest selected color (need rewrite whole drawing system, may take some time)

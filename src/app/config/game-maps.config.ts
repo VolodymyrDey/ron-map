@@ -331,14 +331,12 @@ export const GAME_MAPS: GameMapConfig[] = [
       { id: 'm1', x: 36.93, y: 50.71, title: 'Balcony', description: 'Balcony', type: 'spawn', layerId: 'floor1' },
       { id: 'm2', x: 61.76, y: 51.01, title: 'Elevator', description: 'Elevator', type: 'spawn', layerId: 'floor1' },
       { id: 'm3', x: 55.8, y: 40.77, title: 'Rooftop', description: 'Rooftop', type: 'spawn', layerId: 'roof' },
-      { id: 'new-1763588555836', x: 41.09, y: 55.64, title: 'Report downed civilian', description: 'Report downed civilian', type: 'soft_objective', layerId: 'floor1' },
       { id: 'new-1763589556825', x: 60.8, y: 41.81, title: 'To Second Floor', type: 'stairs_up', layerId: 'floor1' },
       { id: 'new-1763589570220', x: 43.85, y: 39.2, title: 'To Second Floor', type: 'stairs_up', layerId: 'floor1' },
       { id: 'new-1763589581057', x: 54.68, y: 53.23, title: 'To Second Floor', type: 'stairs_up', layerId: 'floor1' },
-      { id: 'new-1763589602803', x: 51.97, y: 54.35, title: 'To Roof', type: 'stairs_up', layerId: 'floor2' },
-      { id: 'new-1763589638176', x: 53.66, y: 54.35, title: 'To First Floor', type: 'stairs_down', layerId: 'floor2' },
-      { id: 'new-1763589647543', x: 42.32, y: 39.62, title: 'To First Floor', type: 'stairs_down', layerId: 'floor2' },
-      { id: 'new-1763589656208', x: 60.68, y: 42.29, title: 'To First Floor', type: 'stairs_down', layerId: 'floor2' },
+      { id: 'new-1763589602803', x: 57.65, y: 56.31, title: 'To Roof / To First Floor', type: 'stairs_up_down', layerId: 'floor2' },
+      { id: 'new-1763589638176', x: 76.01, y: 30.17, title: 'To First Floor', type: 'stairs_down', layerId: 'floor2' },
+      { id: 'new-1763589647543', x: 38.4, y: 24.27, title: 'To First Floor', type: 'stairs_down', layerId: 'floor2' },
       { id: 'new-1763589670036', x: 42.21, y: 81.41, title: 'To Second Floor', type: 'stairs_down', layerId: 'roof' }
     ]
   },
@@ -406,8 +404,7 @@ export const GAME_MAPS: GameMapConfig[] = [
       { id: 'new-1763591230605', x: 56.81, y: 66.02, title: 'Report Conspiracy Evidence', description: 'Locate evidence for conspiracy to commit murder, of still missing persons', type: 'soft_objective', layerId: 'ground' },
       { id: 'new-1763591301057', x: 48.15, y: 8.58, title: 'Possible main target location', description: 'Arrest Elaine Raskin  and Arrest Eve Nader', type: 'hard_objective', layerId: 'ground' },
       { id: 'new-1763591440049', x: 42.18, y: 49.59, title: 'To Undeground', type: 'stairs_down', layerId: 'ground' },
-      { id: 'new-1763591499749', x: 45.5, y: 37.49, title: 'To Undeground', type: 'stairs_down', layerId: 'ground' },
-      { id: 'new-1763591499749', x: 44, y: 37.49, title: 'To First Floor', type: 'stairs_up', layerId: 'ground' },
+      { id: 'new-1763591499749', x: 44.7, y: 37.49, title: 'To First Floor / To Undeground', type: 'stairs_up_down', layerId: 'ground' },
       { id: 'new-1763591989132', x: 38.87, y: 33.23, title: 'To Ground Floor', type: 'stairs_down', layerId: 'floor1' },
       { id: 'new-1763592013283', x: 47.31, y: 15.38, title: 'To Church Undeground', type: 'stairs_down', layerId: 'ground' },
       { id: 'new-1763592030275', x: 48.57, y: 4.1, title: 'To Church Undegraund', type: 'stairs_down', layerId: 'ground' },
@@ -438,10 +435,8 @@ export const GAME_MAPS: GameMapConfig[] = [
       { id: 'new-1763592562113', x: 45.34, y: 21.2, title: 'To Second Floor', type: 'stairs_up', layerId: 'ground' },
       { id: 'new-1763592575309', x: 54.92, y: 41.52, title: 'To Second Floor', type: 'stairs_up', layerId: 'ground' },
       { id: 'new-1763592604321', x: 62.18, y: 65.87, title: 'To First Floor', type: 'stairs_up', layerId: 'ground' },
-      { id: 'new-1763592620995', x: 54.62, y: 68.41, title: 'To First Floor', type: 'stairs_up', layerId: 'ground' },
-      { id: 'new-1763592672354', x: 46.34, y: 46.97, title: 'To First Floor', type: 'stairs_down', layerId: 'floor1' },
-      { id: 'new-1763592696354', x: 55, y: 44.96, title: 'To Ground Floor', type: 'stairs_down', layerId: 'floor1' },
-      { id: 'new-1763592709972', x: 57.06, y: 44.96, title: 'To Second Floor', type: 'stairs_up', layerId: 'floor1' },
+      { id: 'new-1763592672354', x: 46.34, y: 46.97, title: 'To Second Floor', type: 'stairs_up', layerId: 'floor1' },
+      { id: 'new-1763592696354', x: 56.05, y: 44.96, title: 'To Second Floor / To Ground Floor', type: 'stairs_up_down', layerId: 'floor1' },
       { id: 'new-1763593171937', x: 52.14, y: 45.93, title: 'To First Floor', type: 'stairs_down', layerId: 'floor2' },
       { id: 'new-1763593183727', x: 37.6, y: 16.42, title: 'To First Floor', type: 'stairs_down', layerId: 'floor2' },
       { id: 'new-1763593206565', x: 49.45, y: 86.94, title: 'To First Floor', type: 'stairs_down', layerId: 'floor2' },
@@ -515,7 +510,7 @@ export const GAME_MAPS: GameMapConfig[] = [
       { id: 'new-1763594706638', x: 51.81, y: 25.09, title: 'Possible Informant location', description: 'Locate and secure the Informant', type: 'hard_objective', layerId: 'ground' },
       { id: 'new-1763594715286', x: 48.23, y: 15.83, title: 'Possible Informant location', description: 'Locate and secure the Informant', type: 'hard_objective', layerId: 'ground' },
       { id: 'new-1763594721080', x: 63.7, y: 21.8, title: 'Possible Informant location', description: 'Locate and secure the Informant', type: 'hard_objective', layerId: 'ground' },
-      { id: 'new-1763594755272', x: 60.29, y: 55.71, title: 'Dead Dog', description: 'Dead Dog', type: 'soft_objective', layerId: 'ground' }
+      { id: 'new-1763594755272', x: 60.29, y: 55.71, title: 'Found crime sceene evidence', description: 'Report Dead Dog killed in neibors appartment', type: 'soft_objective', layerId: 'ground' }
     ]
   },
   // 21

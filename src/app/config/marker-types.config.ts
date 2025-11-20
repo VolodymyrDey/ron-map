@@ -48,39 +48,47 @@ export interface MarkerTypeConfig {
 export const MARKER_TYPE_CONFIGS: MarkerTypeConfig[] = [
   {
     type: 'spawn',
-    icon: 'flag',                    // Material Icon: flag
-    color: '#4CAF50',                // Green
-    iconColor: '#ffffff',            // White
+    icon: 'flag',
+    color: '#4CAF50',
+    iconColor: '#ffffff',
     label: 'Spawn'
   },
   {
     type: 'hard_objective',
-    icon: 'place',                   // Material Icon: grass
-    color: '#FF6B00',                // Amber
-    iconColor: '#000000',            // Black
+    icon: 'place',
+    color: '#FF6B00',
+    iconColor: '#000000',
     label: 'Hard Objective'
   },
   {
     type: 'soft_objective',
-    icon: 'search',                    // Material Icon: star
-    color: '#9C27B0',                // Purple
-    iconColor: '#ffffff',            // White
+    icon: 'search',
+    color: '#9C27B0',
+    iconColor: '#ffffff',
     label: 'Soft Objective'
   },
   {
     type: 'stairs_down',
-    icon: 'place',                   // fallback material icon
+    icon: 'place',
     svgIconUrl: './svg/stairs_down.svg',
-    color: '#607D8B',                // Blue Grey
-    iconColor: '#ffffff',            // White
+    color: '#607D8B',
+    iconColor: '#ffffff',
     label: 'Stairs Down'
   },
   {
     type: 'stairs_up',
-    icon: 'place',                   // fallback material icon
+    icon: 'place',
     svgIconUrl: './svg/stairs_up.svg',
-    color: '#607D8B',                // Blue Grey
-    iconColor: '#ffffff',            // White
+    color: '#607D8B',
+    iconColor: '#ffffff',
+    label: 'Stairs Down'
+  },
+  {
+    type: 'stairs_up_down',
+    icon: 'place',
+    svgIconUrl: './svg/stairs_up_down.svg',
+    color: '#607D8B',
+    iconColor: '#ffffff',
     label: 'Stairs Down'
   },
   {

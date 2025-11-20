@@ -8,7 +8,7 @@ export interface GameMarker {
   y: number;
   title: string;
   description?: string;
-  type: 'spawn' | 'hard_objective' | 'soft_objective' | 'stairs_down' | 'stairs_up' | 'comms';
+  type: 'spawn' | 'hard_objective' | 'soft_objective' | 'stairs_down' | 'stairs_up' | 'stairs_up_down' | 'comms';
   color?: string;
   icon?: string;
   /** Optional URL to a custom SVG image to use as the marker icon. If provided,

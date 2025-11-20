@@ -3,7 +3,7 @@
     <img src="./ReadyOrMaps.png" alt="Ready or Maps Logo">
     <h2>Interactive Map</h2>
   </header>
-  
+
   <div class="map-info">
     @if (currentMap) {
     <h3>{{ translate(currentMap.name) }}</h3>
@@ -27,24 +27,13 @@
       </div>
       @if (dropdownOpen) {
       <div class="dropdown-menu" (click)="$event.stopPropagation()">
-        <input 
-          type="text" 
-          class="dropdown-search" 
-          [placeholder]="translate('search')"
-          [(ngModel)]="searchQuery"
-          (input)="filterMaps()"
-          (click)="$event.stopPropagation()"
-          #searchInput
-        />
+        <input type="text" class="dropdown-search" [placeholder]="translate('search')" [(ngModel)]="searchQuery"
+          (input)="filterMaps()" (click)="$event.stopPropagation()" #searchInput />
         <div class="dropdown-options">
           @for (map of filteredMaps; track map.id) {
-          <div 
-            class="dropdown-option" 
-            [class.selected]="currentMapId === map.id"
-            [class.highlighted]="highlightedIndex === $index"
-            (click)="selectMap(map.id)"
-            (mouseenter)="highlightedIndex = $index"
-          >
+          <div class="dropdown-option" [class.selected]="currentMapId === map.id"
+            [class.highlighted]="highlightedIndex === $index" (click)="selectMap(map.id)"
+            (mouseenter)="highlightedIndex = $index">
             <span class="map-name">{{ translate(map.name) }}</span>
             @if (currentMapId === map.id) {
             <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
