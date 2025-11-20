@@ -70,7 +70,7 @@ export const MARKER_TYPE_CONFIGS: MarkerTypeConfig[] = [
   {
     type: 'stairs_down',
     icon: 'place',                   // fallback material icon
-    svgIconUrl: '/svg/stairs_down.svg',
+    svgIconUrl: './svg/stairs_down.svg',
     color: '#607D8B',                // Blue Grey
     iconColor: '#ffffff',            // White
     label: 'Stairs Down'
@@ -78,7 +78,7 @@ export const MARKER_TYPE_CONFIGS: MarkerTypeConfig[] = [
   {
     type: 'stairs_up',
     icon: 'place',                   // fallback material icon
-    svgIconUrl: '/svg/stairs_up.svg',
+    svgIconUrl: './svg/stairs_up.svg',
     color: '#607D8B',                // Blue Grey
     iconColor: '#ffffff',            // White
     label: 'Stairs Down'
@@ -86,7 +86,7 @@ export const MARKER_TYPE_CONFIGS: MarkerTypeConfig[] = [
   {
     type: 'comms',
     icon: 'mobile_speaker', 
-    svgIconUrl: '/svg/comms.svg',
+    svgIconUrl: './svg/comms.svg',
     color: '#607D8B',
     iconColor: '#ffffff',
     label: 'Stairs Down'

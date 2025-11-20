@@ -9,7 +9,7 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 2160,
     description: 'Thank You, Come Again is the first mission in Ready or Not, chronologically and accessibly. On February 3, 2025, the Los Sueños Police Department responds to teenage meth addicts robbing a downtown 4U gas station. ',
     layers: [
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/1_4U_gas/4U_Gas_Station.png', visible: true, zIndex: 1, isDefault: true }
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/1_4U_gas/4U_Gas_Station.png', visible: true, zIndex: 1, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 58.36, y: 81.82, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -26,9 +26,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 3840,
     description: '23 Megabytes a Second is the second mission in Ready or Not. On December 8, 2025, the Los Sueños Police Department received a 911 call regarding a hostage situation at an apartment complex.',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/2_23_mb/23_mb_floor2.png', visible: false, zIndex: 1 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/2_23_mb/23_mb_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/2_23_mb/23_mb_ground.png', visible: true, zIndex: 3, isDefault: true }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/2_23_mb/23_mb_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/2_23_mb/23_mb_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/2_23_mb/23_mb_ground.png', visible: true, zIndex: 3, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 46.72, y: 76.78, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -56,10 +56,10 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 3840,
     description: 'Twisted Nerve is the third playable mission in Ready or Not. On September 29, 2025, D Platoon are sent to a neighborhood with the objective of shutting down residential homes involved with the production and distribution of methamphetamine.',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/3_213_park/213_park_floor2.png', visible: false, zIndex: 1 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/3_213_park/213_park_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/3_213_park/213_park_ground.png', visible: true, zIndex: 3, isDefault: true },
-      { id: 'underground', name: 'Underground', imageUrl: '/maps/3_213_park/213_park_underground.png', visible: false, zIndex: 4 }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/3_213_park/213_park_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/3_213_park/213_park_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/3_213_park/213_park_ground.png', visible: true, zIndex: 3, isDefault: true },
+      { id: 'underground', name: 'Underground', imageUrl: './maps/3_213_park/213_park_underground.png', visible: false, zIndex: 4 }
     ],
     markers: [
       { id: 'm1', x: 40.17, y: 64.15, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -89,8 +89,8 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 3840,
     description: 'The Spider is the fourth playable mission in Ready or Not. Hard drives seized during a raid on the apartment of Michael Williams contained child pornography which implicated Brixley\'s Talent Time in a child pornography ring. On December 21, 2025, D-Platoon have been dispatched to serve a high risk arrest warrant for George Brixley. Seemingly unaware of this development, Brixley continues to groom potential clients - But, forever unwilling to take any chances, has hired several low lives as armed security. Alerted by the arrival of the LSPD, Brixley and his men have barricaded themselves inside, holding several civilians hostage.',
     layers: [
-      { id: 'roof', name: 'Roof', imageUrl: '/maps/4_brixley_talent/brixley_talent_floor1.png', visible: false, zIndex: 1 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/4_brixley_talent/brixley_talent_ground.png', visible: true, zIndex: 2, isDefault: true }
+      { id: 'roof', name: 'Roof', imageUrl: './maps/4_brixley_talent/brixley_talent_floor1.png', visible: false, zIndex: 1 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/4_brixley_talent/brixley_talent_ground.png', visible: true, zIndex: 2, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 44.41, y: 32.18, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -109,9 +109,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'A Lethal Obsession is the fifth mission in Ready or Not. Gerard Scott, 55, a former USIA analyst, waited out the front of East Makade Police Department with a loaded Mini-14 after setting a car alight on the street in front of the department. He then shot at officers while they attempted to extinguish the alighted vehicle. Witnesses on the street reported his vehicle as he drove away. On August 20, 2025, D Platoon is sent to service his warrant. ',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/5_sullivans_slope/Sullivans slope_floor2.png', visible: false, zIndex: 1 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/5_sullivans_slope/Sullivans slope_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/5_sullivans_slope/Sullivans slope_ground.png', visible: true, zIndex: 3, isDefault: true }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/5_sullivans_slope/Sullivans slope_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/5_sullivans_slope/Sullivans slope_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/5_sullivans_slope/Sullivans slope_ground.png', visible: true, zIndex: 3, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 48.57, y: 88.65, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -143,7 +143,7 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Ides of March is the sixth playable mission in Ready or Not. A group of domestic terrorists have occupied the luxury Brisa Cove Apartments, taking several residents hostage. On October 1, 2025, D-Platoon have been dispatched to neutralize the threat and defuse the situation ahead of the Senator\'s upcoming presidential campaign.',
     layers: [
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/6_brisa_cove/brisa_cove_ground.png', visible: true, zIndex: 1, isDefault: true }
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/6_brisa_cove/brisa_cove_ground.png', visible: true, zIndex: 1, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 51.45, y: 70.77, title: 'Fire exit', description: 'Fire exit', type: 'spawn', layerId: 'ground' },
@@ -162,9 +162,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Sinuous Trail is the seventh playable mission in Ready or Not. On December 15, 2025, D-Platoon have been dispatched to serve a high risk search warrant at a Mindjot Datacenter suspected of being used by a child pornography ring.',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/7_mindjot/mindjot_floor2.png', visible: false, zIndex: 1 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/7_mindjot/mindjot_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/7_mindjot/mindjot_ground.png', visible: true, zIndex: 3, isDefault: true }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/7_mindjot/mindjot_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/7_mindjot/mindjot_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/7_mindjot/mindjot_ground.png', visible: true, zIndex: 3, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 48.24, y: 67.39, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -186,9 +186,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Ends of the Earth is the eighth mission in Ready or Not. On December 3, 2025, the LSPD raid a home on the beachfront for distributing and illegally modifying weapons.',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/8_kawayu_beach/kawayu_beach_floor2.png', visible: false, zIndex: 1 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/8_kawayu_beach/kawayu_beach_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/8_kawayu_beach/kawayu_beach_ground.png', visible: true, zIndex: 3, isDefault: true }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/8_kawayu_beach/kawayu_beach_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/8_kawayu_beach/kawayu_beach_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/8_kawayu_beach/kawayu_beach_ground.png', visible: true, zIndex: 3, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 36.5, y: 14.48, title: 'Street', description: 'Street', type: 'spawn', layerId: 'ground' },
@@ -211,8 +211,8 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Greased Palms is the ninth mission in Ready Or Not. On October 25, 2025, the Los Suenos Police Department responds to a shoot out at the Los Suenos Postal Service, and is ordered to arrest a weapons smuggler suspect.',
     layers: [
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/9_los_suenos_postal/los_suenos_postal_floor1.png', visible: false, zIndex: 1 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/9_los_suenos_postal/los_suenos_postal_ground.png', visible: true, zIndex: 2, isDefault: true }
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/9_los_suenos_postal/los_suenos_postal_floor1.png', visible: false, zIndex: 1 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/9_los_suenos_postal/los_suenos_postal_ground.png', visible: true, zIndex: 2, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 43.71, y: 67.41, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -236,10 +236,10 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Valley of the Dolls is the tenth playable mission in Ready or Not. The LSPD\'s cyber-crime team has found a lead pertaining to the person profiting from the illegal child-pornography ring operating in Los Sueños. Amos Voll owns a health house at 1962 Irwin Drive, Los Clemente, which is guarded by the security company, Bolton Security. With Amos\'s daughter, Janey Voll, having her 18th birthday, the LSPD decide to raid the home. This level takes place on January 5, 2026, making it the sixteenth mission chronologically.',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/10_voll_health_house/voll_health_house_floor2.png', visible: true, zIndex: 1, isDefault: true },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/10_voll_health_house/voll_health_house_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/10_voll_health_house/voll_health_house_ground.png', visible: false, zIndex: 3 },
-      { id: 'underground', name: 'Underground', imageUrl: '/maps/10_voll_health_house/voll_health_house_underground.png', visible: false, zIndex: 4 }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/10_voll_health_house/voll_health_house_floor2.png', visible: true, zIndex: 1, isDefault: true },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/10_voll_health_house/voll_health_house_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/10_voll_health_house/voll_health_house_ground.png', visible: false, zIndex: 3 },
+      { id: 'underground', name: 'Underground', imageUrl: './maps/10_voll_health_house/voll_health_house_underground.png', visible: false, zIndex: 4 }
     ],
     markers: [
       { id: 'm1', x: 52.94, y: 88.28, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'floor2' },
@@ -269,8 +269,8 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Elephant is the eleventh (ninth chronologically) playable mission in Ready or Not. On October 17, 2025, four students commit a mass-shooting at Watt Community College, presumably due to a mixture of mental health issues and immense dissatisfaction with the current state of the United States. LSPD is able to contain the shooters in the Science Wing and D Platoon is sent in to neutralize the threat.',
     layers: [
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/11_watt_college/watt_college_floor1.png', visible: false, zIndex: 1 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/11_watt_college/watt_college_ground.png', visible: true, zIndex: 2, isDefault: true }
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/11_watt_college/watt_college_floor1.png', visible: false, zIndex: 1 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/11_watt_college/watt_college_ground.png', visible: true, zIndex: 2, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 41.83, y: 69.52, title: 'Southern Entrance', description: 'Southern Entrance', type: 'spawn', layerId: 'ground' },
@@ -304,8 +304,8 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Rust Belt is the twelfth mission in Ready or Not. On October 15, 2025, D Platoon raid a coyote stash house on the Mexican border.',
     layers: [
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/12_costa_vino/costa_vino_ground.png', visible: true, zIndex: 1, isDefault: true },
-      { id: 'underground', name: 'Underground', imageUrl: '/maps/12_costa_vino/costa_vino_underground.png', visible: false, zIndex: 2 }
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/12_costa_vino/costa_vino_ground.png', visible: true, zIndex: 1, isDefault: true },
+      { id: 'underground', name: 'Underground', imageUrl: './maps/12_costa_vino/costa_vino_underground.png', visible: false, zIndex: 2 }
     ],
     markers: [
       { id: 'm1', x: 53.49, y: 84.99, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -323,9 +323,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Sins of The Father is the thirteenth mission in Ready or Not. On October 2, 2025, rogue Secret Service agents sympathetic to the plight of The Left Behind, have occupied the fourteenth floor of the Clemente Hotel, threatening to execute Senator Fremont\'s family on video. D Platoon is dispatched to neutralize the terrorists before they can carry out their threat.',
     layers: [
-      { id: 'roof', name: 'Roof', imageUrl: '/maps/13_clemente_hotel/clemente_hotel_roof.png', visible: false, zIndex: 1 },
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/13_clemente_hotel/clemente_hotel_floor2.png', visible: false, zIndex: 2 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/13_clemente_hotel/clemente_hotel_floor1.png', visible: true, zIndex: 3, isDefault: true }
+      { id: 'roof', name: 'Roof', imageUrl: './maps/13_clemente_hotel/clemente_hotel_roof.png', visible: false, zIndex: 1 },
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/13_clemente_hotel/clemente_hotel_floor2.png', visible: false, zIndex: 2 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/13_clemente_hotel/clemente_hotel_floor1.png', visible: true, zIndex: 3, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 36.93, y: 50.71, title: 'Balcony', description: 'Balcony', type: 'spawn', layerId: 'floor1' },
@@ -350,8 +350,8 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Neon Tomb is the fourteenth playable mission in Ready or Not. The terrorist group, The Hand, has committed a mass shooting at the Neon Nightclub in response to US airstrikes targeting their shelters in Northern Yemen. D Platoon has been dispatched to bring an end to the massacre. The mission takes place on April 19, 2025, making it the chronologically second mission in the story. The attack killed approximately 60 people.',
     layers: [
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/14_neon_nightclub/neon_nightclub_floor1.png', visible: false, zIndex: 1 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/14_neon_nightclub/neon_nightclub_ground.png', visible: true, zIndex: 2, isDefault: true }
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/14_neon_nightclub/neon_nightclub_floor1.png', visible: false, zIndex: 1 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/14_neon_nightclub/neon_nightclub_ground.png', visible: true, zIndex: 2, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 61.18, y: 90.52, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -372,8 +372,8 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Buy Cheap, Buy Twice is the fifteenth playable mission in Ready or Not. It takes place on February 10, 2026 at a rather large car dealership beside an extremely run down street, in which both Los Locos and the Russian Mafia have made a base for themselves. The map consists of three main areas ; The interior of the two-floor dealership, the car lot outside, and the mechanic shop behind the dealership. Enemies can be found in any of these. A few civilians are also present.',
     layers: [
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/15_ceasars_cars_dealership/ceasars_cars_dealership_floor1.png', visible: false, zIndex: 1 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/15_ceasars_cars_dealership/ceasars_cars_dealership_ground.png', visible: true, zIndex: 2, isDefault: true }
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/15_ceasars_cars_dealership/ceasars_cars_dealership_floor1.png', visible: false, zIndex: 1 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/15_ceasars_cars_dealership/ceasars_cars_dealership_ground.png', visible: true, zIndex: 2, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 65.25, y: 86.19, title: 'Street', description: 'Street', type: 'spawn', layerId: 'ground' },
@@ -395,9 +395,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Carriers of the Vine is the sixteenth mission in Ready or Not. It has D Platoon being dispatched on June 1, 2025, to pacify a new age cult committing acts of vigilantism across Los Suenos.',
     layers: [
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/16_cherryessa_farm/cherryessa_farm_floor1.png', visible: false, zIndex: 1 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/16_cherryessa_farm/cherryessa_farm_ground.png', visible: true, zIndex: 2, isDefault: true },
-      { id: 'underground', name: 'Underground', imageUrl: '/maps/16_cherryessa_farm/cherryessa_farm_underground.png', visible: false, zIndex: 3 }
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/16_cherryessa_farm/cherryessa_farm_floor1.png', visible: false, zIndex: 1 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/16_cherryessa_farm/cherryessa_farm_ground.png', visible: true, zIndex: 2, isDefault: true },
+      { id: 'underground', name: 'Underground', imageUrl: './maps/16_cherryessa_farm/cherryessa_farm_underground.png', visible: false, zIndex: 3 }
     ],
     markers: [
       { id: 'm1', x: 60.67, y: 92.84, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -425,9 +425,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Relapse is the penultimate and seventeenth mission in Ready or Not. The mission takes place on May 8, 2025, as the third mission chronologically about 3 weeks after Neon Tomb. A leader of The Hand who took part in the shooting at the Neon Nightclub is taken into medical care. The group storms the Coastal Grove Medical Center in an attempt to prevent the suspect from being taken into police custody. The LSPD\'s SWAT team is deployed to intercept the cell.',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/17_medical_center/medical_center_floor2.png', visible: false, zIndex: 1 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/17_medical_center/medical_center_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/17_medical_center/medical_center_ground.png', visible: true, zIndex: 3, isDefault: true }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/17_medical_center/medical_center_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/17_medical_center/medical_center_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/17_medical_center/medical_center_ground.png', visible: true, zIndex: 3, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 37.1, y: 92.17, title: 'Hospital main lobby', description: 'Hospital main lobby', type: 'spawn', layerId: 'ground' },
@@ -456,9 +456,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 1920,
     description: 'Hide and Seek is the last and eighteenth mission in Ready or Not. On February 18, 2026, the LSPD, along with the FISA and ATF, are inserted into Port Hokan to shut down a major arms distribution operation.',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/18_port/port_floor2.png', visible: false, zIndex: 1 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/18_port/port_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/18_port/port_ground.png', visible: true, zIndex: 3, isDefault: true }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/18_port/port_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/18_port/port_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/18_port/port_ground.png', visible: true, zIndex: 3, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 37.62, y: 91.12, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -485,8 +485,8 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 2715,
     description: 'Dorms is a DLC mission in Ready or Not. Mass amounts of homeless people and drug addicts are seeking shelter in the abandoned Greenside Dormitories. Due to the structural instability and the location\'s history of attracting troublemakers, LSPD attempted to clear the building. However, the occupants resisted and an officer was shot in the leg; whether this was intentional or not is unknown. Other units are unavailable due to the current situation in the city, so SWAT is responsible for clearing the people out of the building.',
     layers: [
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/19_greenside_dormitories/greenside_dormitories_floor1.png', visible: false, zIndex: 1 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/19_greenside_dormitories/greenside_dormitories_ground.png', visible: true, zIndex: 2, isDefault: true }
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/19_greenside_dormitories/greenside_dormitories_floor1.png', visible: false, zIndex: 1 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/19_greenside_dormitories/greenside_dormitories_ground.png', visible: true, zIndex: 2, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 15.29, y: 46.68, title: 'North exit', description: 'North exit', type: 'spawn', layerId: 'ground' },
@@ -506,7 +506,7 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 2715,
     description: 'Narcos is a DLC mission in Ready or Not. Agent Mike Esperanza has had his cover blown and Los Locos have arrived at his home to torture and kill him. Screams loud enough to alert the entire neighbourhood have caused an LSPD response. Patrol officers are stretched thin due to Hurricane Antonio, so LSPD SWAT is called to the scene. Meanwhile, Esperanza has escaped his captors and has fled to a different place in the neighbourhood, warranting the Los Locos to search the neighbourhood to find him.',
     layers: [
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/20_25_hope_street/25_hope_street_ground.png', visible: true, zIndex: 2, isDefault: true }
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/20_25_hope_street/25_hope_street_ground.png', visible: true, zIndex: 2, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 46.81, y: 88.8, title: 'Main spawn point', description: 'Main spawn point', type: 'spawn', layerId: 'ground' },
@@ -526,9 +526,9 @@ export const GAME_MAPS: GameMapConfig[] = [
     height: 2715,
     description: 'Lawmaker is a DLC level in Ready or Not. Members of the United Planet Front - an eco-terrorist group - have invaded the home of Sven Anderson-Lincoln - a wealthy lobbyist with connections to the oil industry. No civilians have been killed but many have been taken hostage. SWAT is deployed to rescue the hostages. ',
     layers: [
-      { id: 'floor2', name: 'Second Floor', imageUrl: '/maps/21_155_playa_vista_lane/155_playa_vista_lane_floor2.png', visible: false, zIndex: 1 },
-      { id: 'floor1', name: 'First Floor', imageUrl: '/maps/21_155_playa_vista_lane/155_playa_vista_lane_floor1.png', visible: false, zIndex: 2 },
-      { id: 'ground', name: 'Ground Floor', imageUrl: '/maps/21_155_playa_vista_lane/155_playa_vista_lane_ground.png', visible: true, zIndex: 3, isDefault: true }
+      { id: 'floor2', name: 'Second Floor', imageUrl: './maps/21_155_playa_vista_lane/155_playa_vista_lane_floor2.png', visible: false, zIndex: 1 },
+      { id: 'floor1', name: 'First Floor', imageUrl: './maps/21_155_playa_vista_lane/155_playa_vista_lane_floor1.png', visible: false, zIndex: 2 },
+      { id: 'ground', name: 'Ground Floor', imageUrl: './maps/21_155_playa_vista_lane/155_playa_vista_lane_ground.png', visible: true, zIndex: 3, isDefault: true }
     ],
     markers: [
       { id: 'm1', x: 40.34, y: 94.26, title: 'Main entrance', description: 'Main entrance', type: 'spawn', layerId: 'ground' },
