@@ -9,8 +9,10 @@
 ## 📍 Overview
 
 I created this project because I spend considerable time studying blueprints to prepare for runs with my friends. I also recognize that sometimes it's difficult to know where to look when searching for hidden objectives, and having guidance can be invaluable. This is the perfect resource where everything is compiled in one place.<br>
+
 Currently, the app features 21 out of 25 available maps, as I unfortunately lack the skills to create floor plans myself. All maps were sourced from eNex's Steam guide and are used in this project with his  permission.<br>
-If you're able to create high-quality floor plans for existing or missing levels, please reach out via Discord.
+
+If you're able to create high-quality floor plans for existing or missing levels, please reach out via Discord -> serM4rkus
 
 ---
 
