@@ -180,7 +180,8 @@ b {
 
 .feature-list,
 .coming-soon-list,
-.issues-list {
+.issues-list,
+.contact-list {
   background: rgba(15, 52, 96, 0.2);
   padding: 15px;
   border-radius: 8px;
@@ -193,6 +194,136 @@ b {
 
 .issues-list {
   border-left-color: #f59e0b;
+}
+
+.contact-list {
+  border-left-color: #8b5cf6;
+}
+
+.contact-list > p {
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+.contact-list ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.contact-list li {
+  padding: 14px;
+  margin: 12px 0;
+  background: rgba(139, 92, 246, 0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 45px;
+}
+
+.contact-list li::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+}
+
+.contact-list li:nth-child(1)::before {
+  content: '💬';
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.contact-list li:nth-child(2)::before {
+  content: '🎮';
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.contact-list li:nth-child(3)::before {
+  content: '🐛';
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.contact-list li:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateX(4px);
+}
+
+.contact-list li strong {
+  color: #a78bfa;
+  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.contact-list li em {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  display: block;
+  margin-top: 6px;
+}
+
+.contact-list li br + em {
+  margin-top: 8px;
+}
+
+.contact-info {
+  color: #fff;
+  font-weight: 600;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(96, 165, 250, 0.3));
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  display: inline-block;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  letter-spacing: 0.5px;
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+.contact-info:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(96, 165, 250, 0.5));
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.contact-note {
+  margin-top: 18px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(96, 165, 250, 0.1));
+  border: 2px solid rgba(139, 92, 246, 0.4);
+  border-radius: 8px;
+  color: #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-note::before {
+  content: '✨';
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 24px;
+  opacity: 0.3;
+}
+
+.contact-note strong {
+  color: #c4b5fd;
+  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 6px;
 }
 
 .copyright {
@@ -215,29 +346,29 @@ b {
   margin-bottom: 8px;
 }
 
-.copyright a {
-  color: #0066cc;
+.container a {
+  color: #4d94db;
   text-decoration: none;
   position: relative;
   transition: color 0.3s ease;
 }
 
-.copyright a::after {
+.container a::after {
   content: '';
   position: absolute;
   bottom: -2px;
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #0066cc;
+  background-color: #4d94db;
   transition: width 0.3s ease;
 }
 
-.copyright a:hover {
-  color: #4d94db;
+.container a:hover {
+  color: #80b3e6;
 }
 
-.copyright a:hover::after {
+.container a:hover::after {
   width: 100%;
 }
 
@@ -329,7 +460,8 @@ b {
 
   .feature-list,
   .coming-soon-list,
-  .issues-list {
+  .issues-list,
+  .contact-list {
     padding: 12px;
   }
 
@@ -343,6 +475,30 @@ b {
 
   li {
     font-size: 0.95rem;
+  }
+
+  .contact-note {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .contact-list li {
+    padding: 12px;
+    padding-left: 40px;
+  }
+
+  .contact-list li::before {
+    left: 12px;
+    font-size: 18px;
+  }
+
+  .contact-list li strong {
+    font-size: 1rem;
+  }
+
+  .contact-info {
+    font-size: 0.95rem;
+    padding: 3px 10px;
   }
 }
 
@@ -391,6 +547,39 @@ b {
 
   .copyright {
     font-size: 0.85rem;
+  }
+
+  .contact-info {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 0.9rem;
+    padding: 3px 8px;
+  }
+
+  .contact-note {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .contact-note::before {
+    font-size: 20px;
+    right: 10px;
+    top: 10px;
+  }
+
+  .contact-list li {
+    padding: 10px;
+    padding-left: 35px;
+    font-size: 0.9rem;
+  }
+
+  .contact-list li::before {
+    font-size: 16px;
+    left: 10px;
+  }
+
+  .contact-list li strong {
+    font-size: 0.95rem;
   }
 }
 
