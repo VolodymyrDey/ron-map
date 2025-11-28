@@ -20,7 +20,7 @@
   /* remove padding so the map-viewer can occupy full viewport area */
   padding: 0;
   overflow: hidden;
-  background: #2a2a2a;
+  background: var(--bg-dark-tertiary);
   min-height: 0;
   min-width: 0;
   align-items: center;
@@ -30,22 +30,21 @@
 /* Sidebar */
 .sidebar {
   /* Overlay the sidebar on top of the map on the right */
-  background: linear-gradient(135deg, #252525 0%, #0f0f0f 100%);
-  padding: 1rem;
-  color: white;
+  background: var(--gradient-dark);
+  color: var(--color-text-primary);
   width: 400px;
   flex-shrink: 0;
   overflow-y: auto;
-  border-left: 8px solid #FF001B;
+  border-left: var(--border-width-extra) solid var(--color-accent-red);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--spacing-md);
   position: absolute;
   top: 0;
   right: 0;
   height: 100%;
-  z-index: 1200;
-  box-shadow: -8px 0 24px rgba(0,0,0,0.6);
+  z-index: var(--z-sidebar);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.6);
 }
 
 /* Language Switcher */
@@ -56,24 +55,24 @@
   right: 0;
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  background: rgba(0, 0, 0, 0.3);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--bg-overlay-subtle);
+  border-top: var(--border-width-thin) solid var(--border-color-subtle);
 }
 
 .language-button {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   padding: 0;
-  background: white;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  background: var(--color-text-primary);
+  border: var(--border-width-regular) solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius-lg);
   font-size: 1.6rem;
-  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-family: var(--font-family-emoji);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-medium);
+  box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,12 +87,12 @@
 
 .language-button .flag-text {
   position: absolute;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
   font-family: system-ui, -apple-system, sans-serif;
-  color: #333;
+  color: var(--color-text-dark);
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity var(--transition-normal);
 }
 
 /* Show text fallback if emoji fails to render or on Windows */
@@ -114,73 +113,47 @@
 }
 
 .language-button:hover {
-  background: #f5f5f5;
-  border-color: rgba(124, 77, 255, 0.5);
+  background: var(--bg-gray);
+  border-color: var(--border-color-primary-strong);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .language-button.active {
-  background: rgba(124, 77, 255, 0.1);
-  border-color: #7c4dff;
-  box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.2);
+  background: var(--bg-primary-medium);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--border-color-primary-light);
 }
 
 .copyright {
   text-align: center;
   margin-top: auto;
-  padding: clamp(12px, 3vw, 20px);
-  background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  padding: var(--spacing-md);
+  background-color: var(--bg-overlay-subtle);
+  border-top: var(--border-width-regular) solid var(--border-color-regular);
 }
 
 .copyright-text {
   margin: 0;
-  color: #666;
-  font-size: clamp(12px, 2vw, 14px);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
 }
 
 .copyright-disclaimer {
-  margin: 5px 0;
-  color: #888;
-  font-size: clamp(10px, 1.8vw, 12px);
-  line-height: 1.4;
+  margin: 4px 0;
+  color: var(--color-text-disabled);
+  font-size: 11px;
+  line-height: var(--line-height-normal);
 }
 
 .copyright-developer {
-  margin: 10px 0 0 0;
-  color: #555;
-  font-size: clamp(11px, 1.9vw, 13px);
+  margin: 6px 0 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
 }
 
 .copyright-developer strong {
-  color: #333;
-}
-
-a {
-  color: #0066cc;
-  text-decoration: none;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #0066cc;
-  transition: width 0.3s ease;
-}
-
-a:hover {
-  color: #004499;
-}
-
-a:hover::after {
-  width: 100%;
+  color: var(--color-text-secondary);
 }
 
 /* Responsive Design */
@@ -197,7 +170,7 @@ a:hover::after {
     order: -1;
     height: 200px;
     border-left: none;
-    border-bottom: 1px solid #ddd;
+    border-bottom: var(--border-width-thin) solid var(--border-color-light);
   }
 
   .main-content {

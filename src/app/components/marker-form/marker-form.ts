@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../services/language.service';
@@ -17,6 +17,7 @@ export interface MarkerFormData {
   imports: [CommonModule, FormsModule],
   templateUrl: './marker-form.html',
   styleUrl: './marker-form.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarkerFormComponent implements OnInit {
   @Input() x: number = 0;

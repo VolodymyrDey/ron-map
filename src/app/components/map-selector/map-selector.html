@@ -24,7 +24,7 @@
   <div class="map-dropdown">
     <div class="custom-dropdown" [class.open]="dropdownOpen" (click)="toggleDropdown($event)">
       <div class="dropdown-selected">
-        <span>{{ currentMap ? translate(currentMap.name) : translate('selectMap') + '...' }}</span>
+        <span>{{ currentMapMetadata ? translate(currentMapMetadata.name) : translate('selectMap') + '...' }}</span>
         <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>

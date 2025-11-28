@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { GAME_MAPS } from '../config/game-maps.config';
+import { GAME_MAPS_METADATA, GameMapMetadata } from '../config/game-maps-metadata.config';
+
+// Re-export for convenience
+export type { GameMapMetadata };
 
 export interface GameMarker {
   id: string;
@@ -27,6 +30,16 @@ export interface MapLayer {
   isDefault?: boolean; // Optional flag to mark the default layer to load first
 }
 
+export interface MapObjective {
+  id: string;
+  title: string;
+  description?: string;
+  type: 'hard' | 'soft';
+  completed?: boolean;
+  markerIds?: string[]; // IDs of markers associated with this objective
+  floorName?: string; // Name of the floor where objective is located
+}
+
 export interface GameMapConfig {
   id: string;
   name: string;
@@ -35,6 +48,7 @@ export interface GameMapConfig {
   markers: GameMarker[];
   description?: string;
   layers?: MapLayer[];
+  objectives?: MapObjective[];
 }
 
 @Injectable({
@@ -54,35 +68,58 @@ export class GameMapService {
   private readonly loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
-  private readonly gameMaps: GameMapConfig[] = GAME_MAPS;
+  private readonly gameMapsMetadata: GameMapMetadata[] = GAME_MAPS_METADATA;
+  private readonly loadedMaps = new Map<string, GameMapConfig>();
 
-  getAvailableMaps(): GameMapConfig[] {
-    return this.gameMaps;
+  getAvailableMaps(): GameMapMetadata[] {
+    return this.gameMapsMetadata;
   }
 
-  loadMap(mapId: string): void {
-    const map = this.gameMaps.find(m => m.id === mapId);
-    if (map) {
-      this.loadingSubject.next(true);
+  async loadMap(mapId: string): Promise<void> {
+    this.loadingSubject.next(true);
+    
+    try {
+      // Check if map is already loaded in cache
+      let map = this.loadedMaps.get(mapId);
+      
+      if (!map) {
+        // Lazy load the map configuration
+        const metadata = this.gameMapsMetadata.find(m => m.id === mapId);
+        if (!metadata) {
+          console.error(`Map with id '${mapId}' not found`);
+          this.loadingSubject.next(false);
+          return;
+        }
+        
+        // Load the map configuration directly
+        map = await metadata.loader();
+        
+        // Cache the loaded map
+        this.loadedMaps.set(mapId, map);
+      }
       
       // Simulate loading delay for better UX
-      setTimeout(() => {
-        // Find the default layer or fall back to the first layer
-        const defaultLayer = map.layers?.find(layer => layer.isDefault);
-        const defaultLayerId = defaultLayer?.id || map.layers?.[0]?.id;
-        
-        // Reset layers to default visibility
-        const resetMap = {
-          ...map,
-          layers: map.layers?.map(layer => ({
-            ...layer,
-            visible: layer.id === defaultLayerId
-          }))
-        };
-        this.currentMapSubject.next(resetMap);
-        this.markersSubject.next(resetMap.markers);
-        this.loadingSubject.next(false);
-      }, 300);
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      // Find the default layer or fall back to the first layer
+      const defaultLayer = map.layers?.find(layer => layer.isDefault);
+      const defaultLayerId = defaultLayer?.id || map.layers?.[0]?.id;
+      
+      // Reset layers to default visibility
+      const resetMap = {
+        ...map,
+        layers: map.layers?.map(layer => ({
+          ...layer,
+          visible: layer.id === defaultLayerId
+        }))
+      };
+      
+      this.currentMapSubject.next(resetMap);
+      this.markersSubject.next(resetMap.markers);
+    } catch (error) {
+      console.error(`Error loading map '${mapId}':`, error);
+    } finally {
+      this.loadingSubject.next(false);
     }
   }
 
@@ -110,11 +147,8 @@ export class GameMapService {
       const updatedMap = { ...currentMap, markers: updatedMarkers };
       this.currentMapSubject.next(updatedMap);
       
-      // Update the map reference in the gameMaps array
-      const mapIndex = this.gameMaps.findIndex(m => m.id === currentMap.id);
-      if (mapIndex !== -1) {
-        (this.gameMaps as any)[mapIndex] = updatedMap;
-      }
+      // Update the map reference in the cache
+      this.loadedMaps.set(currentMap.id, updatedMap);
     }
   }
 
@@ -134,11 +168,8 @@ export class GameMapService {
       const updatedMap = { ...currentMap, markers: updatedMarkers };
       this.currentMapSubject.next(updatedMap);
       
-      // Update the map reference in the gameMaps array
-      const mapIndex = this.gameMaps.findIndex(m => m.id === currentMap.id);
-      if (mapIndex !== -1) {
-        (this.gameMaps as any)[mapIndex] = updatedMap;
-      }
+      // Update the map reference in the cache
+      this.loadedMaps.set(currentMap.id, updatedMap);
     }
   }
 
@@ -161,11 +192,8 @@ export class GameMapService {
       const updatedMap = { ...currentMap, markers: updatedMarkers };
       this.currentMapSubject.next(updatedMap);
       
-      // Update the map reference in the gameMaps array
-      const mapIndex = this.gameMaps.findIndex(m => m.id === currentMap.id);
-      if (mapIndex !== -1) {
-        (this.gameMaps as any)[mapIndex] = updatedMap;
-      }
+      // Update the map reference in the cache
+      this.loadedMaps.set(currentMap.id, updatedMap);
     }
   }
 
@@ -185,11 +213,8 @@ export class GameMapService {
         const updatedMap = { ...currentMap, layers: updatedLayers };
         this.currentMapSubject.next(updatedMap);
         
-        // Update the map reference in the gameMaps array
-        const mapIndex = this.gameMaps.findIndex(m => m.id === currentMap.id);
-        if (mapIndex !== -1) {
-          (this.gameMaps as any)[mapIndex] = updatedMap;
-        }
+        // Update the map reference in the cache
+        this.loadedMaps.set(currentMap.id, updatedMap);
         
         this.loadingSubject.next(false);
       }, 200);

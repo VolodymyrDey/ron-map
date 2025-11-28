@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { GameMapConfig } from '../../services/game-map';
+import { GameMapMetadata, GameMapConfig } from '../../services/game-map';
 import { LanguageService } from '../../services/language.service';
 import { Language } from '../../config/languages.config';
 import { AboutModalComponent } from '../about-modal/about-modal';
@@ -11,12 +11,14 @@ import { AboutModalComponent } from '../about-modal/about-modal';
   imports: [CommonModule, FormsModule, AboutModalComponent],
   templateUrl: './map-selector.html',
   styleUrl: './map-selector.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapSelectorComponent implements OnChanges {
   @ViewChild('searchInput', { static: false }) searchInput!: ElementRef;
   
-  @Input() maps: GameMapConfig[] = [];
+  @Input() maps: GameMapMetadata[] = [];
   @Input() currentMapId: string | null = null;
+  @Input() currentMap: GameMapConfig | null = null;
   @Input() availableLanguages: Language[] = [];
   @Input() currentLanguage: string = 'en';
   
@@ -26,7 +28,7 @@ export class MapSelectorComponent implements OnChanges {
   dropdownOpen = false;
   isAboutModalOpen = false;
   searchQuery = '';
-  filteredMaps: GameMapConfig[] = [];
+  filteredMaps: GameMapMetadata[] = [];
   highlightedIndex = -1;
 
   constructor(private readonly languageService: LanguageService) {}
@@ -37,7 +39,7 @@ export class MapSelectorComponent implements OnChanges {
     }
   }
 
-  get currentMap(): GameMapConfig | null {
+  get currentMapMetadata(): GameMapMetadata | null {
     return this.maps.find(m => m.id === this.currentMapId) || null;
   }
 
@@ -72,8 +74,7 @@ export class MapSelectorComponent implements OnChanges {
       this.filteredMaps = [...this.maps];
     } else {
       this.filteredMaps = this.maps.filter(map =>
-        this.translate(map.name).toLowerCase().includes(query) ||
-        map.description?.toLowerCase().includes(query)
+        this.translate(map.name).toLowerCase().includes(query)
       );
     }
     this.highlightedIndex = -1;

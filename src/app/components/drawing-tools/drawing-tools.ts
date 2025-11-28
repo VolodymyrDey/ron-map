@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 
@@ -7,6 +7,7 @@ import { LanguageService } from '../../services/language.service';
   imports: [CommonModule],
   templateUrl: './drawing-tools.html',
   styleUrl: './drawing-tools.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrawingToolsComponent {
   @Input() isDrawingMode: boolean = false;

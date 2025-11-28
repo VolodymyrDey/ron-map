@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { DrawingLine } from '../components/map-viewer/map-viewer';
 
+export interface DrawingState {
+  isDrawing: boolean;
+  isDrawingMode: boolean;
+  isEraserMode: boolean;
+  drawingPath: { x: number; y: number }[];
+  selectedDrawColor: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,8 +18,141 @@ export class DrawingService {
   private readonly drawingsSubject = new BehaviorSubject<DrawingLine[]>([]);
   public drawings$ = this.drawingsSubject.asObservable();
 
+  private readonly drawingStateSubject = new BehaviorSubject<DrawingState>({
+    isDrawing: false,
+    isDrawingMode: false,
+    isEraserMode: false,
+    drawingPath: [],
+    selectedDrawColor: '#FF0000'
+  });
+  public drawingState$ = this.drawingStateSubject.asObservable();
+
   constructor() {
     this.loadDrawings();
+  }
+
+  // Drawing state management
+  getDrawingState(): DrawingState {
+    return this.drawingStateSubject.getValue();
+  }
+
+  setDrawingMode(enabled: boolean): void {
+    const current = this.drawingStateSubject.getValue();
+    this.drawingStateSubject.next({
+      ...current,
+      isDrawingMode: enabled,
+      isDrawing: false,
+      isEraserMode: enabled ? current.isEraserMode : false,
+      drawingPath: []
+    });
+  }
+
+  setEraserMode(enabled: boolean): void {
+    const current = this.drawingStateSubject.getValue();
+    this.drawingStateSubject.next({
+      ...current,
+      isEraserMode: enabled
+    });
+  }
+
+  setDrawColor(color: string): void {
+    const current = this.drawingStateSubject.getValue();
+    this.drawingStateSubject.next({
+      ...current,
+      selectedDrawColor: color,
+      isEraserMode: false
+    });
+  }
+
+  /**
+   * Calculate percentage coordinates relative to the displayed image
+   * @param clientX Mouse X position in viewport
+   * @param clientY Mouse Y position in viewport
+   * @param rect Bounding rectangle of the map image
+   * @returns Percentage coordinates {x, y} rounded to 2 decimal places
+   */
+  calculatePercentageCoords(
+    clientX: number,
+    clientY: number,
+    rect: DOMRect
+  ): { x: number; y: number } {
+    const sx = ((clientX - rect.left) / rect.width) * 100;
+    const sy = ((clientY - rect.top) / rect.height) * 100;
+    return {
+      x: Math.round(sx * 100) / 100,
+      y: Math.round(sy * 100) / 100
+    };
+  }
+
+  startDrawing(clientX: number, clientY: number, rect: DOMRect): void {
+    const coords = this.calculatePercentageCoords(clientX, clientY, rect);
+    const current = this.drawingStateSubject.getValue();
+    this.drawingStateSubject.next({
+      ...current,
+      isDrawing: true,
+      drawingPath: [coords]
+    });
+  }
+
+  continueDrawing(clientX: number, clientY: number, rect: DOMRect): void {
+    const current = this.drawingStateSubject.getValue();
+    if (!current.isDrawing) return;
+
+    const coords = this.calculatePercentageCoords(clientX, clientY, rect);
+    this.drawingStateSubject.next({
+      ...current,
+      drawingPath: [...current.drawingPath, coords]
+    });
+  }
+
+  finishDrawing(mapId: string, layerId: string): DrawingLine | null {
+    const current = this.drawingStateSubject.getValue();
+    
+    if (!current.isDrawing || current.drawingPath.length < 2) {
+      this.drawingStateSubject.next({
+        ...current,
+        isDrawing: false,
+        drawingPath: []
+      });
+      return null;
+    }
+
+    let result: DrawingLine | null = null;
+
+    if (current.isEraserMode) {
+      // Erase drawings
+      this.eraseDrawingsInArea(mapId, layerId, current.drawingPath, current.selectedDrawColor);
+    } else {
+      // Add new drawing
+      const newDrawing: DrawingLine = {
+        id: 'd' + Date.now(),
+        path: [...current.drawingPath],
+        color: current.selectedDrawColor,
+        layerId: layerId,
+        mapId: mapId,
+        type: 'freehand',
+        timestamp: Date.now()
+      };
+      this.addDrawing(newDrawing);
+      result = newDrawing;
+    }
+
+    this.drawingStateSubject.next({
+      ...current,
+      isDrawing: false,
+      drawingPath: []
+    });
+
+    return result;
+  }
+
+  cancelDrawing(): void {
+    const current = this.drawingStateSubject.getValue();
+    this.drawingStateSubject.next({
+      ...current,
+      isDrawing: false,
+      drawingPath: []
+    });
   }
 
   private loadDrawings(): void {

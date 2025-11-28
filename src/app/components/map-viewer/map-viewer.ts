@@ -1,7 +1,10 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GameMapConfig, GameMarker } from '../../services/game-map';
-import { getMarkerConfig } from '../../config/marker-types.config';
+import { GameMapConfig, GameMarker, MapObjective } from '../../services/game-map';
+import { MarkerRendererComponent } from '../marker-renderer/marker-renderer';
+import { CoordinateTrackerComponent } from '../coordinate-tracker/coordinate-tracker';
+import { DrawingLayerComponent } from '../drawing-layer/drawing-layer';
+import { ComputedCache } from '../../utils/memoize.util';
 
 export interface DrawingLine {
   id: string;
@@ -22,9 +25,10 @@ export interface LegendItem {
 
 @Component({
   selector: 'app-map-viewer',
-  imports: [CommonModule],
+  imports: [CommonModule, MarkerRendererComponent, CoordinateTrackerComponent, DrawingLayerComponent],
   templateUrl: './map-viewer.html',
   styleUrl: './map-viewer.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapViewerComponent {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
@@ -35,6 +39,7 @@ export class MapViewerComponent {
   @Input() panOffsetX: number = 0;
   @Input() panOffsetY: number = 0;
   @Input() markers: GameMarker[] = [];
+  @Input() objectives: MapObjective[] = [];
   @Input() drawnLines: DrawingLine[] = [];
   @Input() isDrawingMode: boolean = false;
   @Input() isEraserMode: boolean = false;
@@ -57,92 +62,30 @@ export class MapViewerComponent {
   // Coordinate tracking
   currentCoords: { x: number; y: number } | null = null;
   showCoords: boolean = false;
-  // Hover tracking for markers to show tooltip on hover for specific types
-  hoveredMarkerId: string | null = null;
+
+  // Memoized map style computation
+  private readonly mapStyleCache = new ComputedCache<any>(
+    (baseScale: number, zoomLevel: number, panOffsetX: number, panOffsetY: number, isPanning: boolean, isDrawing: boolean) => {
+      const effectiveScale = (baseScale || 1) * (zoomLevel || 1);
+      return {
+        transform: `scale(${effectiveScale}) translate(${panOffsetX / effectiveScale}px, ${panOffsetY / effectiveScale}px)`,
+        'transform-origin': 'center center',
+        transition: isPanning || isDrawing ? 'none' : 'transform 0.1s ease-out',
+        'will-change': isPanning || isDrawing ? 'transform' : 'auto'
+      };
+    }
+  );
 
   getMapStyle(): any {
-    const effectiveScale = (this.baseScale || 1) * (this.zoomLevel || 1);
-    return {
-      transform: `scale(${effectiveScale}) translate(${this.panOffsetX / effectiveScale}px, ${this.panOffsetY / effectiveScale}px)`,
-      'transform-origin': 'center center',
-      transition: this.isPanning || this.isDrawing ? 'none' : 'transform 0.1s ease-out',
-      'will-change': this.isPanning || this.isDrawing ? 'transform' : 'auto'
-    };
-  }
-
-  getMarkerStyle(marker: GameMarker): any {
-    // With image-wrapper as inline-block, the wrapper matches the image dimensions exactly
-    // So percentage positioning works correctly across all aspect ratios
-    return {
-      left: marker.x + '%',
-      top: marker.y + '%'
-    };
-  }
-
-  getMarkerClass(marker: GameMarker): any {
-    return {
-      'marker': true,
-      'marker-spawn': marker.type === 'spawn',
-      'marker-hard-objective': marker.type === 'hard_objective',
-      'marker-soft-objective': marker.type === 'soft_objective',
-      'marker-stairs-down': marker.type === 'stairs_down',
-      'marker-stairs-up': marker.type === 'stairs_up',
-      'marker-stairs-up-down': marker.type === 'stairs_up_down',
-      'marker-comms': marker.type === 'comms',
-      'marker-selected': this.selectedMarker?.id === marker.id
-    };
-  }
-
-  getMarkerIcon(marker: GameMarker): string {
-    const config = getMarkerConfig(marker.type);
-    return config.icon;
-  }
-
-  /** Return the svg URL to use for this marker, preferring an explicit
-   * per-marker svgIconUrl, then the marker type's configured svgIconUrl.
-   */
-  getMarkerSvgUrl(marker: GameMarker): string | undefined {
-    if (marker.svgIconUrl) return marker.svgIconUrl;
-    const config = getMarkerConfig(marker.type) as any;
-    return config?.svgIconUrl;
-  }
-
-  getMarkerColor(marker: GameMarker): string {
-    // Use custom color if provided, otherwise use config color
-    if (marker.color) {
-      return marker.color;
-    }
-    const config = getMarkerConfig(marker.type);
-    return config.color;
-  }
-
-  getMarkerIconColor(marker: GameMarker): string {
-    const config = getMarkerConfig(marker.type);
-    return config.iconColor;
-  }
-
-  getVisibleMarkers(): GameMarker[] {
-    if (!this.currentMap) return [];
-    
-    const visibleLayerIds = new Set(
-      this.currentMap.layers?.filter(l => l.visible).map(l => l.id) || []
+    // Use memoized cache to avoid recomputing styles on every change detection
+    return this.mapStyleCache.get(
+      this.baseScale,
+      this.zoomLevel,
+      this.panOffsetX,
+      this.panOffsetY,
+      this.isPanning,
+      this.isDrawing
     );
-    const visibleLegendTypes = new Set(
-      this.legendItems.filter(item => item.visible).map(item => item.id)
-    );
-    
-    return this.markers.filter(marker => {
-      const layerVisible = !marker.layerId || visibleLayerIds.has(marker.layerId);
-      const typeVisible = visibleLegendTypes.has(marker.type);
-      return layerVisible && typeVisible;
-    });
-  }
-
-  getDrawingPathString(path: { x: number; y: number }[]): string {
-    if (path.length === 0) return '';
-    return path.map((point, index) => 
-      `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
-    ).join(' ');
   }
 
   getCursor(): string {
@@ -174,45 +117,8 @@ export class MapViewerComponent {
     this.mapClick.emit({ x: Math.round(percentX * 100) / 100, y: Math.round(percentY * 100) / 100 });
   }
 
-  selectMarker(marker: GameMarker, event: MouseEvent): void {
-    event.stopPropagation();
-    event.preventDefault();
+  onMarkerClickFromRenderer(marker: GameMarker): void {
     this.markerClick.emit(marker);
-  }
-
-  /** Click wrapper to prevent selection for non-interactive types (stairs). */
-  onMarkerClick(marker: GameMarker, event: Event): void {
-    if (marker.type === 'stairs_down' || marker.type === 'stairs_up' || 'stairs_up_down' || marker.type === 'comms') {
-      event.stopPropagation();
-  event.preventDefault();
-      return;
-    }
-    // For keyboard events, we still want to call selectMarker with an object
-    // that matches MouseEvent signature for downstream handlers; pass a dummy
-    // MouseEvent when needed.
-    if ((event as KeyboardEvent).key) {
-      const fakeMouse = new MouseEvent('click');
-      this.selectMarker(marker, fakeMouse);
-    } else {
-      this.selectMarker(marker, event as unknown as MouseEvent);
-    }
-  }
-
-  onMarkerHover(marker: GameMarker): void {
-    if (marker.type === 'stairs_down' || marker.type === 'stairs_up' || 'stairs_up_down' || marker.type === 'comms') {
-      this.hoveredMarkerId = marker.id;
-    }
-  }
-
-  onMarkerHoverLeave(): void {
-    this.hoveredMarkerId = null;
-  }
-
-  shouldShowTooltip(marker: GameMarker): boolean {
-    // Show tooltip if selected, or if hovering on a stairs marker
-    if (this.selectedMarker?.id === marker.id) return true;
-    if ((marker.type === 'stairs_down' || marker.type === 'stairs_up' || 'stairs_up_down' || marker.type === 'comms') && this.hoveredMarkerId === marker.id) return true;
-    return false;
   }
 
   onMouseDown(event: MouseEvent): void {
@@ -262,5 +168,33 @@ export class MapViewerComponent {
   onMapMouseLeave(): void {
     this.showCoords = false;
     this.currentCoords = null;
+  }
+
+  /**
+   * Get visible markers, filtering out markers associated with completed objectives
+   * (excluding obj_order and obj_rescue which are always visible)
+   */
+  get visibleMarkers(): GameMarker[] {
+    if (!this.objectives || this.objectives.length === 0) {
+      return this.markers;
+    }
+
+    // Get IDs of markers that should be hidden (from completed objectives)
+    const hiddenMarkerIds = new Set<string>();
+    
+    this.objectives.forEach(objective => {
+      // Skip obj_order and obj_rescue - their markers are always visible
+      if (objective.id === 'obj_order' || objective.id === 'obj_rescue') {
+        return;
+      }
+      
+      // If objective is completed and has associated markers, hide them
+      if (objective.completed && objective.markerIds) {
+        objective.markerIds.forEach(markerId => hiddenMarkerIds.add(markerId));
+      }
+    });
+
+    // Filter out hidden markers
+    return this.markers.filter(marker => !hiddenMarkerIds.has(marker.id));
   }
 }

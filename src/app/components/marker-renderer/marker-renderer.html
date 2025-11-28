@@ -1,0 +1,35 @@
+<div class="markers-container">
+  @for (marker of getVisibleMarkers(); track marker.id) {
+    <div class="marker-wrapper" 
+      [ngClass]="getMarkerClass(marker)" 
+      [ngStyle]="getMarkerStyle(marker)"
+      (click)="onMarkerClick(marker, $event)"
+      (keydown)="($event.key === 'Enter' || $event.key === ' ') && onMarkerClick(marker, $event)"
+      (mouseenter)="onMarkerHover(marker)"
+      (mouseleave)="onMarkerHoverLeave()">
+      
+      <div class="marker-icon" 
+        [style.backgroundColor]="getMarkerColor(marker)">
+        @if (getMarkerSvgUrl(marker)) {
+          <img class="marker-svg" [src]="getMarkerSvgUrl(marker)" [alt]="marker.title" draggable="false" />
+        } @else {
+          <span class="material-icons" 
+            [style.color]="getMarkerIconColor(marker)">
+            {{ getMarkerIcon(marker) }}
+          </span>
+        }
+      </div>
+      
+      <div class="marker-label">{{ marker.title }}</div>
+
+      @if (shouldShowTooltip(marker)) {
+        <div class="marker-tooltip" [class.no-description]="!marker.description">
+          <h4>{{ marker.title }}</h4>
+          @if (marker.description) {
+            <p>{{ marker.description }}</p>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

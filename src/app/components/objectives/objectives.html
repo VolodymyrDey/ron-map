@@ -1,0 +1,103 @@
+<div class="objectives-panel" [class.collapsed]="!isExpanded">
+  <div class="objectives-header">
+    <div class="header-content">
+      <span class="material-icons objectives-icon">assignment</span>
+      <h3>{{ translate('objectives') || 'Objectives' }}</h3>
+      @if (isExpanded && totalObjectives > 0) {
+        <span class="objectives-count">({{ completedObjectives }}/{{ totalObjectives }})</span>
+      }
+    </div>
+    <button class="toggle-btn" (click)="toggleExpanded()" [attr.aria-label]="isExpanded ? 'Collapse objectives' : 'Expand objectives'">
+      <span class="material-icons">{{ isExpanded ? 'expand_less' : 'expand_more' }}</span>
+    </button>
+  </div>
+
+  @if (isExpanded) {
+    <div class="objectives-content">
+      @if (hardObjectives.length > 0) {
+        <div class="objectives-section">
+          <div class="section-header" (click)="toggleHardSection($event)">
+            <div class="section-header-content">
+              <span class="material-icons section-icon hard">place</span>
+              <h4>{{ translate('hard_objectives') || 'Hard Objectives' }}</h4>
+            </div>
+            <button class="section-toggle-btn" [attr.aria-label]="isHardSectionExpanded ? 'Collapse hard objectives' : 'Expand hard objectives'">
+              <span class="material-icons">{{ isHardSectionExpanded ? 'expand_less' : 'expand_more' }}</span>
+            </button>
+          </div>
+          @if (isHardSectionExpanded) {
+          <ul class="objectives-list">
+            @for (objective of hardObjectives; track objective.id) {
+              <li class="objective-item" 
+                  [class.completed]="objective.completed"
+                  (click)="toggleObjective(objective.id, $event)"
+                  [attr.title]="'Click to mark as ' + (objective.completed ? 'incomplete' : 'complete')">
+                <div class="objective-marker">
+                  <span class="material-icons">{{ objective.completed ? 'check_circle' : 'radio_button_unchecked' }}</span>
+                </div>
+                <div class="objective-details">
+                  <div class="objective-title">
+                    {{ objective.title }}
+                    @if (objective.floorName && objective.id !== 'obj_order' && objective.id !== 'obj_rescue') {
+                      <span class="objective-floor">{{ objective.floorName }}</span>
+                    }
+                  </div>
+                  @if (objective.description) {
+                    <div class="objective-description">{{ objective.description }}</div>
+                  }
+                </div>
+              </li>
+            }
+          </ul>
+          }
+        </div>
+      }
+
+      @if (softObjectives.length > 0) {
+        <div class="objectives-section">
+          <div class="section-header" (click)="toggleSoftSection($event)">
+            <div class="section-header-content">
+              <span class="material-icons section-icon soft">search</span>
+              <h4>{{ translate('soft_objectives') || 'Soft Objectives' }}</h4>
+            </div>
+            <button class="section-toggle-btn" [attr.aria-label]="isSoftSectionExpanded ? 'Collapse soft objectives' : 'Expand soft objectives'">
+              <span class="material-icons">{{ isSoftSectionExpanded ? 'expand_less' : 'expand_more' }}</span>
+            </button>
+          </div>
+          @if (isSoftSectionExpanded) {
+          <ul class="objectives-list">
+            @for (objective of softObjectives; track objective.id) {
+              <li class="objective-item" 
+                  [class.completed]="objective.completed"
+                  (click)="toggleObjective(objective.id, $event)"
+                  [attr.title]="'Click to mark as ' + (objective.completed ? 'incomplete' : 'complete')">
+                <div class="objective-marker">
+                  <span class="material-icons">{{ objective.completed ? 'check_circle' : 'radio_button_unchecked' }}</span>
+                </div>
+                <div class="objective-details">
+                  <div class="objective-title">
+                    {{ objective.title }}
+                    @if (objective.floorName && objective.id !== 'obj_order' && objective.id !== 'obj_rescue') {
+                      <span class="objective-floor">{{ objective.floorName }}</span>
+                    }
+                  </div>
+                  @if (objective.description) {
+                    <div class="objective-description">{{ objective.description }}</div>
+                  }
+                </div>
+              </li>
+            }
+          </ul>
+          }
+        </div>
+      }
+
+      @if (totalObjectives === 0) {
+        <div class="no-objectives">
+          <span class="material-icons">info</span>
+          <p>{{ translate('no_objectives') || 'No objectives available for this map' }}</p>
+        </div>
+      }
+    </div>
+  }
+</div>
