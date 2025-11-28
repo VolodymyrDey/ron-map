@@ -7,8 +7,8 @@ export interface GameMarker {
   x: number;
   y: number;
   title: string;
-  description: string;
-  type: 'spawn' | 'hard_objective' | 'soft_objective';
+  description?: string;
+  type: 'spawn' | 'hard_objective' | 'soft_objective' | 'stairs_down' | 'stairs_up' | 'comms';
   color?: string;
   icon?: string;
   /** Optional URL to a custom SVG image to use as the marker icon. If provided,
@@ -30,7 +30,6 @@ export interface MapLayer {
 export interface GameMapConfig {
   id: string;
   name: string;
-  imageUrl: string;
   width: number;
   height: number;
   markers: GameMarker[];

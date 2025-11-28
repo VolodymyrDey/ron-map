@@ -82,6 +82,14 @@ export const MARKER_TYPE_CONFIGS: MarkerTypeConfig[] = [
     color: '#607D8B',                // Blue Grey
     iconColor: '#ffffff',            // White
     label: 'Stairs Down'
+  },
+  {
+    type: 'comms',
+    icon: 'mobile_speaker', 
+    svgIconUrl: '/svg/comms.svg',
+    color: '#607D8B',
+    iconColor: '#ffffff',
+    label: 'Stairs Down'
   }
 ];
 

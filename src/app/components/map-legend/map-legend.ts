@@ -22,7 +22,7 @@ export class MapLegendComponent {
   @Output() showAll = new EventEmitter<void>();
   @Output() hideAll = new EventEmitter<void>();
   // Types to hide from the legend UI
-  private readonly hiddenLegendTypes = new Set<string>(['stairs_down', 'stairs_up']);
+  private readonly hiddenLegendTypes = new Set<string>(['stairs_down', 'stairs_up', 'comms']);
 
   // Legend items after filtering out hidden types
   get filteredLegendItems(): LegendItem[] {

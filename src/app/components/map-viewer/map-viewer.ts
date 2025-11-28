@@ -87,6 +87,7 @@ export class MapViewerComponent {
       'marker-soft-objective': marker.type === 'soft_objective',
       'marker-stairs-down': marker.type === 'stairs_down',
       'marker-stairs-up': marker.type === 'stairs_up',
+      'marker-comms': marker.type === 'comms',
       'marker-selected': this.selectedMarker?.id === marker.id
     };
   }
@@ -180,7 +181,7 @@ export class MapViewerComponent {
    */
   onMapImageClick(event: Event, layerId: string): void {
     // Debug: log click entry so we can trace whether the click fired
-    console.debug('[MapViewer] onMapImageClick fired', { eventType: event.type, layerId });
+    // console.debug('[MapViewer] onMapImageClick fired', { eventType: event.type, layerId });
     event.stopPropagation();
 
     // find the actual image element clicked
@@ -240,7 +241,7 @@ export class MapViewerComponent {
 
   onMapImagePointerDown(event: PointerEvent): void {
     // Debug: log pointerdown so we can confirm pointer events are received
-    console.debug('[MapViewer] onMapImagePointerDown', { eventType: event.type, pointerType: (event as any).pointerType });
+    // console.debug('[MapViewer] onMapImagePointerDown', { eventType: event.type, pointerType: (event as any).pointerType });
     // Stop propagation so parent panning handlers don't start. We avoid
     // preventDefault() to allow the subsequent click event to fire.
     event.stopPropagation();
@@ -250,7 +251,7 @@ export class MapViewerComponent {
     // Called on mousedown/touchstart to ensure parent handlers don't
     // initiate panning. We only stop propagation here; do not call
     // preventDefault() so that the overlay's click event still fires.
-    console.debug('[MapViewer] onMapImageMouseDown', { type: (event as any).type });
+    // console.debug('[MapViewer] onMapImageMouseDown', { type: (event as any).type });
     (event as Event).stopPropagation();
   }
 
@@ -262,7 +263,7 @@ export class MapViewerComponent {
 
   /** Click wrapper to prevent selection for non-interactive types (stairs). */
   onMarkerClick(marker: GameMarker, event: Event): void {
-    if (marker.type === 'stairs_down' || marker.type === 'stairs_up') {
+    if (marker.type === 'stairs_down' || marker.type === 'stairs_up' || marker.type === 'comms') {
       event.stopPropagation();
   event.preventDefault();
       return;
@@ -279,7 +280,7 @@ export class MapViewerComponent {
   }
 
   onMarkerHover(marker: GameMarker): void {
-    if (marker.type === 'stairs_down' || marker.type === 'stairs_up') {
+    if (marker.type === 'stairs_down' || marker.type === 'stairs_up' || marker.type === 'comms') {
       this.hoveredMarkerId = marker.id;
     }
   }
@@ -291,12 +292,12 @@ export class MapViewerComponent {
   shouldShowTooltip(marker: GameMarker): boolean {
     // Show tooltip if selected, or if hovering on a stairs marker
     if (this.selectedMarker?.id === marker.id) return true;
-    if ((marker.type === 'stairs_down' || marker.type === 'stairs_up') && this.hoveredMarkerId === marker.id) return true;
+    if ((marker.type === 'stairs_down' || marker.type === 'stairs_up' || marker.type === 'comms') && this.hoveredMarkerId === marker.id) return true;
     return false;
   }
 
   onMouseDown(event: MouseEvent): void {
-    console.debug('[MapViewer] onMouseDown emitted', { type: event.type, button: event.button, clientX: event.clientX, clientY: event.clientY });
+    // console.debug('[MapViewer] onMouseDown emitted', { type: event.type, button: event.button, clientX: event.clientX, clientY: event.clientY });
     this.mouseDown.emit(event);
   }
 
