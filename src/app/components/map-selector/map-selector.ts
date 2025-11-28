@@ -1,14 +1,14 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { GameMapMetadata, GameMapConfig } from '../../services/game-map';
 import { LanguageService } from '../../services/language.service';
 import { Language } from '../../config/languages.config';
-import { AboutModalComponent } from '../about-modal/about-modal';
 
 @Component({
   selector: 'app-map-selector',
-  imports: [CommonModule, FormsModule, AboutModalComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './map-selector.html',
   styleUrl: './map-selector.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -26,12 +26,14 @@ export class MapSelectorComponent implements OnChanges {
   @Output() languageChanged = new EventEmitter<string>();
 
   dropdownOpen = false;
-  isAboutModalOpen = false;
   searchQuery = '';
   filteredMaps: GameMapMetadata[] = [];
   highlightedIndex = -1;
 
-  constructor(private readonly languageService: LanguageService) {}
+  constructor(
+    private readonly languageService: LanguageService,
+    private readonly router: Router
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['maps']) {
@@ -47,12 +49,8 @@ export class MapSelectorComponent implements OnChanges {
     return this.languageService.translate(key);
   }
 
-  openAboutModal(): void {
-    this.isAboutModalOpen = true;
-  }
-
-  closeAboutModal(): void {
-    this.isAboutModalOpen = false;
+  openAboutPage(): void {
+    this.router.navigate(['/about']);
   }
 
   toggleDropdown(event: Event): void {
