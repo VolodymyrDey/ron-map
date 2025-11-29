@@ -34,7 +34,6 @@ export const MAP_SULLIVANS_SLOPE: GameMapConfig = {
   ],
   objectives: [
     { id: 'obj_order', title: 'Bring order to chaos.', description: 'Arrest or neutralize any contact at the scene', type: 'hard' },
-    { id: 'obj_rescue', title: 'Rescue all civilians.', description: 'Detain any unarmed contacts at the scene', type: 'hard' },
     { id: 'obj1', title: 'Arrest Gerard Scott', description: 'Apprehend and secure the prime suspect - Gerard Scott. He is usually located somewhere inside apartment and wears armored suite', type: 'hard', markerIds: ['hard_objective1'], floorName: 'Ground Floor' },
     { id: 'obj2', title: 'Report Stolen Federal Documents', description: 'Locate missing federal documents, found on the suspect\'s property', type: 'soft', markerIds: ['soft_objective1'], floorName: 'First Floor' }
   ]
