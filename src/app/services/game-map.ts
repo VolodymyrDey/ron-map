@@ -19,6 +19,8 @@ export interface GameMarker {
    * or absolute URLs. Example: '/assets/icons/custom-flag.svg' */
   svgIconUrl?: string;
   layerId?: string;
+  /** Array of marker IDs that this marker connects to. Used for stairs navigation. */
+  connections?: string[];
 }
 
 export interface MapLayer {
@@ -68,8 +70,12 @@ export class GameMapService {
   private readonly loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
+  private readonly pulsingMarkerSubject = new BehaviorSubject<string | null>(null);
+  public pulsingMarker$ = this.pulsingMarkerSubject.asObservable();
+
   private readonly gameMapsMetadata: GameMapMetadata[] = GAME_MAPS_METADATA;
   private readonly loadedMaps = new Map<string, GameMapConfig>();
+  private pulsingTimeout: any = null;
 
   getAvailableMaps(): GameMapMetadata[] {
     return this.gameMapsMetadata;
@@ -219,5 +225,41 @@ export class GameMapService {
         this.loadingSubject.next(false);
       }, 200);
     }
+  }
+
+  // Stairs Navigation
+  navigateToConnectedMarker(targetMarkerId: string): void {
+    const currentMarkers = this.markersSubject.getValue();
+    const targetMarker = currentMarkers.find(m => m.id === targetMarkerId);
+    
+    if (targetMarker && targetMarker.layerId) {
+      // Switch to the target marker's layer
+      this.selectLayer(targetMarker.layerId);
+      
+      // Start pulsing the target marker after layer switch
+      setTimeout(() => {
+        this.startPulsingMarker(targetMarkerId);
+      }, 250);
+    }
+  }
+
+  startPulsingMarker(markerId: string): void {
+    // Clear any existing pulsing timeout
+    if (this.pulsingTimeout) {
+      clearTimeout(this.pulsingTimeout);
+    }
+    
+    // Set the pulsing marker
+    this.pulsingMarkerSubject.next(markerId);
+    
+    // Stop pulsing after 2 seconds
+    this.pulsingTimeout = setTimeout(() => {
+      this.pulsingMarkerSubject.next(null);
+      this.pulsingTimeout = null;
+    }, 2000);
+  }
+
+  getPulsingMarker(): string | null {
+    return this.pulsingMarkerSubject.getValue();
   }
 }
