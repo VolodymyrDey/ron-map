@@ -40,32 +40,14 @@
            [style.cursor]="getCursor()">
 
         <!-- Drawing Layer SVG moved here so it covers the whole map-canvas -->
-        <svg class="drawing-layer" viewBox="0 0 100 100" preserveAspectRatio="none" [style.pointer-events]="isDrawingMode ? 'none' : 'auto'">
-          <!-- Completed lines -->
-          @for (line of drawnLines; track $index) {
-            <path 
-              [attr.d]="getDrawingPathString(line.path)" 
-              [attr.stroke]="line.color" 
-              stroke-width="0.6" 
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round" 
-            />
-          }
-          <!-- Current drawing path -->
-          @if (isDrawing && drawingPath.length > 0) {
-            <path 
-              [attr.d]="getDrawingPathString(drawingPath)" 
-              [attr.stroke]="isEraserMode ? '#FF0000' : selectedDrawColor" 
-              [attr.stroke-width]="isEraserMode ? '1.5' : '0.6'"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              [attr.opacity]="isEraserMode ? '0.5' : '0.7'"
-              [attr.stroke-dasharray]="isEraserMode ? '2,2' : 'none'"
-            />
-          }
-        </svg>
+        <app-drawing-layer 
+          [drawnLines]="drawnLines"
+          [isDrawing]="isDrawing"
+          [isDrawingMode]="isDrawingMode"
+          [isEraserMode]="isEraserMode"
+          [drawingPath]="drawingPath"
+          [selectedDrawColor]="selectedDrawColor">
+        </app-drawing-layer>
 
         <!-- Layers Container with overlays -->
         <div class="layers-container">
@@ -87,39 +69,13 @@
             
 
             <!-- Markers Container -->
-            <div class="markers-container">
-              @for (marker of getVisibleMarkers(); track marker.id) {
-       <div class="marker-wrapper" 
-         [ngClass]="getMarkerClass(marker)" 
-         [ngStyle]="getMarkerStyle(marker)"
-                     (click)="onMarkerClick(marker, $event)"
-                     (keydown)="($event.key === 'Enter' || $event.key === ' ') && onMarkerClick(marker, $event)"
-         (mouseenter)="onMarkerHover(marker)"
-         (mouseleave)="onMarkerHoverLeave()">
-                  <div class="marker-icon" 
-                       [style.backgroundColor]="getMarkerColor(marker)">
-                    @if (getMarkerSvgUrl(marker)) {
-                      <img class="marker-svg" [src]="getMarkerSvgUrl(marker)" [alt]="marker.title" draggable="false" />
-                    } @else {
-                      <span class="material-icons" 
-                            [style.color]="getMarkerIconColor(marker)">
-                        {{ getMarkerIcon(marker) }}
-                      </span>
-                    }
-                  </div>
-                  <div class="marker-label">{{ marker.title }}</div>
-
-                  @if (shouldShowTooltip(marker)) {
-                    <div class="marker-tooltip" [class.no-description]="!marker.description">
-                      <h4>{{ marker.title }}</h4>
-                      @if (marker.description) {
-                        <p>{{ marker.description }}</p>
-                      }
-                    </div>
-                  }
-                </div>
-              }
-            </div>
+            <app-marker-renderer
+              [markers]="visibleMarkers"
+              [currentMapLayers]="currentMap.layers || []"
+              [legendItems]="legendItems"
+              [selectedMarker]="selectedMarker"
+              (markerClick)="onMarkerClickFromRenderer($event)">
+            </app-marker-renderer>
           </div>
         </div>
       </div>
@@ -134,13 +90,8 @@
   }
 
   <!-- Coordinate Display (fixed to viewport) -->
-  @if (showCoords && currentCoords) {
-    <div class="coordinate-display" aria-hidden="true">
-      <span class="coord-label">X:</span>
-      <span class="coord-value">{{ currentCoords.x }}</span>
-      <span class="coord-separator">|</span>
-      <span class="coord-label">Y:</span>
-      <span class="coord-value">{{ currentCoords.y }}</span>
-    </div>
-  }
+  <app-coordinate-tracker
+    [currentCoords]="currentCoords"
+    [showCoords]="showCoords">
+  </app-coordinate-tracker>
 </div>

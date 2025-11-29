@@ -1,34 +1,34 @@
 .drawing-tools {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  border-left: 4px solid #28a745;
-  margin-bottom: 1rem;
+  background: var(--bg-white-overlay);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  border-left: var(--border-width-heavy) solid var(--color-success);
+  margin: 0 var(--spacing-md);
 }
 
 .drawing-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-xs);
 }
 
 .drawing-tools h4 {
   margin: 0;
-  color: white;
-  font-weight: 600;
-  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-md);
 }
 
 .drawing-toggle-btn {
-  width: 36px;
-  height: 36px;
-  padding: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
+  width: var(--btn-icon-md);
+  height: var(--btn-icon-md);
+  padding: 4px;
+  background: var(--bg-white-overlay);
+  border: var(--border-width-regular) solid var(--border-color-medium);
+  border-radius: var(--border-radius-md);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,85 +37,85 @@
 .drawing-toggle-btn svg {
   width: 100%;
   height: 100%;
-  stroke: rgba(255, 255, 255, 0.8);
+  stroke: var(--color-text-medium);
 }
 
 .drawing-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: var(--bg-white-overlay-strong);
+  border-color: var(--border-color-strong);
 }
 
 .drawing-toggle-btn:hover svg {
-  stroke: white;
+  stroke: var(--color-text-primary);
 }
 
 .drawing-toggle-btn.active {
   background: rgba(40, 167, 69, 0.3);
-  border-color: #28a745;
+  border-color: var(--color-success);
 }
 
 .drawing-toggle-btn.active svg {
-  stroke: #28a745;
+  stroke: var(--color-success);
 }
 
 .drawing-content {
-  margin-top: 0.75rem;
+  margin-top: var(--spacing-sm);
 }
 
 .color-picker {
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--spacing-sm);
 }
 
 .color-picker label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem;
-  font-weight: 500;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
 }
 
 .color-options {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
   flex-wrap: wrap;
 }
 
 .color-btn {
-  width: 32px;
-  height: 32px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
+  width: var(--btn-icon-md);
+  height: var(--btn-icon-md);
+  border: var(--border-width-thick) solid var(--border-color-medium);
+  border-radius: var(--border-radius-full);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
   padding: 0;
 }
 
 .color-btn:hover {
   transform: scale(1.1);
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: var(--border-color-bright);
 }
 
 .color-btn.selected {
-  border-color: white;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  border-color: var(--color-text-primary);
+  box-shadow: 0 0 10px var(--border-color-strong);
   transform: scale(1.15);
 }
 
 .clear-drawings-btn {
   width: 100%;
-  padding: 0.6rem 1rem;
-  background: rgba(220, 53, 69, 0.2);
-  border: 2px solid rgba(220, 53, 69, 0.5);
-  border-radius: 6px;
-  color: #ff6b6b;
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: rgba(var(--color-danger-rgb), 0.2);
+  border: var(--border-width-regular) solid var(--border-color-danger);
+  border-radius: var(--border-radius-md);
+  color: var(--color-danger-light);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .clear-drawings-btn svg {
@@ -125,8 +125,8 @@
 }
 
 .clear-drawings-btn:hover:not(:disabled) {
-  background: rgba(220, 53, 69, 0.3);
-  border-color: #dc3545;
+  background: rgba(var(--color-danger-rgb), 0.3);
+  border-color: var(--color-danger);
   color: #ff8080;
 }
 
@@ -137,25 +137,25 @@
 
 .tool-selector {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
 }
 
 .tool-btn {
   flex: 1;
-  padding: 0.6rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.85rem;
-  font-weight: 500;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-white-overlay-subtle);
+  border: var(--border-width-regular) solid var(--border-color-regular);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .tool-btn svg {
@@ -165,19 +165,19 @@
 }
 
 .tool-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--bg-white-overlay);
+  border-color: var(--border-color-medium);
+  color: var(--color-text-secondary);
 }
 
 .tool-btn.active {
   background: rgba(40, 167, 69, 0.2);
-  border-color: #28a745;
-  color: #28a745;
+  border-color: var(--color-success);
+  color: var(--color-success);
 }
 
 .tool-btn.eraser-btn.active {
-  background: rgba(220, 53, 69, 0.2);
-  border-color: #dc3545;
-  color: #ff6b6b;
+  background: rgba(var(--color-danger-rgb), 0.2);
+  border-color: var(--color-danger);
+  color: var(--color-danger-light);
 }

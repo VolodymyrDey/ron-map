@@ -1,0 +1,26 @@
+<svg class="drawing-layer" viewBox="0 0 100 100" preserveAspectRatio="none" [style.pointer-events]="isDrawingMode ? 'none' : 'auto'">
+  <!-- Completed lines -->
+  @for (line of drawnLines; track $index) {
+    <path 
+      [attr.d]="line.path | drawingPath" 
+      [attr.stroke]="line.color" 
+      stroke-width="0.6" 
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round" 
+    />
+  }
+  <!-- Current drawing path -->
+  @if (isDrawing && drawingPath.length > 0) {
+    <path 
+      [attr.d]="drawingPath | drawingPath" 
+      [attr.stroke]="isEraserMode ? '#FF0000' : selectedDrawColor" 
+      [attr.stroke-width]="isEraserMode ? '1.5' : '0.6'"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      [attr.opacity]="isEraserMode ? '0.5' : '0.7'"
+      [attr.stroke-dasharray]="isEraserMode ? '2,2' : 'none'"
+    />
+  }
+</svg>

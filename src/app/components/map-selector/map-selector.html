@@ -2,7 +2,7 @@
   <header class="header">
     <img src="./ReadyOrMaps.png" alt="Ready or Maps Logo">
     <h2>Interactive Map</h2>
-    <button class="about-btn" (click)="openAboutModal()">
+    <button class="about-btn" (click)="openAboutPage()">
       <span class="material-symbols-outlined">info_i</span>
       <span class="text">About</span>
     </button>
@@ -24,7 +24,7 @@
   <div class="map-dropdown">
     <div class="custom-dropdown" [class.open]="dropdownOpen" (click)="toggleDropdown($event)">
       <div class="dropdown-selected">
-        <span>{{ currentMap ? translate(currentMap.name) : translate('selectMap') + '...' }}</span>
+        <span>{{ currentMapMetadata ? translate(currentMapMetadata.name) : translate('selectMap') + '...' }}</span>
         <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
@@ -54,8 +54,4 @@
       }
     </div>
   </div>
-
-  @if (isAboutModalOpen) {
-  <app-about-modal (close)="closeAboutModal()"></app-about-modal>
-  }
 </div>

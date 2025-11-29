@@ -1,7 +1,7 @@
 <div class="game-map-container">
   <div class="main-content">
     <app-map-viewer [baseScale]="0.75" [currentMap]="currentMap" [zoomLevel]="zoomLevel" [panOffsetX]="panOffsetX"
-      [panOffsetY]="panOffsetY" [markers]="markers" [drawnLines]="drawnLines" [isDrawingMode]="isDrawingMode"
+      [panOffsetY]="panOffsetY" [markers]="markers" [objectives]="currentMap?.objectives || []" [drawnLines]="drawnLines" [isDrawingMode]="isDrawingMode"
       [isEraserMode]="isEraserMode" [selectedMarker]="selectedMarker" [selectedDrawColor]="selectedDrawColor"
       [legendItems]="legendItems" [isPanning]="isPanning" [isDrawing]="isDrawing" [drawingPath]="drawingPath"
       [isLoading]="isLoading" (mapClick)="onMapClick($event)" (markerClick)="onMarkerClick($event)"
@@ -9,6 +9,8 @@
       (layerSelected)="onLayerSelected($event)"></app-map-viewer>
 
     @if (currentMap) {
+    <app-objectives [objectives]="currentMap.objectives || []" [mapName]="currentMap.name" (objectiveToggled)="onObjectiveToggled($event)"></app-objectives>
+    
     <app-zoom-controls [zoomLevel]="zoomLevel" [minZoom]="minZoom" [maxZoom]="maxZoom" (zoomIn)="onZoomIn()"
       (zoomOut)="onZoomOut()" (resetZoom)="onResetZoom()"></app-zoom-controls>
     }
@@ -16,7 +18,7 @@
 
   <div class="sidebar">
     <app-map-selector [maps]="availableMaps" [currentMapId]="currentMap?.id || null"
-      [availableLanguages]="availableLanguages" [currentLanguage]="currentLanguage"
+      [currentMap]="currentMap" [availableLanguages]="availableLanguages" [currentLanguage]="currentLanguage"
       (mapSelected)="onMapSelected($event)" (languageChanged)="onLanguageChanged($event)"></app-map-selector>
 
     @if (currentMap) {

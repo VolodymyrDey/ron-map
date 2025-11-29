@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 
@@ -14,6 +14,7 @@ export interface MapLayer {
   imports: [CommonModule],
   templateUrl: './layer-selector.html',
   styleUrl: './layer-selector.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayerSelectorComponent {
   @Input() layers: MapLayer[] = [];

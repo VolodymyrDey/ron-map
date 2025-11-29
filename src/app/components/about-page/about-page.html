@@ -1,7 +1,10 @@
-<div class="modal-overlay" (click)="onClose()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <button class="close-button" (click)="onClose()" title="Close">&times;</button>
+<div class="about-page">
+  <button class="back-button" (click)="goBack()" title="Back to Maps">
+    <span class="material-symbols-outlined">arrow_back</span>
+    <span>Back to Maps</span>
+  </button>
 
+  <div class="page-content">
     <div class="container">
       <div class="logo-container">
         <img src="./ReadyOrMaps.png" alt="Ready or Maps Logo" class="logo">
@@ -40,6 +43,7 @@
             <li><strong>Interactive Maps</strong>: Browse detailed maps with zoom and pan functionality</li>
             <li><strong>Route Planning</strong>: You can draw lines and plan each teammeber route. After just take
               screenshot and share with friends.</li>
+            <li><strong>Objectives</strong>: You can see section with hard/soft objectives to each map and check what you need to do for S rank and track your progress</li>
             <li><strong>Soft objectives details and description</strong>: Detailed location of all soft objectives on
               available maps</li>
             <li><strong>Some achivement details</strong>: Location of all comms on Survilian's Slope</li>
@@ -50,7 +54,9 @@
         <h2>🔜 Coming Soon</h2>
         <div class="coming-soon-list">
           <ul>
-            <li><strong>Main objectives</strong>: Add section with hard/soft objectives to each maps</li>
+            <li><strong>Remaining maps</strong>: Adding remaining maps as soon as possible</li>
+            <li><strong>Level navigation</strong>: Will add ability to switch to next floor on map were this stair locating</li>
+            <li><strong>Additional advices</strong>: Add advices for new players for each map</li>
             <li><strong>Items counts</strong>: Implement count of markers on each level and show near level marker</li>
           </ul>
         </div>

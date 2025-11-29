@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { getMarkerConfig } from '../../config/marker-types.config';
@@ -15,6 +15,7 @@ export interface LegendItem {
   imports: [CommonModule],
   templateUrl: './map-legend.html',
   styleUrl: './map-legend.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapLegendComponent {
   @Input() legendItems: LegendItem[] = [];

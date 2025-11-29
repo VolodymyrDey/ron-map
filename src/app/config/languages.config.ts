@@ -129,5 +129,23 @@ export const TRANSLATIONS: Translations = {
   'cancel': {
     'en': 'Cancel',
     'uk': 'Скасувати'
+  },
+  
+  // Objectives
+  'objectives': {
+    'en': 'Objectives',
+    'uk': 'Завдання'
+  },
+  'hard_objectives': {
+    'en': 'Hard Objectives',
+    'uk': 'Основні завдання'
+  },
+  'soft_objectives': {
+    'en': 'Soft Objectives',
+    'uk': 'Приховані завдання'
+  },
+  'no_objectives': {
+    'en': 'No objectives available for this map',
+    'uk': 'Для цієї карти немає доступних завдань'
   }
 };

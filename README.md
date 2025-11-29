@@ -20,6 +20,7 @@ If you're able to create high-quality floor plans for existing or missing levels
 
 - **Interactive Maps**: Browse detailed maps with zoom and pan functionality
 - **Route Planning**: You can draw lines and plan each teammeber route. After just take screenshot and share wqith friends.
+- **Objectives**: You can see section with hard/soft objectives to each map and check what you need to do for S rank and track your progress
 - **Soft objectives details and description**: Detailed location of all soft objectives on available maps
 - **Some achivement details**: Location of all comms on Survilian's Slope 
 
@@ -27,7 +28,9 @@ If you're able to create high-quality floor plans for existing or missing levels
 
 ## 🔜 Coming Soon
 
-- **Main objectives**: Add section with hard/soft objectives to each maps
+- **Remaining maps**: Adding remaining maps as soon as possible
+- **Level navigation**: Will add ability to switch to next floor on map were this stair locating
+- **Additional advices**: Add advices for new players for each map
 - **Items counts**: Implement count of markers on each level and show near lavel marker
 
 ---

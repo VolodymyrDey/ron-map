@@ -1,0 +1,43 @@
+/* Coordinate Display */
+.coordinate-display {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  left: var(--spacing-lg);
+  z-index: var(--z-coordinate);
+  background: var(--bg-overlay);
+  backdrop-filter: var(--blur-lg);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  border: var(--border-width-thin) solid var(--border-color-regular);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-family: var(--font-family-mono);
+  animation: slideUp var(--transition-normal);
+  pointer-events: none;
+}
+
+/* Animation now defined globally in styles.css */
+
+.coord-label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coord-value {
+  color: var(--color-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  min-width: 40px;
+  text-align: right;
+}
+
+.coord-separator {
+  color: var(--color-text-faded);
+  font-size: var(--font-size-md);
+  margin: 0 var(--spacing-xs);
+}
