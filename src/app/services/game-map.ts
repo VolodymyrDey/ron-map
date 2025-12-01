@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GAME_MAPS_METADATA, GameMapMetadata } from '../config/game-maps-metadata.config';
+import { MapInteractionService } from './map-interaction.service';
 
 // Re-export for convenience
 export type { GameMapMetadata };
@@ -58,8 +59,6 @@ export interface MapObjective {
 export interface GameMapConfig {
   id: string;
   name: string;
-  width: number;
-  height: number;
   markers: GameMarker[];
   description?: string;
   layers?: MapLayer[];
@@ -93,6 +92,8 @@ export class GameMapService {
   // Constants for navigation timing
   private readonly LAYER_SWITCH_DELAY = 250;
   private readonly PULSE_DURATION = 2000;
+
+  constructor(private mapInteractionService: MapInteractionService) {}
 
   getAvailableMaps(): GameMapMetadata[] {
     return this.gameMapsMetadata;
@@ -266,6 +267,10 @@ export class GameMapService {
       const uniqueMarkerIds = Array.from(new Set(markerIds));
       
       setTimeout(() => {
+        // Center the viewport on the target marker
+        this.mapInteractionService.centerOnMarker(targetMarker.x, targetMarker.y);
+        
+        // Start pulsing markers after centering
         this.startPulsingMarkers(uniqueMarkerIds);
       }, this.LAYER_SWITCH_DELAY);
     }
