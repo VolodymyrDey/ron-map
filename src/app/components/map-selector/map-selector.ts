@@ -75,8 +75,11 @@ export class MapSelectorComponent implements OnChanges {
         this.filterOpen = false;
       }
     } else {
-      this.searchQuery = '';
-      this.applyFilters();
+      // Reset search and reapply filters when closing to clear stale results
+      if (this.searchQuery) {
+        this.searchQuery = '';
+        this.applyFilters();
+      }
       this.highlightedIndex = -1;
     }
   }
@@ -105,8 +108,11 @@ export class MapSelectorComponent implements OnChanges {
   selectMap(mapId: string): void {
     this.mapSelected.emit(mapId);
     this.dropdownOpen = false;
-    this.searchQuery = '';
-    this.applyFilters();
+    // Reset search and reapply filters if search was active
+    if (this.searchQuery) {
+      this.searchQuery = '';
+      this.applyFilters();
+    }
     this.highlightedIndex = -1;
   }
   
@@ -117,7 +123,11 @@ export class MapSelectorComponent implements OnChanges {
     // Close dropdown if open
     if (this.filterOpen && this.dropdownOpen) {
       this.dropdownOpen = false;
-      this.searchQuery = '';
+      // Reset search and reapply filters if search was active
+      if (this.searchQuery) {
+        this.searchQuery = '';
+        this.applyFilters();
+      }
     }
   }
   
@@ -147,8 +157,11 @@ export class MapSelectorComponent implements OnChanges {
   closeDropdown(): void {
     if (this.dropdownOpen) {
       this.dropdownOpen = false;
-      this.searchQuery = '';
-      this.applyFilters();
+      // Reset search and reapply filters if search was active
+      if (this.searchQuery) {
+        this.searchQuery = '';
+        this.applyFilters();
+      }
       this.highlightedIndex = -1;
     }
     if (this.filterOpen) {
@@ -178,8 +191,11 @@ export class MapSelectorComponent implements OnChanges {
       case 'Escape':
         event.preventDefault();
         this.dropdownOpen = false;
-        this.searchQuery = '';
-        this.applyFilters();
+        // Reset search and reapply filters if search was active
+        if (this.searchQuery) {
+          this.searchQuery = '';
+          this.applyFilters();
+        }
         this.highlightedIndex = -1;
         break;
     }

@@ -22,7 +22,7 @@
       (mapSelected)="onMapSelected($event)" (languageChanged)="onLanguageChanged($event)"></app-map-selector>
 
     @if (currentMap) {
-    <app-drawing-tools [isDrawingMode]="isDrawingMode" [selectedColor]="selectedDrawColor" [colors]="drawColors"
+    <app-drawing-tools [isDrawingMode]="isDrawingMode" [selectedColor]="selectedDrawColor"
       [hasDrawings]="drawnLines.length > 0" [isEraserMode]="isEraserMode"
       (drawingModeToggled)="onDrawingModeToggled($event)" (colorSelected)="onColorSelected($event)"
       (clearDrawings)="onClearDrawings()" (eraserModeToggled)="onEraserModeToggled($event)"></app-drawing-tools>
