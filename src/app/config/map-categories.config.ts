@@ -71,6 +71,7 @@ export const MAP_CATEGORIES = {
     badgeColor: '#dc2626', // Red - intense, action-focused
     order: 2
   }
+  // Dark Waters DLC. Uncomment when all maps ready
   // 'dlc-dark-waters': {
   //   id: 'dlc-dark-waters',
   //   displayName: 'Dark Waters DLC',

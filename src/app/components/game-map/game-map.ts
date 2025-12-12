@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
@@ -55,7 +55,6 @@ export class GameMapComponent implements OnInit, OnDestroy {
   drawingPath: { x: number; y: number }[] = [];
   drawnLines: DrawingLine[] = [];
   selectedDrawColor = '#FF0000';
-  drawColors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF'];
 
   // Interaction properties from MapInteractionService
   zoomLevel = 1;
@@ -74,6 +73,11 @@ export class GameMapComponent implements OnInit, OnDestroy {
   isLoading = false;
 
   private readonly destroy$ = new Subject<void>();
+  
+  // Conditional event listeners for better performance
+  private mouseMoveListener?: (e: MouseEvent) => void;
+  private mouseUpListener?: (e: MouseEvent) => void;
+  private listenersAttached = false;
 
   constructor(
     private readonly gameMapService: GameMapService,
@@ -87,9 +91,6 @@ export class GameMapComponent implements OnInit, OnDestroy {
     private readonly meta: Meta,
     private readonly titleService: Title
   ) { }
-
-  // Enable to print drawing coordinate diagnostics to the console
-  private readonly debugDrawing = false;
 
   ngOnInit(): void {
     this.availableMaps = this.gameMapService.getAvailableMaps();
@@ -112,80 +113,75 @@ export class GameMapComponent implements OnInit, OnDestroy {
         }
       });
 
-    // Subscribe to language changes
-    this.languageService.currentLanguage$
+    // Merge all observables into a single subscription to reduce change detection cycles
+    combineLatest([
+      this.languageService.currentLanguage$,
+      this.gameMapService.currentMap$,
+      this.gameMapService.markers$,
+      this.gameMapService.selectedMarker$,
+      this.gameMapService.loading$,
+      this.mapInteractionService.state$,
+      this.drawingService.drawingState$,
+      this.mapStateService.uiState$
+    ])
       .pipe(takeUntil(this.destroy$))
-      .subscribe(lang => {
-        this.currentLanguage = lang;
-        this.cdr.markForCheck();
-      });
-
-    // Subscribe to map changes
-    this.gameMapService.currentMap$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(map => {
-        this.currentMap = map;
-        this.updateMetaTags();
-        this.loadDrawingsForCurrentMap();
-        this.cdr.markForCheck();
-      });
-
-    // Subscribe to marker changes
-    this.gameMapService.markers$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(markers => {
+      .subscribe(([
+        language,
+        currentMap,
+        markers,
+        selectedMarker,
+        loading,
+        interactionState,
+        drawingState,
+        uiState
+      ]) => {
+        // Language
+        this.currentLanguage = language;
+        
+        // Map and layer changes
+        const mapChanged = this.currentMap?.id !== currentMap?.id;
+        const visibleLayerId = currentMap?.layers?.find(l => l.visible)?.id;
+        const previousVisibleLayerId = this.currentMap?.layers?.find(l => l.visible)?.id;
+        const layerChanged = visibleLayerId !== previousVisibleLayerId;
+        
+        this.currentMap = currentMap;
+        
+        if (mapChanged) {
+          this.updateMetaTags();
+          this.loadDrawingsForCurrentMap();
+        } else if (layerChanged) {
+          // Load drawings when layer changes (but map stays the same)
+          this.loadDrawingsForCurrentMap();
+        }
+        
+        // Markers
         this.markers = markers;
-        this.cdr.markForCheck();
-      });
-
-    // Subscribe to selected marker changes
-    this.gameMapService.selectedMarker$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(marker => {
-        this.selectedMarker = marker;
-        this.cdr.markForCheck();
-      });
-
-    // Subscribe to loading state
-    this.gameMapService.loading$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(loading => {
+        this.selectedMarker = selectedMarker;
+        
+        // Loading
         this.isLoading = loading;
-        this.cdr.markForCheck();
-      });
-
-    // Subscribe to map interaction state
-    this.mapInteractionService.state$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(state => {
-        this.zoomLevel = state.zoomLevel;
-        this.panOffsetX = state.panOffsetX;
-        this.panOffsetY = state.panOffsetY;
-        this.isPanning = state.isPanning;
-        this.hasMoved = state.hasMoved;
-        this.cdr.markForCheck();
-      });
-
-    // Subscribe to drawing state
-    this.drawingService.drawingState$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(state => {
-        this.isDrawingMode = state.isDrawingMode;
-        this.isDrawing = state.isDrawing;
-        this.isEraserMode = state.isEraserMode;
-        this.drawingPath = state.drawingPath;
-        this.selectedDrawColor = state.selectedDrawColor;
-        this.cdr.markForCheck();
-      });
-
-    // Subscribe to map UI state
-    this.mapStateService.uiState$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(state => {
-        this.showMarkerForm = state.showMarkerForm;
-        this.newMarkerX = state.newMarkerX;
-        this.newMarkerY = state.newMarkerY;
-        this.legendItems = state.legendItems;
+        
+        // Interaction state
+        this.zoomLevel = interactionState.zoomLevel;
+        this.panOffsetX = interactionState.panOffsetX;
+        this.panOffsetY = interactionState.panOffsetY;
+        this.isPanning = interactionState.isPanning;
+        this.hasMoved = interactionState.hasMoved;
+        
+        // Drawing state
+        this.isDrawingMode = drawingState.isDrawingMode;
+        this.isDrawing = drawingState.isDrawing;
+        this.isEraserMode = drawingState.isEraserMode;
+        this.drawingPath = drawingState.drawingPath;
+        this.selectedDrawColor = drawingState.selectedDrawColor;
+        
+        // UI state
+        this.showMarkerForm = uiState.showMarkerForm;
+        this.newMarkerX = uiState.newMarkerX;
+        this.newMarkerY = uiState.newMarkerY;
+        this.legendItems = uiState.legendItems;
+        
+        // Trigger change detection once for all updates
         this.cdr.markForCheck();
       });
   }
@@ -217,8 +213,44 @@ export class GameMapComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.detachMouseListeners();
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  /**
+   * Attach mouse event listeners conditionally when panning or drawing starts
+   * This prevents global listeners from firing on every mouse movement
+   */
+  private attachMouseListeners(): void {
+    if (this.listenersAttached) return;
+
+    this.mouseMoveListener = (e: MouseEvent) => this.handleMouseMove(e);
+    this.mouseUpListener = (e: MouseEvent) => this.handleMouseUp(e);
+    
+    document.addEventListener('mousemove', this.mouseMoveListener);
+    document.addEventListener('mouseup', this.mouseUpListener);
+    
+    this.listenersAttached = true;
+  }
+
+  /**
+   * Detach mouse event listeners when panning or drawing ends
+   */
+  private detachMouseListeners(): void {
+    if (!this.listenersAttached) return;
+
+    if (this.mouseMoveListener) {
+      document.removeEventListener('mousemove', this.mouseMoveListener);
+      this.mouseMoveListener = undefined;
+    }
+    
+    if (this.mouseUpListener) {
+      document.removeEventListener('mouseup', this.mouseUpListener);
+      this.mouseUpListener = undefined;
+    }
+    
+    this.listenersAttached = false;
   }
 
   private updateMetaTags(): void {
@@ -365,7 +397,8 @@ export class GameMapComponent implements OnInit, OnDestroy {
   // Layer Selection
   onLayerSelected(layerId: string): void {
     this.gameMapService.selectLayer(layerId);
-    this.loadDrawingsForCurrentMap();
+    // Note: loadDrawingsForCurrentMap() is called automatically by the subscription
+    // when it detects the layer change after the service updates
   }
 
   loadDrawingsForCurrentMap(): void {
@@ -476,14 +509,14 @@ export class GameMapComponent implements OnInit, OnDestroy {
   // Mouse Events for panning and drawing
   onMouseDown(event: MouseEvent): void {
     if (event.button === 0) {
+      // Attach listeners only when needed
+      this.attachMouseListeners();
+      
       if (this.isDrawingMode && !this.showMarkerForm) {
         // Start drawing
         const container = this.mapViewerComponent?.mapContainer?.nativeElement as HTMLElement | undefined;
         const rect = this.getTopImageRect(container);
         if (rect) {
-          if (this.debugDrawing) {
-            console.debug('[draw start] rect=', rect, 'client=', { x: event.clientX, y: event.clientY }, 'zoom=', this.zoomLevel);
-          }
           this.drawingService.startDrawing(event.clientX, event.clientY, rect);
         }
         event.preventDefault();
@@ -495,15 +528,15 @@ export class GameMapComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent): void {
+  /**
+   * Handle mouse move events during panning or drawing
+   * Only called when listeners are attached (not globally)
+   */
+  private handleMouseMove(event: MouseEvent): void {
     if (this.isDrawing && this.isDrawingMode) {
       const container = this.mapViewerComponent?.mapContainer?.nativeElement as HTMLElement | undefined;
       const rect = this.getTopImageRect(container);
       if (rect) {
-        if (this.debugDrawing) {
-          console.debug('[draw move] rect=', rect, 'client=', { x: event.clientX, y: event.clientY }, 'zoom=', this.zoomLevel);
-        }
         this.drawingService.continueDrawing(event.clientX, event.clientY, rect);
       }
       event.preventDefault();
@@ -513,8 +546,14 @@ export class GameMapComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('document:mouseup', ['$event'])
-  onMouseUp(event: MouseEvent): void {
+  /**
+   * Handle mouse up events during panning or drawing
+   * Only called when listeners are attached (not globally)
+   */
+  private handleMouseUp(event: MouseEvent): void {
+    // Detach listeners when mouse is released
+    this.detachMouseListeners();
+    
     if (this.isDrawing) {
       if (this.currentMap) {
         const visibleLayer = this.currentMap.layers?.find(l => l.visible);

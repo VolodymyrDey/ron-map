@@ -7,8 +7,7 @@ const LAYERS: MapLayer[] = [
   { 
     id: 'ground', 
     name: 'Ground Floor', 
-    imageUrl: './maps/20_25_hope_street/25_hope_street_ground.png', 
-    visible: true, 
+    imageUrl: './maps/20_25_hope_street/25_hope_street_ground.png',
     zIndex: 2, 
     isDefault: true 
   }
@@ -56,6 +55,15 @@ const OBJECTIVE_MARKERS: GameMarker[] = [
     id: 'hard_objective3', 
     x: 63.7, 
     y: 21.8, 
+    title: 'Possible Informant location', 
+    description: 'Locate and secure the Informant', 
+    type: 'hard_objective', 
+    layerId: 'ground' 
+  },
+  { 
+    id: 'hard_objective4', 
+    x: 38.66, 
+    y: 11.05, 
     title: 'Possible Informant location', 
     description: 'Locate and secure the Informant', 
     type: 'hard_objective', 
@@ -113,7 +121,7 @@ const OBJECTIVES: MapObjective[] = [
     title: 'Locate and Secure the Informant', 
     description: 'Locate and secure the Informant', 
     type: 'hard', 
-    markerIds: ['hard_objective1', 'hard_objective2', 'hard_objective3'], 
+    markerIds: ['hard_objective1', 'hard_objective2', 'hard_objective3', 'hard_objective4'], 
     floorName: 'Ground Floor' 
   },
   { 
