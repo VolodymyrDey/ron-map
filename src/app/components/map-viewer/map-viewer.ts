@@ -51,6 +51,7 @@ export class MapViewerComponent {
   @Input() isDrawing: boolean = false;
   @Input() drawingPath: { x: number; y: number }[] = [];
   @Input() isLoading: boolean = false;
+  @Input() isChallengeModalOpen: boolean = false;
 
   @Output() mapClick = new EventEmitter<{ x: number; y: number }>();
   @Output() markerClick = new EventEmitter<GameMarker>();

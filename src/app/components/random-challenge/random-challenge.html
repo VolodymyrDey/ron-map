@@ -1,0 +1,218 @@
+<div class="random-challenge">
+  <button 
+    class="challenge-button" 
+    (click)="openChallenge()"
+    title="Random Challenge"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="3" y="3" width="7" height="7"></rect>
+      <rect x="14" y="3" width="7" height="7"></rect>
+      <rect x="14" y="14" width="7" height="7"></rect>
+      <rect x="3" y="14" width="7" height="7"></rect>
+      <circle cx="6.5" cy="6.5" r="1"></circle>
+      <circle cx="17.5" cy="6.5" r="1"></circle>
+      <circle cx="17.5" cy="17.5" r="1"></circle>
+      <circle cx="6.5" cy="17.5" r="1"></circle>
+    </svg>
+    <span>{{ translate('randomChallenge') }}</span>
+  </button>
+
+  @if (showChallenge) {
+  <div class="challenge-overlay" (click)="closeChallenge()">
+    <div class="challenge-modal" (click)="$event.stopPropagation()">
+      <div class="challenge-header">
+        <h2>{{ translate('randomChallenge') }}</h2>
+        <button class="close-btn" (click)="closeChallenge()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="difficulty-selector">
+        <button 
+          class="difficulty-btn" 
+          [class.active]="challengeDifficulty === 'easy'"
+          (click)="setChallengeDifficulty('easy')"
+        >
+          Easy (3 items)
+        </button>
+        <button 
+          class="difficulty-btn" 
+          [class.active]="challengeDifficulty === 'medium'"
+          (click)="setChallengeDifficulty('medium')"
+        >
+          Medium (4 items)
+        </button>
+        <button 
+          class="difficulty-btn" 
+          [class.active]="challengeDifficulty === 'hard'"
+          (click)="setChallengeDifficulty('hard')"
+        >
+          Hard (5 items)
+        </button>
+      </div>
+
+      <div class="challenge-content">
+        @if (!result && !isRolling) {
+        <button class="roll-button" (click)="rollChallenge()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+          </svg>
+          {{ translate('rollChallenge') }}
+        </button>
+        }
+
+        @if (isRolling) {
+        <div class="rolling-animation">
+          <div class="spinner"></div>
+          <p>{{ translate('rolling') }}...</p>
+        </div>
+        }
+
+        @if (result && !isRolling) {
+        <div class="challenge-result">
+          <div class="result-item">
+            <h3>{{ translate('map') }}</h3>
+            <div class="result-card">
+              @if (result.map.preview_picture) {
+              <img [src]="result.map.preview_picture" [alt]="result.map.name" class="result-image clickable" (click)="navigateToMap(result.map)" title="Navigate to {{ result.map.name }}">
+              }
+              @else {
+              <div class="placeholder-image clickable" (click)="navigateToMap(result.map)" title="Navigate to {{ result.map.name }}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </div>
+              }
+              <p class="result-name clickable" (click)="navigateToMap(result.map)" title="Navigate to {{ result.map.name }}">{{ result.map.name }}</p>
+              <button class="reroll-item-button" [class.rolling]="isRerollingMap" [disabled]="isRerollingMap" (click)="rerollMap()" title="Reroll Map">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="result-item">
+            <h3>{{ translate('weapon') }}</h3>
+            <div class="result-card">
+              <img [src]="result.weapon.picture" [alt]="result.weapon.name" class="result-image" 
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+              <div class="placeholder-image" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+              </div>
+              <p class="result-name">{{ result.weapon.name }}</p>
+              <button class="reroll-item-button" [class.rolling]="isRerollingWeapon" [disabled]="isRerollingWeapon" (click)="rerollWeapon()" title="Reroll Weapon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="result-item">
+            <h3>{{ translate('difficulty') }}</h3>
+            <div class="result-card">
+              <div class="difficulty-badge" [style.background-color]="result.difficulty.color">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  @if (result.difficulty.id === 'casual') {
+                  <path d="M12 2v20M17 7l-5 5-5-5"></path>
+                  }
+                  @else if (result.difficulty.id === 'standard') {
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  }
+                  @else {
+                  <path d="M12 2v20M7 17l5-5 5 5"></path>
+                  }
+                </svg>
+              </div>
+              <p class="result-name">{{ result.difficulty.name }}</p>
+              <button class="reroll-item-button" [class.rolling]="isRerollingDifficulty" [disabled]="isRerollingDifficulty" (click)="rerollDifficulty()" title="Reroll Difficulty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          @if (result.consumable) {
+          <div class="result-item">
+            <h3>{{ translate('consumable') }}</h3>
+            <div class="result-card">
+              <img [src]="result.consumable.picture" [alt]="result.consumable.name" class="result-image" 
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+              <div class="placeholder-image" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <p class="result-name">{{ result.consumable.name }}</p>
+              <button class="reroll-item-button" [class.rolling]="isRerollingConsumable" [disabled]="isRerollingConsumable" (click)="rerollConsumable()" title="Reroll Consumable">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          }
+
+          @if (result.armor) {
+          <div class="result-item">
+            <h3>{{ translate('armor') }}</h3>
+            <div class="result-card">
+              <div class="armor-display">
+                <div class="armor-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l-8 4v6c0 5.5 3.5 9.5 8 11 4.5-1.5 8-5.5 8-11V6l-8-4z"></path>
+                  </svg>
+                </div>
+                <div class="armor-details">
+                  <div class="armor-row">
+                    <span class="armor-label">Type:</span>
+                    <span class="armor-value">{{ getArmorTypeName(result.armor.type) }}</span>
+                  </div>
+                  @if (result.armor.coverage) {
+                  <div class="armor-row">
+                    <span class="armor-label">Coverage:</span>
+                    <span class="armor-value">{{ getArmorCoverageName(result.armor.coverage) }}</span>
+                  </div>
+                  }
+                  @if (result.armor.material) {
+                  <div class="armor-row">
+                    <span class="armor-label">Material:</span>
+                    <span class="armor-value">{{ getArmorMaterialName(result.armor.material) }}</span>
+                  </div>
+                  }
+                </div>
+              </div>
+              <button class="reroll-item-button" [class.rolling]="isRerollingArmor" [disabled]="isRerollingArmor" (click)="rerollArmor()" title="Reroll Armor">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          }
+        </div>
+
+        <button class="roll-again-button" (click)="rollChallenge()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+          </svg>
+          {{ translate('rollAgain') }}
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>

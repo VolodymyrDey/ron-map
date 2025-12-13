@@ -5,6 +5,7 @@
       [drawnLines]="drawnLines" [isDrawingMode]="isDrawingMode" [isEraserMode]="isEraserMode"
       [selectedMarker]="selectedMarker" [selectedDrawColor]="selectedDrawColor" [legendItems]="legendItems"
       [isPanning]="isPanning" [isDrawing]="isDrawing" [drawingPath]="drawingPath" [isLoading]="isLoading"
+      [isChallengeModalOpen]="isChallengeModalOpen"
       (mapClick)="onMapClick($event)" (markerClick)="onMarkerClick($event)" (mouseWheel)="onMouseWheel($event)"
       (mouseDown)="onMouseDown($event)" (layerSelected)="onLayerSelected($event)"></app-map-viewer>
 
@@ -27,7 +28,7 @@
       [hasDrawings]="drawnLines.length > 0" [isEraserMode]="isEraserMode"
       (drawingModeToggled)="onDrawingModeToggled($event)" (colorSelected)="onColorSelected($event)"
       (clearDrawings)="onClearDrawings()" (eraserModeToggled)="onEraserModeToggled($event)"></app-drawing-tools>
-
+    <app-random-challenge [maps]="availableMaps" (modalStateChanged)="onChallengeModalStateChanged($event)"></app-random-challenge>
     <app-map-legend [legendItems]="legendItems" (legendItemToggled)="onLegendItemToggled($event)"
       (showAll)="onShowAllLegend()" (hideAll)="onHideAllLegend()"></app-map-legend>
     }

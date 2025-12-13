@@ -17,6 +17,7 @@ import { DrawingToolsComponent } from '../drawing-tools/drawing-tools';
 import { MapLegendComponent } from '../map-legend/map-legend';
 import { MarkerFormComponent } from '../marker-form/marker-form';
 import { ObjectivesComponent } from '../objectives/objectives';
+import { RandomChallengeComponent } from '../random-challenge/random-challenge';
 
 @Component({
   selector: 'app-game-map',
@@ -28,7 +29,8 @@ import { ObjectivesComponent } from '../objectives/objectives';
     DrawingToolsComponent,
     MapLegendComponent,
     MarkerFormComponent,
-    ObjectivesComponent
+    ObjectivesComponent,
+    RandomChallengeComponent
   ],
   templateUrl: './game-map.html',
   styleUrl: './game-map.css',
@@ -71,6 +73,9 @@ export class GameMapComponent implements OnInit, OnDestroy {
 
   // Loading state
   isLoading = false;
+
+  // Random Challenge modal state
+  isChallengeModalOpen = false;
 
   private readonly destroy$ = new Subject<void>();
   
@@ -483,6 +488,11 @@ export class GameMapComponent implements OnInit, OnDestroy {
   // Language
   onLanguageChanged(langCode: string): void {
     this.languageService.setLanguage(langCode);
+  }
+
+  onChallengeModalStateChanged(isOpen: boolean): void {
+    this.isChallengeModalOpen = isOpen;
+    this.cdr.markForCheck();
   }
 
   // Map Interactions

@@ -45,6 +45,7 @@ export interface GameMapMetadata {
   order: number;
   category: MapCategoryId;
   loader: () => Promise<GameMapConfig>;
+  preview_picture?: string;
 }
 
 export const GAME_MAPS_METADATA: GameMapMetadata[] = [
