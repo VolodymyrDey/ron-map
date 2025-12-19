@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { DrawingLine } from '../components/map-viewer/map-viewer';
+import { Logger } from '../utils/logger.util';
 
 export interface DrawingState {
   isDrawing: boolean;
@@ -163,7 +164,7 @@ export class DrawingService {
         this.drawingsSubject.next(drawings);
       }
     } catch (error) {
-      console.error('Failed to load drawings:', error);
+      Logger.error('Failed to load drawings:', error);
     }
   }
 
@@ -172,7 +173,7 @@ export class DrawingService {
       const drawings = this.drawingsSubject.getValue();
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(drawings));
     } catch (error) {
-      console.error('Failed to save drawings:', error);
+      Logger.error('Failed to save drawings:', error);
     }
   }
 

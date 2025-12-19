@@ -129,10 +129,6 @@ export class MapInteractionService {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
     
-    // Calculate the center of the viewport
-    const viewportCenterX = viewportWidth / 2;
-    const viewportCenterY = viewportHeight / 2;
-    
     // Convert marker percentage coordinates to viewport pixels
     // We need to consider that the map is scaled and positioned
     // The marker position is relative to the map's original size

@@ -47,9 +47,9 @@
   background: var(--gradient-dark-alt);
   border-radius: var(--border-radius-xl);
   padding: var(--spacing-3xl);
-  width: 90vw;
   max-width: 1200px;
   max-height: 90vh;
+  min-width: 600px;
   overflow-y: auto;
   box-shadow: var(--shadow-xl);
   border: var(--border-width-regular) solid var(--border-color-primary-light);
@@ -64,41 +64,6 @@
   margin-bottom: var(--spacing-xl);
   padding-bottom: var(--spacing-lg);
   border-bottom: var(--border-width-regular) solid var(--border-color-regular);
-}
-
-.difficulty-selector {
-  display: flex;
-  gap: var(--spacing-md);
-  justify-content: center;
-  margin-bottom: var(--spacing-2xl);
-  padding: var(--spacing-md);
-  background: var(--bg-white-overlay-subtle);
-  border-radius: var(--border-radius-lg);
-}
-
-.difficulty-btn {
-  padding: var(--spacing-sm) var(--spacing-xl);
-  background: var(--bg-white-overlay);
-  border: var(--border-width-regular) solid var(--border-color-regular);
-  border-radius: var(--border-radius-md);
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-}
-
-.difficulty-btn:hover {
-  background: var(--bg-white-overlay-medium);
-  border-color: var(--border-color-primary);
-  color: var(--color-text-primary);
-}
-
-.difficulty-btn.active {
-  background: var(--bg-primary-intense);
-  border-color: var(--color-primary);
-  color: var(--color-text-primary);
-  box-shadow: var(--shadow-primary-glow);
 }
 
 .challenge-header h2 {
@@ -195,183 +160,59 @@
 .challenge-result {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  gap: var(--spacing-2xl);
+  justify-content: center;
   animation: fadeIn var(--transition-slow);
 }
 
-.result-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.result-item h3 {
-  margin: 0;
-  font-size: var(--font-size-base);
-  color: var(--color-primary-lighter);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: var(--font-weight-semibold);
-  text-align: center;
-}
-
-.result-card {
+.unified-card {
+  width: 100%;
+  max-width: 600px;
   background: var(--bg-white-overlay);
   border: var(--border-width-regular) solid var(--border-color-regular);
   border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.unified-card-section {
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.armor-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--spacing-xl);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all var(--transition-normal);
-  height: 100%;
+  background: var(--bg-white-overlay);
+  border-bottom: var(--border-width-regular) solid var(--border-color-regular);
+}
+
+.map-section {
+  position: relative;
+  cursor: pointer;
   min-height: 300px;
+  border-bottom: var(--border-width-regular) solid var(--border-color-regular);
+  overflow: hidden;
 }
 
-.result-card:hover {
-  background: var(--bg-white-overlay-medium);
-  border-color: var(--border-color-primary);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+.map-section:hover {
+  opacity: 0.95;
 }
 
-.result-image {
-  width: 100%;
-  height: 180px;
-  object-fit:contain;
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-sm);
-  border: var(--border-width-thin) solid var(--border-color-light);
-  margin-bottom: var(--spacing-md);
-}
-
-.placeholder-image {
-  width: 100%;
-  height: 180px;
-  background: var(--bg-primary-light);
-  border-radius: var(--border-radius-md);
-  border: var(--border-width-thin) solid var(--border-color-primary-light);
+.weapon-section {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-md);
-}
-
-.placeholder-image svg {
-  width: 50px;
-  height: 50px;
-  opacity: 0.4;
-}
-
-.result-name {
-  margin: 0;
-  margin-top: auto;
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
-  text-align: center;
-  color: var(--color-text-primary);
-}
-
-.result-name.clickable {
-  cursor: pointer;
-  transition: color var(--transition-normal);
-}
-
-.result-name.clickable:hover {
-  color: var(--color-primary-lighter);
-}
-
-.result-image.clickable,
-.placeholder-image.clickable {
-  cursor: pointer;
-  transition: all var(--transition-normal);
-}
-
-.result-image.clickable:hover {
-  opacity: 0.85;
-  transform: scale(1.02);
-}
-
-.placeholder-image.clickable:hover {
-  background: var(--bg-primary-medium);
-  border-color: var(--border-color-primary);
-}
-
-.reroll-item-button {
-  width: var(--btn-icon-md);
-  height: var(--btn-icon-md);
-  padding: 4px;
-  background: var(--bg-white-overlay-subtle);
-  border: var(--border-width-regular) solid var(--border-color-regular);
-  border-radius: var(--border-radius-md);
-  color: var(--color-text-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-normal);
-  margin-top: var(--spacing-sm);
-  flex-shrink: 0;
-}
-
-.reroll-item-button svg {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
-}
-
-.reroll-item-button:hover:not(:disabled) {
-  background: var(--bg-primary-light);
-  border-color: var(--border-color-primary);
-  color: var(--color-primary-lighter);
-  transform: rotate(180deg);
-}
-
-.reroll-item-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.reroll-item-button.rolling svg {
-  animation: spin 1s linear infinite;
-}
-
-.difficulty-badge {
-  width: 100px;
-  height: 100px;
-  border-radius: var(--border-radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-primary);
-  box-shadow: var(--shadow-md);
-  border: var(--border-width-thick) solid rgba(255, 255, 255, 0.2);
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.difficulty-badge svg {
-  width: 44px;
-  height: 44px;
-  stroke-width: 3;
-}
-
-.armor-display {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-lg);
-  margin-top: auto;
-  margin-bottom: auto;
+  padding: var(--spacing-xl);
+  background: #000000;
+  min-height: 180px;
 }
 
 .armor-icon {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
+  min-width: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -379,16 +220,17 @@
   border-radius: var(--border-radius-full);
   border: var(--border-width-thick) solid var(--border-color-primary);
   color: var(--color-primary);
+  margin-right: var(--spacing-lg);
 }
 
 .armor-icon svg {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   stroke-width: 2;
 }
 
 .armor-details {
-  width: 100%;
+  width: 300px;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
@@ -398,7 +240,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: 4px var(--spacing-sm);
   background: var(--bg-white-overlay-subtle);
   border-radius: var(--border-radius-sm);
 }
@@ -413,6 +255,98 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   font-weight: var(--font-weight-semibold);
+}
+
+.map-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.map-preview-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  background: var(--bg-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.map-preview-placeholder svg {
+  width: 80px;
+  height: 80px;
+  opacity: 0.3;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-lg);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.map-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-shadow: var(--text-shadow-md);
+  flex: 1;
+  margin-right: var(--spacing-md);
+}
+
+.map-difficulty {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.2);
+}
+
+.map-difficulty svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 3;
+}
+
+.weapon-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.weapon-placeholder {
+  width: 100%;
+  max-width: 400px;
+  height: 150px;
+  background: var(--bg-primary-light);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width-thin) solid var(--border-color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.weapon-placeholder svg {
+  width: 60px;
+  height: 60px;
+  opacity: 0.4;
 }
 
 .roll-again-button {
@@ -455,23 +389,49 @@
     font-size: var(--font-size-2xl);
   }
 
-  .challenge-result {
-    flex-direction: column;
-    gap: var(--spacing-xl);
+  .unified-card {
+    max-width: 100%;
   }
 
-  .result-image,
-  .placeholder-image {
-    height: 150px;
+  .armor-section {
+    padding: var(--spacing-md);
   }
 
-  .difficulty-badge {
-    width: 80px;
-    height: 80px;
+  .armor-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    margin-right: var(--spacing-md);
   }
 
-  .difficulty-badge svg {
-    width: 36px;
-    height: 36px;
+  .armor-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .map-section {
+    min-height: 250px;
+  }
+
+  .map-preview,
+  .map-preview-placeholder {
+    min-height: 250px;
+  }
+
+  .map-name {
+    font-size: var(--font-size-base);
+  }
+
+  .weapon-section {
+    padding: var(--spacing-md);
+    min-height: 150px;
+  }
+
+  .weapon-image {
+    max-height: 120px;
+  }
+
+  .weapon-placeholder {
+    height: 120px;
   }
 }

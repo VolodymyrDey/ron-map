@@ -1,22 +1,19 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { GameMapMetadata } from '../../config/game-maps-metadata.config';
 import { WEAPONS, Weapon } from '../../config/weapons.config';
 import { DIFFICULTIES, Difficulty } from '../../config/difficulties.config';
-import { CONSUMABLES, Consumable } from '../../config/consumables.config';
 import { ArmorConfig, generateRandomArmor, getArmorTypeName, getArmorCoverageName, getArmorMaterialName } from '../../config/armor.config';
+import { Logger } from '../../utils/logger.util';
 
 interface ChallengeResult {
   map: GameMapMetadata;
   weapon: Weapon;
   difficulty: Difficulty;
-  consumable?: Consumable;
-  armor?: ArmorConfig;
+  armor: ArmorConfig;
 }
-
-type ChallengeDifficulty = 'easy' | 'medium' | 'hard';
 
 @Component({
   selector: 'app-random-challenge',
@@ -25,26 +22,16 @@ type ChallengeDifficulty = 'easy' | 'medium' | 'hard';
   styleUrl: './random-challenge.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RandomChallengeComponent {
+export class RandomChallengeComponent implements OnDestroy {
   @Input() maps: GameMapMetadata[] = [];
   @Output() modalStateChanged = new EventEmitter<boolean>();
 
   showChallenge = false;
   isRolling = false;
-  isRerollingMap = false;
-  isRerollingWeapon = false;
-  isRerollingDifficulty = false;
-  isRerollingConsumable = false;
-  isRerollingArmor = false;
   result: ChallengeResult | null = null;
-  
-  challengeDifficulty: ChallengeDifficulty = 'easy';
-  
-  weapons = WEAPONS;
-  difficulties = DIFFICULTIES;
-  consumables = CONSUMABLES;
 
   private readonly REROLL_DELAY = 1000;
+  private rollTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(
     private readonly languageService: LanguageService,
@@ -70,15 +57,9 @@ export class RandomChallengeComponent {
     this.cdr.markForCheck();
   }
 
-  setChallengeDifficulty(difficulty: ChallengeDifficulty): void {
-    this.challengeDifficulty = difficulty;
-    this.result = null;
-    this.cdr.markForCheck();
-  }
-
   rollChallenge(): void {    
     if (this.isRolling || this.maps.length === 0) {
-      console.warn('Cannot roll: isRolling=', this.isRolling, 'maps.length=', this.maps.length);
+      Logger.warn('Cannot roll: isRolling=', this.isRolling, 'maps.length=', this.maps.length);
       return;
     }
 
@@ -86,111 +67,30 @@ export class RandomChallengeComponent {
     this.result = null;
     this.cdr.markForCheck();
 
-    setTimeout(() => {
-      const randomMap = this.maps[Math.floor(Math.random() * this.maps.length)];
-      const randomWeapon = this.weapons[Math.floor(Math.random() * this.weapons.length)];
-      const randomDifficulty = this.difficulties[Math.floor(Math.random() * this.difficulties.length)];
-
-      this.result = {
-        map: randomMap,
-        weapon: randomWeapon,
-        difficulty: randomDifficulty
-      };
-
-      // Add consumable for medium and hard
-      if (this.challengeDifficulty === 'medium' || this.challengeDifficulty === 'hard') {
-        const randomConsumable = this.consumables[Math.floor(Math.random() * this.consumables.length)];
-        this.result.consumable = randomConsumable;
-      }
-
-      // Add armor for hard
-      if (this.challengeDifficulty === 'hard') {
-        this.result.armor = generateRandomArmor();
-      }
-
-      this.isRolling = false;
-      this.cdr.markForCheck();
-    }, this.REROLL_DELAY);
-  }
-
-  rerollMap(): void {
-    if (!this.result || this.maps.length === 0 || this.isRerollingMap) return;
-    
-    this.isRerollingMap = true;
-    this.cdr.markForCheck();
-    
-    setTimeout(() => {
-      if (this.result) {
+    this.rollTimeout = setTimeout(() => {
+      try {
         const randomMap = this.maps[Math.floor(Math.random() * this.maps.length)];
-        this.result.map = randomMap;
+        const randomWeapon = WEAPONS[Math.floor(Math.random() * WEAPONS.length)];
+        const randomDifficulty = DIFFICULTIES[Math.floor(Math.random() * DIFFICULTIES.length)];
+        const randomArmor = generateRandomArmor();
+
+        this.result = {
+          map: randomMap,
+          weapon: randomWeapon,
+          difficulty: randomDifficulty,
+          armor: randomArmor
+        };
+      } catch (error) {
+        Logger.error('Error generating random challenge:', error);
+        this.result = null;
+      } finally {
+        this.isRolling = false;
+        this.rollTimeout = undefined;
+        this.cdr.markForCheck();
       }
-      this.isRerollingMap = false;
-      this.cdr.markForCheck();
     }, this.REROLL_DELAY);
   }
 
-  rerollWeapon(): void {
-    if (!this.result || this.isRerollingWeapon) return;
-    
-    this.isRerollingWeapon = true;
-    this.cdr.markForCheck();
-    
-    setTimeout(() => {
-      if (this.result) {
-        const randomWeapon = this.weapons[Math.floor(Math.random() * this.weapons.length)];
-        this.result.weapon = randomWeapon;
-      }
-      this.isRerollingWeapon = false;
-      this.cdr.markForCheck();
-    }, this.REROLL_DELAY);
-  }
-
-  rerollDifficulty(): void {
-    if (!this.result || this.isRerollingDifficulty) return;
-    
-    this.isRerollingDifficulty = true;
-    this.cdr.markForCheck();
-    
-    setTimeout(() => {
-      if (this.result) {
-        const randomDifficulty = this.difficulties[Math.floor(Math.random() * this.difficulties.length)];
-        this.result.difficulty = randomDifficulty;
-      }
-      this.isRerollingDifficulty = false;
-      this.cdr.markForCheck();
-    }, this.REROLL_DELAY);
-  }
-
-  rerollConsumable(): void {
-    if (!this.result || this.isRerollingConsumable) return;
-    
-    this.isRerollingConsumable = true;
-    this.cdr.markForCheck();
-    
-    setTimeout(() => {
-      if (this.result) {
-        const randomConsumable = this.consumables[Math.floor(Math.random() * this.consumables.length)];
-        this.result.consumable = randomConsumable;
-      }
-      this.isRerollingConsumable = false;
-      this.cdr.markForCheck();
-    }, this.REROLL_DELAY);
-  }
-
-  rerollArmor(): void {
-    if (!this.result || this.isRerollingArmor) return;
-    
-    this.isRerollingArmor = true;
-    this.cdr.markForCheck();
-    
-    setTimeout(() => {
-      if (this.result) {
-        this.result.armor = generateRandomArmor();
-      }
-      this.isRerollingArmor = false;
-      this.cdr.markForCheck();
-    }, this.REROLL_DELAY);
-  }
 
   getArmorTypeName(typeId: string): string {
     return getArmorTypeName(typeId);
@@ -207,5 +107,11 @@ export class RandomChallengeComponent {
   navigateToMap(map: GameMapMetadata): void {
     this.router.navigate(['/map', map.route]);
     this.closeChallenge();
+  }
+
+  ngOnDestroy(): void {
+    if (this.rollTimeout) {
+      clearTimeout(this.rollTimeout);
+    }
   }
 }

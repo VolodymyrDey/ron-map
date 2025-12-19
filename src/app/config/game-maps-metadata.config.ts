@@ -1,5 +1,5 @@
 import { GameMapConfig } from '../services/game-map';
-import { MapCategoryId, MapCategoryInfo, MAP_CATEGORIES } from './map-categories.config';
+import { MapCategoryId } from './map-categories.config';
 
 /**
  * GAME MAPS METADATA CONFIGURATION
@@ -30,7 +30,7 @@ import { MapCategoryId, MapCategoryInfo, MAP_CATEGORIES } from './map-categories
  */
 
 // Re-export category types and utilities for convenience
-export type { MapCategoryId, MapCategoryInfo };
+export type { MapCategoryId, MapCategoryInfo } from './map-categories.config';
 export { MAP_CATEGORIES, getCategoryInfo, getAllCategories } from './map-categories.config';
 
 // ============================================================================
@@ -68,7 +68,7 @@ export const GAME_MAPS_METADATA: GameMapMetadata[] = [
     category: 'base',
     preview_picture: './maps/2_23_mb/23_Megabytes_a_Second_preview.png',
     loader: () => import('./maps/23_mb.map').then(m => m.MAP_23_MB)
-  },
+  }
   // {
   //   id: '213_park',
   //   route: 'Twisted_Nerve',
@@ -239,8 +239,8 @@ export const GAME_MAPS_METADATA: GameMapMetadata[] = [
   //   order: 21,
   //   category: 'dlc-home-invasion',
   //   loader: () => import('./maps/155_playa_vista_lane.map').then(m => m.MAP_155_PLAYA_VISTA_LANE)
-  // }
-  // Dark Waters DLC. Uncomment when all maps ready
+  // },
+  // // Dark Waters DLC. Uncomment when all maps ready
   // {
   //   id: 'sergalio',
   //   route: 'Mirage_at_Sea',

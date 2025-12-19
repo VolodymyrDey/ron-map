@@ -152,44 +152,6 @@ b {
   font-weight: var(--font-weight-semibold);
 }
 
-a {
-  color: var(--color-primary-lighter);
-  text-decoration: none;
-  position: relative;
-  transition: color var(--transition-medium);
-  display: inline-block;
-}
-
-/* Animated underline effect */
-a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-primary-lighter), var(--color-primary-light));
-  transition: width var(--transition-medium);
-}
-
-a:hover {
-  color: var(--color-primary-light);
-}
-
-a:hover::after {
-  width: 100%;
-}
-
-a:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-a:focus::after {
-  width: 100%;
-}
-
 .section {
   margin-bottom: 25px;
 }

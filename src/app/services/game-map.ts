@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GAME_MAPS_METADATA, GameMapMetadata } from '../config/game-maps-metadata.config';
 import { MapInteractionService } from './map-interaction.service';
+import { Logger } from '../utils/logger.util';
 
 // Re-export for convenience
-export type { GameMapMetadata };
+export type { GameMapMetadata } from '../config/game-maps-metadata.config';
 
 export interface MarkerConnection {
   /** ID of the target marker to connect to */
@@ -69,7 +70,7 @@ export interface GameMapConfig {
   providedIn: 'root',
 })
 
-export class GameMapService {
+export class GameMapService implements OnDestroy {
   private readonly currentMapSubject = new BehaviorSubject<GameMapConfig | null>(null);
   public currentMap$ = this.currentMapSubject.asObservable();
 
@@ -93,7 +94,7 @@ export class GameMapService {
   private readonly LAYER_SWITCH_DELAY = 250;
   private readonly PULSE_DURATION = 2000;
 
-  constructor(private mapInteractionService: MapInteractionService) {}
+  constructor(private readonly mapInteractionService: MapInteractionService) {}
 
   getAvailableMaps(): GameMapMetadata[] {
     return this.gameMapsMetadata;
@@ -110,7 +111,7 @@ export class GameMapService {
         // Lazy load the map configuration
         const metadata = this.gameMapsMetadata.find(m => m.id === mapId);
         if (!metadata) {
-          console.error(`Map with id '${mapId}' not found`);
+          Logger.error(`Map with id '${mapId}' not found`);
           this.loadingSubject.next(false);
           return;
         }
@@ -141,7 +142,7 @@ export class GameMapService {
       this.currentMapSubject.next(resetMap);
       this.markersSubject.next(resetMap.markers);
     } catch (error) {
-      console.error(`Error loading map '${mapId}':`, error);
+      Logger.error(`Error loading map '${mapId}':`, error);
     } finally {
       this.loadingSubject.next(false);
     }
@@ -299,5 +300,12 @@ export class GameMapService {
 
   getPulsingMarkers(): string[] {
     return this.pulsingMarkersSubject.getValue();
+  }
+
+  ngOnDestroy(): void {
+    if (this.pulsingTimeout) {
+      clearTimeout(this.pulsingTimeout);
+      this.pulsingTimeout = null;
+    }
   }
 }
