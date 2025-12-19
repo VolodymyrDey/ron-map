@@ -1,0 +1,142 @@
+<div class="random-challenge">
+  <button 
+    class="challenge-button" 
+    (click)="openChallenge()"
+    title="Random Challenge"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="3" y="3" width="7" height="7"></rect>
+      <rect x="14" y="3" width="7" height="7"></rect>
+      <rect x="14" y="14" width="7" height="7"></rect>
+      <rect x="3" y="14" width="7" height="7"></rect>
+      <circle cx="6.5" cy="6.5" r="1"></circle>
+      <circle cx="17.5" cy="6.5" r="1"></circle>
+      <circle cx="17.5" cy="17.5" r="1"></circle>
+      <circle cx="6.5" cy="17.5" r="1"></circle>
+    </svg>
+    <span>{{ translate('randomChallenge') }}</span>
+  </button>
+
+  @if (showChallenge) {
+  <div class="challenge-overlay" (click)="closeChallenge()">
+    <div class="challenge-modal" (click)="$event.stopPropagation()">
+      <div class="challenge-header">
+        <h2>{{ translate('randomChallenge') }}</h2>
+        <button class="close-btn" (click)="closeChallenge()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="challenge-content">
+        @if (!result && !isRolling) {
+        <button class="roll-button" (click)="rollChallenge()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+          </svg>
+          {{ translate('rollChallenge') }}
+        </button>
+        }
+
+        @if (isRolling) {
+        <div class="rolling-animation">
+          <div class="spinner"></div>
+          <p>{{ translate('rolling') }}...</p>
+        </div>
+        }
+
+        @if (result && !isRolling) {
+        <div class="challenge-result">
+          <div class="unified-card">
+            <div class="unified-card-section armor-section">
+              <div class="armor-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2l-8 4v6c0 5.5 3.5 9.5 8 11 4.5-1.5 8-5.5 8-11V6l-8-4z"></path>
+                </svg>
+              </div>
+              <div class="armor-details">
+                <div class="armor-row">
+                  <span class="armor-label">Type:</span>
+                  <span class="armor-value">{{ getArmorTypeName(result.armor.type) }}</span>
+                </div>
+                @if (result.armor.coverage) {
+                <div class="armor-row">
+                  <span class="armor-label">Coverage:</span>
+                  <span class="armor-value">{{ getArmorCoverageName(result.armor.coverage) }}</span>
+                </div>
+                }
+                @if (result.armor.material) {
+                <div class="armor-row">
+                  <span class="armor-label">Material:</span>
+                  <span class="armor-value">{{ getArmorMaterialName(result.armor.material) }}</span>
+                </div>
+                }
+              </div>
+            </div>
+
+            <div class="unified-card-section map-section" (click)="navigateToMap(result.map)">
+              @if (result.map.preview_picture) {
+              <img [src]="result.map.preview_picture" [alt]="result.map.name" class="map-preview">
+              }
+              @else {
+              <div class="map-preview-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </div>
+              }
+              <div class="map-overlay">
+                <div class="map-name">{{ result.map.name }}</div>
+                <div class="map-difficulty" [style.background-color]="result.difficulty.color">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    @if (result.difficulty.id === 'casual') {
+                    <polyline points="4 14 12 8 20 14"></polyline>
+                    }
+                    @else if (result.difficulty.id === 'standard') {
+                    <g>
+                      <polyline points="4 14 12 8 20 14"></polyline>
+                      <polyline points="4 19 12 13 20 19"></polyline>
+                    </g>
+                    }
+                    @else {
+                    <g>
+                      <polyline points="4 10 12 4 20 10"></polyline>
+                      <polyline points="4 15 12 9 20 15"></polyline>
+                      <polyline points="4 20 12 14 20 20"></polyline>
+                    </g>
+                    }
+                  </svg>
+                  <span>{{ result.difficulty.name }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="unified-card-section weapon-section">
+              <img [src]="result.weapon.picture" [alt]="result.weapon.name" class="weapon-image" 
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+              <div class="weapon-placeholder" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="roll-again-button" (click)="rollChallenge()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+          </svg>
+          {{ translate('rollAgain') }}
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>

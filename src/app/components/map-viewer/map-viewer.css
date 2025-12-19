@@ -47,6 +47,14 @@
   box-shadow: 
     var(--shadow-lg),
     0 0 12px rgba(var(--color-primary-rgb), 0.15);
+  transition: all var(--transition-normal);
+}
+
+.floating-layer-selector.inactive-blur {
+  filter: blur(4px);
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
 }
 
 

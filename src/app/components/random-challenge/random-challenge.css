@@ -1,0 +1,437 @@
+.random-challenge {
+  padding: 0 var(--spacing-md);
+}
+
+.challenge-button {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-primary-intense);
+  border: var(--border-width-regular) solid var(--border-color-primary);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-normal);
+}
+
+.challenge-button:hover {
+  background: var(--bg-primary-strong);
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-primary-glow);
+}
+
+.challenge-button svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+.challenge-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay-medium);
+  backdrop-filter: var(--blur-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal-backdrop);
+  animation: fadeIn var(--transition-medium);
+}
+
+.challenge-modal {
+  background: var(--gradient-dark-alt);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-3xl);
+  max-width: 1200px;
+  max-height: 90vh;
+  min-width: 600px;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  border: var(--border-width-regular) solid var(--border-color-primary-light);
+  animation: slideUp var(--transition-slow);
+  color: var(--color-text-secondary);
+}
+
+.challenge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: var(--border-width-regular) solid var(--border-color-regular);
+}
+
+.challenge-header h2 {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  color: var(--color-primary-lighter);
+  font-weight: var(--font-weight-bold);
+  text-shadow: var(--text-shadow-md);
+}
+
+.close-btn {
+  width: var(--btn-icon-lg);
+  height: var(--btn-icon-lg);
+  background: var(--bg-white-overlay);
+  border: var(--border-width-regular) solid var(--border-color-medium);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-medium);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+}
+
+.close-btn:hover {
+  background: var(--bg-white-overlay-strong);
+  border-color: var(--border-color-bright);
+  color: var(--color-text-primary);
+}
+
+.close-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.challenge-content {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.roll-button {
+  padding: var(--spacing-xl) var(--spacing-4xl);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  background: var(--bg-primary-intense);
+  border: var(--border-width-regular) solid var(--border-color-primary);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-primary-glow);
+}
+
+.roll-button:hover {
+  background: var(--bg-primary-strong);
+  border-color: var(--color-primary-light);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-primary-glow-strong);
+}
+
+.roll-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.rolling-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xl);
+  padding: var(--spacing-3xl);
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: var(--border-width-heavy) solid var(--border-color-primary-light);
+  border-top-color: var(--color-primary);
+  border-radius: var(--border-radius-full);
+  animation: spin 1s linear infinite;
+}
+
+.rolling-animation p {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-muted);
+}
+
+.challenge-result {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  animation: fadeIn var(--transition-slow);
+}
+
+.unified-card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--bg-white-overlay);
+  border: var(--border-width-regular) solid var(--border-color-regular);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.unified-card-section {
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.armor-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  background: var(--bg-white-overlay);
+  border-bottom: var(--border-width-regular) solid var(--border-color-regular);
+}
+
+.map-section {
+  position: relative;
+  cursor: pointer;
+  min-height: 300px;
+  border-bottom: var(--border-width-regular) solid var(--border-color-regular);
+  overflow: hidden;
+}
+
+.map-section:hover {
+  opacity: 0.95;
+}
+
+.weapon-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  background: #080606;
+  min-height: 180px;
+}
+
+.armor-icon {
+  width: 70px;
+  height: 70px;
+  min-width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary-light);
+  border-radius: var(--border-radius-full);
+  border: var(--border-width-thick) solid var(--border-color-primary);
+  color: var(--color-primary);
+  margin-right: var(--spacing-lg);
+}
+
+.armor-icon svg {
+  width: 42px;
+  height: 42px;
+  stroke-width: 2;
+}
+
+.armor-details {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.armor-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px var(--spacing-sm);
+  background: var(--bg-white-overlay-subtle);
+  border-radius: var(--border-radius-sm);
+}
+
+.armor-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.armor-value {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.map-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.map-preview-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  background: var(--bg-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.map-preview-placeholder svg {
+  width: 80px;
+  height: 80px;
+  opacity: 0.3;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-lg);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.map-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-shadow: var(--text-shadow-md);
+  flex: 1;
+  margin-right: var(--spacing-md);
+}
+
+.map-difficulty {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.2);
+}
+
+.map-difficulty svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 3;
+}
+
+.weapon-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.weapon-placeholder {
+  width: 100%;
+  max-width: 400px;
+  height: 150px;
+  background: var(--bg-primary-light);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width-thin) solid var(--border-color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.weapon-placeholder svg {
+  width: 60px;
+  height: 60px;
+  opacity: 0.4;
+}
+
+.roll-again-button {
+  margin-top: var(--spacing-2xl);
+  padding: var(--spacing-md) var(--spacing-3xl);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  background: var(--bg-white-overlay);
+  border: var(--border-width-regular) solid var(--border-color-primary);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  transition: all var(--transition-normal);
+  align-self: center;
+}
+
+.roll-again-button:hover {
+  background: var(--bg-primary-intense);
+  border-color: var(--color-primary-light);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-primary-glow);
+}
+
+.roll-again-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .challenge-modal {
+    padding: var(--spacing-2xl);
+    max-width: 95vw;
+  }
+
+  .challenge-header h2 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .unified-card {
+    max-width: 100%;
+  }
+
+  .armor-section {
+    padding: var(--spacing-md);
+  }
+
+  .armor-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    margin-right: var(--spacing-md);
+  }
+
+  .armor-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .map-section {
+    min-height: 250px;
+  }
+
+  .map-preview,
+  .map-preview-placeholder {
+    min-height: 250px;
+  }
+
+  .map-name {
+    font-size: var(--font-size-base);
+  }
+
+  .weapon-section {
+    padding: var(--spacing-md);
+    min-height: 150px;
+  }
+
+  .weapon-image {
+    max-height: 120px;
+  }
+
+  .weapon-placeholder {
+    height: 120px;
+  }
+}

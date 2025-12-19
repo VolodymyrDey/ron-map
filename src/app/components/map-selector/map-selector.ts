@@ -75,12 +75,7 @@ export class MapSelectorComponent implements OnChanges {
         this.filterOpen = false;
       }
     } else {
-      // Reset search and reapply filters when closing to clear stale results
-      if (this.searchQuery) {
-        this.searchQuery = '';
-        this.applyFilters();
-      }
-      this.highlightedIndex = -1;
+      this.resetSearch();
     }
   }
 
@@ -108,12 +103,7 @@ export class MapSelectorComponent implements OnChanges {
   selectMap(mapId: string): void {
     this.mapSelected.emit(mapId);
     this.dropdownOpen = false;
-    // Reset search and reapply filters if search was active
-    if (this.searchQuery) {
-      this.searchQuery = '';
-      this.applyFilters();
-    }
-    this.highlightedIndex = -1;
+    this.resetSearch();
   }
   
   toggleFilter(event: Event): void {
@@ -123,11 +113,7 @@ export class MapSelectorComponent implements OnChanges {
     // Close dropdown if open
     if (this.filterOpen && this.dropdownOpen) {
       this.dropdownOpen = false;
-      // Reset search and reapply filters if search was active
-      if (this.searchQuery) {
-        this.searchQuery = '';
-        this.applyFilters();
-      }
+      this.resetSearch();
     }
   }
   
@@ -157,12 +143,7 @@ export class MapSelectorComponent implements OnChanges {
   closeDropdown(): void {
     if (this.dropdownOpen) {
       this.dropdownOpen = false;
-      // Reset search and reapply filters if search was active
-      if (this.searchQuery) {
-        this.searchQuery = '';
-        this.applyFilters();
-      }
-      this.highlightedIndex = -1;
+      this.resetSearch();
     }
     if (this.filterOpen) {
       this.filterOpen = false;
@@ -191,13 +172,16 @@ export class MapSelectorComponent implements OnChanges {
       case 'Escape':
         event.preventDefault();
         this.dropdownOpen = false;
-        // Reset search and reapply filters if search was active
-        if (this.searchQuery) {
-          this.searchQuery = '';
-          this.applyFilters();
-        }
-        this.highlightedIndex = -1;
+        this.resetSearch();
         break;
     }
+  }
+
+  private resetSearch(): void {
+    if (this.searchQuery) {
+      this.searchQuery = '';
+      this.applyFilters();
+    }
+    this.highlightedIndex = -1;
   }
 }

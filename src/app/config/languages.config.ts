@@ -147,5 +147,51 @@ export const TRANSLATIONS: Translations = {
   'no_objectives': {
     'en': 'No objectives available for this map',
     'uk': 'Для цієї карти немає доступних завдань'
+  },
+  
+  // Random Challenge
+  'randomChallenge': {
+    'en': 'Random Challenge',
+    'uk': 'Випадковий виклик'
+  },
+  'rollChallenge': {
+    'en': 'Roll Challenge',
+    'uk': 'Кинути виклик'
+  },
+  'rolling': {
+    'en': 'Rolling',
+    'uk': 'Кидаємо'
+  },
+  'map': {
+    'en': 'Map',
+    'uk': 'Карта'
+  },
+  'weapon': {
+    'en': 'Weapon',
+    'uk': 'Зброя'
+  },
+  'difficulty': {
+    'en': 'Difficulty',
+    'uk': 'Складність'
+  },
+  'rollAgain': {
+    'en': 'Roll Again',
+    'uk': 'Кинути знову'
+  },
+  'consumable': {
+    'en': 'Consumable',
+    'uk': 'Витратний матеріал'
+  },
+  'armor': {
+    'en': 'Armor',
+    'uk': 'Броня'
+  },
+  'draw': {
+    'en': 'Draw',
+    'uk': 'Малювати'
+  },
+  'eraser': {
+    'en': 'Eraser',
+    'uk': 'Гумка'
   }
 };
