@@ -74,6 +74,29 @@
   text-shadow: var(--text-shadow-md);
 }
 
+.challenge-promo-section {
+  background: var(--gradient-dark);
+  border-bottom: var(--border-width-thin) solid var(--border-color-subtle);
+  padding: 30px 60px;
+}
+
+.challenge-promo-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.challenge-promo-text {
+  color: var(--color-text-secondary);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
 .close-btn {
   width: var(--btn-icon-lg);
   height: var(--btn-icon-lg);

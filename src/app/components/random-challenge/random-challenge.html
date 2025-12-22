@@ -1,6 +1,6 @@
 <div class="random-challenge">
-  <button 
-    class="challenge-button" 
+  <button
+    class="challenge-button"
     (click)="openChallenge()"
     title="Random Challenge"
   >
@@ -29,6 +29,17 @@
           </svg>
         </button>
       </div>
+
+      @if (!result && !isRolling) {
+      <div class="challenge-promo-section">
+        <div class="challenge-promo-content">
+          <p class="challenge-promo-text">
+            You already know all maps better that anyone and do not know what to do in game?
+            <br>Use this button to roll challenge for you and your team!
+          </p>
+        </div>
+      </div>
+      }
 
       <div class="challenge-content">
         @if (!result && !isRolling) {
@@ -127,7 +138,7 @@
             </div>
 
             <div class="unified-card-section weapon-section">
-              <img [src]="result.weapon.picture" [alt]="result.weapon.name" class="weapon-image" 
+              <img [src]="result.weapon.picture" [alt]="result.weapon.name" class="weapon-image"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
               <div class="weapon-placeholder" style="display: none;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
