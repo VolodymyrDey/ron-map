@@ -5,12 +5,12 @@ import { GameMapConfig, GameMarker, MapLayer, MapObjective } from '../../service
 // LAYER DEFINITIONS
 // ============================================================================
 const LAYERS: MapLayer[] = [
-  { 
-    id: 'ground', 
-    name: 'Ground Floor', 
+  {
+    id: 'ground',
+    name: 'Ground Floor',
     imageUrl: './maps/12_costa_vino/costa_vino_ground.png',
-    zIndex: 1, 
-    isDefault: true 
+    zIndex: 1,
+    isDefault: true
   }
 ];
 
@@ -18,14 +18,41 @@ const LAYERS: MapLayer[] = [
 // SPAWN POINTS
 // ============================================================================
 const SPAWNS: GameMarker[] = [
-  { 
-    id: 'spawn1', 
-    x: 53.49, 
-    y: 84.99, 
-    title: 'Main spawn point', 
-    description: 'Main spawn point', 
-    type: 'spawn', 
-    layerId: 'ground' 
+  {
+    id: 'spawn1',
+    x: 53.49,
+    y: 84.99,
+    title: 'Beach',
+    description: 'Beach',
+    type: 'spawn',
+    layerId: 'ground'
+  },
+  {
+    id: 'spawn2',
+    x: 53.49,
+    y: 84.99,
+    title: 'Main Street',
+    description: 'Main Streeet',
+    type: 'spawn',
+    layerId: 'ground'
+  },
+  {
+    id: 'spawn3',
+    x: 53.49,
+    y: 84.99,
+    title: 'Loading Bay',
+    description: 'Loading Bay',
+    type: 'spawn',
+    layerId: 'ground'
+  },
+  {
+    id: 'spawn4',
+    x: 53.49,
+    y: 84.99,
+    title: 'Docks',
+    description: 'Docks',
+    type: 'spawn',
+    layerId: 'ground'
   }
 ];
 
@@ -34,17 +61,17 @@ const SPAWNS: GameMarker[] = [
 // OBJECTIVES CONFIGURATION
 // ============================================================================
 const OBJECTIVES: MapObjective[] = [
-  { 
-    id: 'obj_order', 
-    title: 'Bring order to chaos.', 
-    description: 'Arrest or neutralize any contact at the scene', 
-    type: 'hard' 
+  {
+    id: 'obj_order',
+    title: 'Bring order to chaos.',
+    description: 'Arrest or neutralize any contact at the scene',
+    type: 'hard'
   },
-  { 
-    id: 'obj_rescue', 
-    title: 'Rescue all civilians.', 
-    description: 'Detain any unarmed contacts at the scene', 
-    type: 'hard' 
+  {
+    id: 'obj_rescue',
+    title: 'Rescue all civilians.',
+    description: 'Detain any unarmed contacts at the scene',
+    type: 'hard'
   }
 ];
 
@@ -60,5 +87,5 @@ export const MAP_ELYSIAN: GameMapConfig = {
   ],
   layers: [],
   objectives: OBJECTIVES,
-  placeholderImage: './maps/23_HeavyWell_Rig/HeavyWell_A-101_Rig_preview.png'
+  placeholderImage: './maps/construction_cat.png'
 };

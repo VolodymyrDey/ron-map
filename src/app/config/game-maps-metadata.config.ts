@@ -289,8 +289,31 @@ export const GAME_MAPS_METADATA: GameMapMetadata[] = [
     metaDescription: 'Interactive map for 3 Letter Triad DLC mission at The Elysian not finished hotel. Detailed blueprints for strategic tactical operations.',
     order: 24,
     category: 'dlc-dark-waters',
-    preview_picture: './maps/23_HeavyWell_Rig/HeavyWell_A-101_Rig_preview.png',
+    preview_picture: './maps/24_elysian/elysian_preview.png',
     loader: () => import('./maps/elysian.map').then(m => m.MAP_ELYSIAN),
+    isReady: false
+  },
+  // Los Suenos Stories.
+    {
+    id: 'chicos_mexican_resturant',
+    route: 'Hunger_Strike',
+    name: 'Hunger Strike / Chico\'s Mexican Resturant',
+    metaDescription: 'Interactive map for Hunger Strike free extension mission at Chico\'s Mexican Resturant. Detailed blueprints for strategic tactical operations.',
+    order: 25,
+    category: 'los-suenos-stories',
+    preview_picture: './maps/25_chicos_mexican_resturant/chicos_mexican_resturant_preview.png',
+    loader: () => import('./maps/chicos_mexican_resturant.map').then(m => m.MAP_CHICOS_MEXICAN_RESTURANT),
+    isReady: false
+  },
+  {
+    id: 'edgeware_apartments',
+    route: 'Stolen_Valor',
+    name: 'Stolen Valor / Edgeware Apartments',
+    metaDescription: 'Interactive map for Stolen Valor free extension mission at Edgeware Apartments complex. Detailed blueprints for strategic tactical operations.',
+    order: 26,
+    category: 'los-suenos-stories',
+    preview_picture: './maps/26_edgeware_apartments/edgeware_apartments_preview.png',
+    loader: () => import('./maps/edgeware_apartments.map').then(m => m.MAP_EDGEWARE_APARTMENTS),
     isReady: false
   }
 ];

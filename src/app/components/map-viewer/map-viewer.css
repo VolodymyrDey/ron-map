@@ -44,7 +44,7 @@
   pointer-events: all; /* allow interaction when floating */
   border: var(--border-width-thin) solid var(--border-color-primary);
   border-radius: var(--border-radius-lg);
-  box-shadow: 
+  box-shadow:
     var(--shadow-lg),
     0 0 12px rgba(var(--color-primary-rgb), 0.15);
   transition: all var(--transition-normal);
@@ -63,7 +63,7 @@
   backdrop-filter: var(--blur-lg);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-md) var(--spacing-lg);
-  box-shadow: 
+  box-shadow:
     var(--shadow-lg),
     0 0 12px rgba(var(--color-primary-rgb), 0.15);
   border: var(--border-width-thin) solid var(--border-color-primary);
@@ -267,17 +267,17 @@
     max-width: 300px;
     max-height: 200px;
   }
-  
+
   .map-under-construction-badge {
     padding: 16px 24px;
     gap: 12px;
   }
-  
+
   .map-under-construction-badge .tools-icon {
     width: 24px;
     height: 24px;
   }
-  
+
   .map-under-construction-badge .badge-title {
     font-size: var(--font-size-base);
   }
@@ -337,8 +337,8 @@
 }
 
 .placeholder-image {
-  max-width: 400px;
-  max-height: 300px;
+  max-width: 1000px;
+  max-height: 500px;
   width: auto;
   height: auto;
   object-fit: contain;
