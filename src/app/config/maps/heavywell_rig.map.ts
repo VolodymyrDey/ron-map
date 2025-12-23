@@ -42,8 +42,8 @@ const SPAWNS: GameMarker[] = [
     id: 'spawn2',
     x: 41.16,
     y: 80.92,
-    title: 'Upper Deck Spawn',
-    description: 'Upper Deck Spawn Point',
+    title: 'Boat Landing',
+    description: 'Boat Landing Spawn Point',
     type: 'spawn',
     layerId: 'ground'
   },
@@ -51,8 +51,8 @@ const SPAWNS: GameMarker[] = [
     id: 'spawn3',
     x: 31.45,
     y: 12.64,
-    title: 'Sun Deck Spawn',
-    description: 'Sun Deck Spawn Point',
+    title: 'Bridge',
+    description: 'Bridge Spawn Point',
     type: 'spawn',
     layerId: 'first'
   },
@@ -249,14 +249,14 @@ const OBJECTIVE_MARKERS: GameMarker[] = [
     type: 'hard_objective',
     layerId: 'first'
   },
-  //   { 
-  //     id: 'hard_objective3', 
-  //     x: 52.6, 
-  //     y: 31.86, 
-  //     title: 'Possible livestream location', 
-  //     description: 'Terminate the UPF livestream, located somewhere on the rig', 
-  //     type: 'hard_objective', 
-  //     layerId: 'engineering' 
+  //   {
+  //     id: 'hard_objective3',
+  //     x: 52.6,
+  //     y: 31.86,
+  //     title: 'Possible livestream location',
+  //     description: 'Terminate the UPF livestream, located somewhere on the rig',
+  //     type: 'hard_objective',
+  //     layerId: 'engineering'
   //   },
   {
     id: 'soft_objective1',

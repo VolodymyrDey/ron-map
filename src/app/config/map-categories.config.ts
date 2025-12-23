@@ -71,16 +71,25 @@ export const MAP_CATEGORIES = {
     description: 'Home Invasion expansion pack missions',
     badgeColor: '#dc2626',
     order: 2
+  },
+  // Dark Waters DLC.
+  'dlc-dark-waters': {
+    id: 'dlc-dark-waters',
+    displayName: 'Dark Waters DLC',
+    shortName: 'DLC 2',
+    description: 'Dark Waters expansion pack missions',
+    badgeColor: '#059669',
+    order: 3
+  },
+  // Los Suenos Stories
+  'los-suenos-stories': {
+    id: 'los-suenos-stories',
+    displayName: 'Los Suenos Stories',
+    shortName: 'Stories',
+    description: 'Free expansion missions',
+    badgeColor: '#0891b2',
+    order: 4
   }
-  // Dark Waters DLC. Uncomment when all maps ready
-  // 'dlc-dark-waters': {
-  //   id: 'dlc-dark-waters',
-  //   displayName: 'Dark Waters DLC',
-  //   shortName: 'DLC 2',
-  //   description: 'Dark Waters expansion pack missions',
-  //   badgeColor: '#059669',
-  //   order: 3
-  // }
   // Add more DLC categories here - no need to update types!
   // 'dlc-special-ops': { id: 'dlc-special-ops', displayName: 'Special Ops DLC', badgeColor: '#059669', ... },
 } as const satisfies Record<string, MapCategoryInfo>;

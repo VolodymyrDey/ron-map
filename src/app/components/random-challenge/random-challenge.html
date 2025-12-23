@@ -1,6 +1,6 @@
 <div class="random-challenge">
-  <button 
-    class="challenge-button" 
+  <button
+    class="challenge-button"
     (click)="openChallenge()"
     title="Random Challenge"
   >
@@ -29,6 +29,17 @@
           </svg>
         </button>
       </div>
+
+      @if (!result && !isRolling) {
+      <div class="challenge-promo-section">
+        <div class="challenge-promo-content">
+          <p class="challenge-promo-text">
+            You already know all maps better that anyone and do not know what to do in game?
+            <br>Use this button to roll challenge for you and your team!
+          </p>
+        </div>
+      </div>
+      }
 
       <div class="challenge-content">
         @if (!result && !isRolling) {
@@ -90,7 +101,18 @@
               </div>
               }
               <div class="map-overlay">
-                <div class="map-name">{{ result.map.name }}</div>
+                <div class="map-info">
+                  <div class="map-name">{{ result.map.name }}</div>
+                  @if (result.spawnPoint) {
+                  <div class="spawn-point">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                      <line x1="4" y1="22" x2="4" y2="15"></line>
+                    </svg>
+                    <span>{{ result.spawnPoint.title }}</span>
+                  </div>
+                  }
+                </div>
                 <div class="map-difficulty" [style.background-color]="result.difficulty.color">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     @if (result.difficulty.id === 'casual') {
@@ -116,7 +138,7 @@
             </div>
 
             <div class="unified-card-section weapon-section">
-              <img [src]="result.weapon.picture" [alt]="result.weapon.name" class="weapon-image" 
+              <img [src]="result.weapon.picture" [alt]="result.weapon.name" class="weapon-image"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
               <div class="weapon-placeholder" style="display: none;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
