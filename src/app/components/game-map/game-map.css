@@ -14,6 +14,7 @@
 
 /* Main Content Area */
 .main-content {
+  background: var(--gradient-dark-bg);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -21,7 +22,6 @@
   /* remove padding so the map-viewer can occupy full viewport area */
   padding: 0;
   overflow: hidden;
-  background: var(--bg-dark-tertiary);
   min-height: 0;
   min-width: 0;
   align-items: center;
@@ -31,7 +31,7 @@
 /* Sidebar */
 .sidebar {
   /* Overlay the sidebar on top of the map on the right */
-  background: var(--gradient-dark);
+  background: var(--gradient-dark-bg);
   color: var(--color-text-primary);
   width: 400px;
   flex-shrink: 0;
